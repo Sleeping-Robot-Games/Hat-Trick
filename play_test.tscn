@@ -1,0 +1,365 @@
+[gd_scene load_steps=2 format=3 uid="uid://o4dyoxm5eih1"]
+
+[ext_resource type="Script" path="res://play_test.gd" id="1_o1cky"]
+
+[node name="PlayTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_o1cky")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 112.0
+offset_bottom = 36.0
+text = "Player 1"
+
+[node name="P1Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 38.0
+offset_right = 209.0
+offset_bottom = 225.0
+
+[node name="Hats" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_right = 98.0
+offset_bottom = 28.0
+
+[node name="Label" type="Label" parent="P1Stats/Hats"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hats: "
+
+[node name="Value" type="Label" parent="P1Stats/Hats"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 1.0
+offset_right = 102.0
+offset_bottom = 27.0
+text = "VALUE"
+
+[node name="STAM" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 30.0
+offset_right = 122.0
+offset_bottom = 59.0
+
+[node name="Label" type="Label" parent="P1Stats/STAM"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "STAM:"
+
+[node name="Value" type="Label" parent="P1Stats/STAM"]
+layout_mode = 0
+offset_left = 57.0
+offset_right = 108.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="DEF" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 58.0
+offset_right = 122.0
+offset_bottom = 87.0
+
+[node name="Label" type="Label" parent="P1Stats/DEF"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "DEF:"
+
+[node name="Value" type="Label" parent="P1Stats/DEF"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="CHA" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 84.0
+offset_right = 122.0
+offset_bottom = 113.0
+
+[node name="Label" type="Label" parent="P1Stats/CHA"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "CHA:"
+
+[node name="Value" type="Label" parent="P1Stats/CHA"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="WIT" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 113.0
+offset_right = 121.0
+offset_bottom = 142.0
+
+[node name="Label" type="Label" parent="P1Stats/WIT"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "WIT:"
+
+[node name="Value" type="Label" parent="P1Stats/WIT"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "VALUE"
+
+[node name="HatTips" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 143.0
+offset_right = 121.0
+offset_bottom = 172.0
+
+[node name="Label" type="Label" parent="P1Stats/HatTips"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hat Tips:"
+
+[node name="Value" type="Label" parent="P1Stats/HatTips"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = -1.0
+offset_right = 127.0
+offset_bottom = 25.0
+text = "VALUE"
+
+[node name="BaseDmg" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 171.0
+offset_right = 121.0
+offset_bottom = 200.0
+
+[node name="Label" type="Label" parent="P1Stats/BaseDmg"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Base Dmg:"
+
+[node name="Value" type="Label" parent="P1Stats/BaseDmg"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 1.0
+offset_right = 139.0
+offset_bottom = 27.0
+text = "VALUE"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 719.0
+offset_top = 9.0
+offset_right = 781.0
+offset_bottom = 35.0
+text = "Player 2"
+
+[node name="P2Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 719.0
+offset_top = 37.0
+offset_right = 878.0
+offset_bottom = 224.0
+
+[node name="Hats" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_right = 98.0
+offset_bottom = 28.0
+
+[node name="Label" type="Label" parent="P2Stats/Hats"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hats: "
+
+[node name="Value" type="Label" parent="P2Stats/Hats"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 1.0
+offset_right = 102.0
+offset_bottom = 27.0
+text = "VALUE"
+
+[node name="STAM" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 30.0
+offset_right = 122.0
+offset_bottom = 59.0
+
+[node name="Label" type="Label" parent="P2Stats/STAM"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "STAM:"
+
+[node name="Value" type="Label" parent="P2Stats/STAM"]
+layout_mode = 0
+offset_left = 57.0
+offset_right = 108.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="DEF" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 58.0
+offset_right = 122.0
+offset_bottom = 87.0
+
+[node name="Label" type="Label" parent="P2Stats/DEF"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "DEF:"
+
+[node name="Value" type="Label" parent="P2Stats/DEF"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="CHA" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 84.0
+offset_right = 122.0
+offset_bottom = 113.0
+
+[node name="Label" type="Label" parent="P2Stats/CHA"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "CHA:"
+
+[node name="Value" type="Label" parent="P2Stats/CHA"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="WIT" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 113.0
+offset_right = 121.0
+offset_bottom = 142.0
+
+[node name="Label" type="Label" parent="P2Stats/WIT"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "WIT:"
+
+[node name="Value" type="Label" parent="P2Stats/WIT"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "VALUE"
+
+[node name="HatTips" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 143.0
+offset_right = 121.0
+offset_bottom = 172.0
+
+[node name="Label" type="Label" parent="P2Stats/HatTips"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hat Tips:"
+
+[node name="Value" type="Label" parent="P2Stats/HatTips"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = -1.0
+offset_right = 127.0
+offset_bottom = 25.0
+text = "VALUE"
+
+[node name="BaseDmg" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 171.0
+offset_right = 121.0
+offset_bottom = 200.0
+
+[node name="Label" type="Label" parent="P2Stats/BaseDmg"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Base Dmg:"
+
+[node name="Value" type="Label" parent="P2Stats/BaseDmg"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 1.0
+offset_right = 139.0
+offset_bottom = 27.0
+text = "VALUE"
+
+[node name="Outcomes" type="GridContainer" parent="."]
+offset_left = 289.0
+offset_top = 60.0
+offset_right = 641.0
+offset_bottom = 242.0
+
+[node name="P1Choices" type="GridContainer" parent="."]
+offset_left = 46.0
+offset_top = 263.0
+offset_right = 305.0
+offset_bottom = 524.0
+
+[node name="P2Choices" type="GridContainer" parent="."]
+offset_left = 722.0
+offset_top = 257.0
+offset_right = 947.0
+offset_bottom = 522.0
+
+[node name="Round" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 353.0
+offset_top = 5.0
+offset_right = 393.0
+offset_bottom = 45.0
+
+[node name="Label" type="Label" parent="Round"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 6.0
+offset_right = 69.0
+offset_bottom = 29.0
+text = "Round:"
+
+[node name="Value" type="Label" parent="Round"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 7.0
+offset_right = 148.0
+offset_bottom = 33.0
+text = "VALUE"

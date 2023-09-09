@@ -8,13 +8,13 @@ radius = 15.0
 height = 60.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_jwuep"]
-a = Vector2(640, -1)
+a = Vector2(940, 0)
 b = Vector2(1, 0)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(67, 445)
+position = Vector2(78, 496)
 script = ExtResource("1_purjg")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
@@ -47,7 +47,7 @@ scale = Vector2(0.140625, 0.144531)
 texture = ExtResource("1_1m1sx")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-2, 478)
+position = Vector2(9, 529)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -1)
