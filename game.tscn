@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7way0dj6s6dl"]
+
+[ext_resource type="Texture2D" uid="uid://lslffjfsvrpr" path="res://icon.svg" id="1_1m1sx"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_purjg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vae2m"]
+radius = 15.0
+height = 60.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jwuep"]
+a = Vector2(640, -1)
+b = Vector2(1, 0)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(67, 445)
+script = ExtResource("1_purjg")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0.5, 1)
+scale = Vector2(0.226563, 0.4375)
+texture = ExtResource("1_1m1sx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_vae2m")
+
+[node name="Hat" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1, -38)
+scale = Vector2(0.140625, 0.144531)
+texture = ExtResource("1_1m1sx")
+
+[node name="Hat2" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1, -57)
+scale = Vector2(0.140625, 0.144531)
+texture = ExtResource("1_1m1sx")
+
+[node name="Hat3" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1, -76)
+scale = Vector2(0.140625, 0.144531)
+texture = ExtResource("1_1m1sx")
+
+[node name="Hat4" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1, -95)
+scale = Vector2(0.140625, 0.144531)
+texture = ExtResource("1_1m1sx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-2, 478)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("SegmentShape2D_jwuep")
