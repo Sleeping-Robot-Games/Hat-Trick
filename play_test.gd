@@ -50,7 +50,6 @@ var insult_options = [
 "You're like a broken pencil: pointless.",
 "You must have been born on a highway, because that's where most accidents happen.",
 "Keep talking, maybe one day you'll say something intelligent.",
-"I'd love to see things from your perspective, but I just can't put my head that far up my butt.",
 "You're proof that evolution can go in reverse.",
 "It's hard to get the big picture when you have a small screen.",
 "If brains were dynamite, you wouldn't have enough to blow your hat off.",
@@ -58,7 +57,6 @@ var insult_options = [
 "The only way you'll ever get laid is if you climb up a chicken's backside and wait.",
 "Your secrets are always safe with me. I never even listen when you tell me them.",
 "You have the perfect face... for radio.",
-"When they were handing out brains, you thought they said trains and took the next one out of town.",
 "You're not stupid; you just have a lot of bad luck thinking.",
 ]
 
@@ -82,6 +80,21 @@ var witch_options = [
 "A dash of magic.",
 "Feel the spells in the air?"
 ]
+
+var hard_hat_options = [
+"Safety first, always!",
+"This hat can take a hit. Can you?",
+"Always building a solid strategy.",
+"You might want to get a helmet, this is going to hurt."
+]
+
+var nurse_hat_options = [
+"Ready to mend wounds and hearts.",
+"Trust me, I'm a nurse.",
+"I've seen worse cases than this!",
+"Need a quick patch-up?"
+]
+
 
 var p1
 var p2 
@@ -109,6 +122,36 @@ var npcs = [
 		"STAM": 6,
 		"DEF": 2,
 		"CHA": 3,
+		"WIT": 1,
+		"base_dmg": 2,
+		'current_choice': null,
+		'choices': [],
+		'applied_choices': [],
+		'cooldowns': {'CHA': 0, 'WIT': 0},
+	},
+	{
+		"name": "p2",
+		"display_name": "Nurse Joy",
+		"hats": ["Nurse"],
+		"avail_hats": ["Nurse"],
+		"STAM": 6,
+		"DEF": 2,
+		"CHA": 2,
+		"WIT": 1,
+		"base_dmg": 2,
+		'current_choice': null,
+		'choices': [],
+		'applied_choices': [],
+		'cooldowns': {'CHA': 0, 'WIT': 0},
+	},
+	{
+		"name": "p2",
+		"display_name": "Bob the Builder",
+		"hats": ["Hard Hat"],
+		"avail_hats": ["Hard Hat"],
+		"STAM": 6,
+		"DEF": 3,
+		"CHA": 1,
 		"WIT": 1,
 		"base_dmg": 2,
 		'current_choice': null,
@@ -196,6 +239,26 @@ func add_choices_to_player(player):
 			'damage': func(): return player['WIT'] + player['base_dmg'] * 2,
 			'rounds': -1,
 			'dialog': witch_options.pick_random()
+		},
+		{
+			'type': 'HAT',
+			'hat_type': 'Hard Hat',
+			'label': '[HAT] Build Up',
+			'self': true,
+			'stats': {"DEF": 3},
+			'damage': func(): return 0,
+			'rounds': -1,
+			'dialog': hard_hat_options.pick_random()
+		},
+		{
+			'type': 'HAT',
+			'hat_type': 'Nurse',
+			'label': '[HAT] Heal',
+			'self': true,
+			'stats': {"STAM": 3},
+			'damage': func(): return 0,
+			'rounds': -1,
+			'dialog': nurse_hat_options.pick_random()
 		},
 	]
 	
@@ -311,9 +374,15 @@ func calculate_outcome():
 		
 		# If a hat choice was made, move the hat to the end of the hats array and reset CD if more hats are avail
 		if player.current_choice.type == "HAT":
-			player.avail_hats.pop_front()  # Remove the first hat (used hat)
-	
-	
+			var used_hat = player.avail_hats.pop_front()  # Remove the first hat (used hat)
+			# Find the index of the used hat in the hats array
+			var index = player.hats.find(used_hat)
+			# If found, remove it from its current position
+			if index != -1:
+				player.hats.erase(used_hat)
+			# Append the used hat to the end of the hats array
+			player.hats.append(used_hat)
+
 	round = round + 1
 	await show_outcome_summary()
 	await get_tree().create_timer(1).timeout
@@ -399,7 +468,10 @@ func add_outcome(msg):
 func apply_changes(player, choice):
 	for stat in choice['stats'].keys():
 		var old_stat = player[stat]
-		player[stat] = clamp(player[stat] + choice['stats'][stat], 0, INF)
+		if stat == "STAM": # Don't over heal
+			player[stat] = clamp(player[stat] + choice['stats'][stat], 0, player_1_initial_state["STAM"])
+		else:
+			player[stat] = clamp(player[stat] + choice['stats'][stat], 0, INF)
 		#add_outcome("%s %s + %s = %s %s" % [stat, old_stat, str(choice['stats'][stat]), stat, player[stat]])
 		if choice['stats'][stat] > 0:
 			add_outcome("%s rises!" % stat)
