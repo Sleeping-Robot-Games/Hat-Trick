@@ -285,7 +285,7 @@ func calculate_outcome():
 		var player = players[i]
 		add_outcome("[u]"+player.display_name)
 		add_outcome(player.current_choice.label)
-		add_outcome("[b]"+player.current_choice.dialog)
+		add_outcome("[i][b]"+player.current_choice.dialog)
 		if player.current_choice.self:
 			apply_changes(player, player.current_choice)
 		else:
@@ -410,7 +410,7 @@ func apply_changes(player, choice):
 	player["STAM"] = clamp(player["STAM"] - true_damage, 0, INF)
 	if choice['damage'].call() != 0:
 		#add_outcome("Dmg %s - DEF %s" % [choice['damage'].call(), player["DEF"]])
-		add_outcome("Dealt [color=#FF0000]%s[/color] to %s" % [str(true_damage), player.display_name])
+		add_outcome("Dealt [color=#FF0000]%s[/color] to [u]%s" % [str(true_damage), player.display_name])
 
 func update_cooldowns(player):
 	# Reverse effects for choices that have ended their cooldown
