@@ -23,18 +23,18 @@ offset_top = 38.0
 offset_right = 209.0
 offset_bottom = 225.0
 
-[node name="hats" type="Control" parent="P1Stats"]
+[node name="Hats" type="Control" parent="P1Stats"]
 anchors_preset = 0
 offset_right = 98.0
 offset_bottom = 28.0
 
-[node name="Label" type="Label" parent="P1Stats/hats"]
+[node name="Label" type="Label" parent="P1Stats/Hats"]
 layout_mode = 0
 offset_right = 44.0
 offset_bottom = 26.0
 text = "Hats: "
 
-[node name="Value" type="Label" parent="P1Stats/hats"]
+[node name="Value" type="Label" parent="P1Stats/Hats"]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 1.0
@@ -124,7 +124,6 @@ offset_bottom = 23.0
 text = "VALUE"
 
 [node name="HatTips" type="Control" parent="P1Stats"]
-visible = false
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 143.0
@@ -182,18 +181,18 @@ offset_top = 38.0
 offset_right = 844.0
 offset_bottom = 225.0
 
-[node name="hats" type="Control" parent="P2Stats"]
+[node name="Hats" type="Control" parent="P2Stats"]
 anchors_preset = 0
 offset_right = 98.0
 offset_bottom = 28.0
 
-[node name="Label" type="Label" parent="P2Stats/hats"]
+[node name="Label" type="Label" parent="P2Stats/Hats"]
 layout_mode = 0
 offset_right = 44.0
 offset_bottom = 26.0
 text = "Hats: "
 
-[node name="Value" type="Label" parent="P2Stats/hats"]
+[node name="Value" type="Label" parent="P2Stats/Hats"]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 1.0
@@ -283,7 +282,6 @@ offset_bottom = 23.0
 text = "VALUE"
 
 [node name="HatTips" type="Control" parent="P2Stats"]
-visible = false
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 143.0
@@ -326,14 +324,10 @@ offset_bottom = 27.0
 text = "VALUE"
 
 [node name="Outcomes" type="GridContainer" parent="."]
-offset_left = 378.0
+offset_left = 297.0
 offset_top = 58.0
 offset_right = 649.0
 offset_bottom = 240.0
-
-[node name="Timer" type="Timer" parent="Outcomes"]
-wait_time = 0.5
-one_shot = true
 
 [node name="P1Choices" type="GridContainer" parent="."]
 offset_left = 46.0
