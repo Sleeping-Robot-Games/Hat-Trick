@@ -4,7 +4,7 @@ var rng = RandomNumberGenerator.new()
 
 var p1 = {
 	"name": "p1",
-	"hats": ["Fedora"],
+	"hats": ["Fedora", "Cowboy"],
 	"STAM": 6,
 	"DEF": 1,
 	"CHA": 2,
@@ -113,9 +113,9 @@ func add_choices_to_player(player):
 		player.choices.append_array(cha_choices)
 	if player.cooldowns["WIT"] == 0:
 		player.choices.append_array(wit_choices)
-	if player.cooldowns["HAT"] == 0:
+	if player.hats.size() > 0:
 		for hat in hat_choices:
-			if player.hats.find(hat.hat_type) != -1:
+			if player.hats[0] == hat.hat_type:
 				player.choices.append(hat)
 
 func update_player_stat_labels():
@@ -168,10 +168,7 @@ func determine_initiative():
 	
 	var p1_init = p1['WIT'] + p1['CHA']
 	var p2_init = p2['WIT'] + p2['CHA']
-#	print(p1)
-#	print(p2)
-	print(p1_init)
-	print(p2_init)
+	
 	if p1_init > p2_init:
 		first_player = p1
 		second_player = p2
@@ -189,7 +186,6 @@ func determine_initiative():
 func calculate_outcome():
 	outcome_summary = []
 	show_outcome_summary()
-	print(p2)
 	var players = determine_initiative()
 	#PLAYER
 #	{
@@ -219,14 +215,20 @@ func calculate_outcome():
 		else:
 			var other_player = players[1 - i]  # Get the other player.
 			apply_changes(other_player, player.current_choice)
-		
+			
+		# Keep track of choices
 		player.applied_choices.append(player.current_choice)
-		# Apply cooldowns
+		
+		# Apply cooldowns as normal
 		if player.current_choice.rounds >= 0:
 			player.cooldowns[player.current_choice.type] = player.current_choice.rounds
 		else:
 			# If rounds is -1, player.current_choice can't be used again
 			player.cooldowns[player.current_choice.type] = 999 # some large number to effectively disable it
+		
+		# If a hat choice was made, move the hat to the end of the hats array and reset CD if more hats are avail
+		if player.current_choice.type == "HAT":
+			player.hats.pop_front()  # Remove the first hat (used hat)
 		
 	round = round + 1
 	await show_outcome_summary()

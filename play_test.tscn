@@ -32,14 +32,13 @@ offset_bottom = 28.0
 layout_mode = 0
 offset_right = 44.0
 offset_bottom = 26.0
-text = "Hats: "
+text = "Hats avail: "
 
 [node name="Value" type="Label" parent="P1Stats/hats"]
 layout_mode = 0
-offset_left = 51.0
-offset_top = 1.0
-offset_right = 102.0
-offset_bottom = 27.0
+offset_left = 89.0
+offset_right = 140.0
+offset_bottom = 26.0
 text = "VALUE"
 
 [node name="STAM" type="Control" parent="P1Stats"]
@@ -123,28 +122,6 @@ offset_right = 100.0
 offset_bottom = 23.0
 text = "VALUE"
 
-[node name="HatTips" type="Control" parent="P1Stats"]
-visible = false
-anchors_preset = 0
-offset_left = 1.0
-offset_top = 143.0
-offset_right = 121.0
-offset_bottom = 172.0
-
-[node name="Label" type="Label" parent="P1Stats/HatTips"]
-layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
-text = "Hat Tips:"
-
-[node name="Value" type="Label" parent="P1Stats/HatTips"]
-layout_mode = 0
-offset_left = 76.0
-offset_top = -1.0
-offset_right = 127.0
-offset_bottom = 25.0
-text = "VALUE"
-
 [node name="BaseDmg" type="Control" parent="P1Stats"]
 anchors_preset = 0
 offset_left = 1.0
@@ -154,16 +131,17 @@ offset_bottom = 200.0
 
 [node name="Label" type="Label" parent="P1Stats/BaseDmg"]
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_top = -25.0
+offset_right = 82.0
+offset_bottom = 1.0
 text = "Base Dmg:"
 
 [node name="Value" type="Label" parent="P1Stats/BaseDmg"]
 layout_mode = 0
 offset_left = 88.0
-offset_top = 1.0
+offset_top = -24.0
 offset_right = 139.0
-offset_bottom = 27.0
+offset_bottom = 2.0
 text = "VALUE"
 
 [node name="Label2" type="Label" parent="."]
@@ -191,13 +169,13 @@ offset_bottom = 28.0
 layout_mode = 0
 offset_right = 44.0
 offset_bottom = 26.0
-text = "Hats: "
+text = "Hats avail: "
 
 [node name="Value" type="Label" parent="P2Stats/hats"]
 layout_mode = 0
-offset_left = 51.0
+offset_left = 87.0
 offset_top = 1.0
-offset_right = 102.0
+offset_right = 138.0
 offset_bottom = 27.0
 text = "VALUE"
 
@@ -282,28 +260,6 @@ offset_right = 100.0
 offset_bottom = 23.0
 text = "VALUE"
 
-[node name="HatTips" type="Control" parent="P2Stats"]
-visible = false
-anchors_preset = 0
-offset_left = 1.0
-offset_top = 143.0
-offset_right = 121.0
-offset_bottom = 172.0
-
-[node name="Label" type="Label" parent="P2Stats/HatTips"]
-layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
-text = "Hat Tips:"
-
-[node name="Value" type="Label" parent="P2Stats/HatTips"]
-layout_mode = 0
-offset_left = 76.0
-offset_top = -1.0
-offset_right = 127.0
-offset_bottom = 25.0
-text = "VALUE"
-
 [node name="BaseDmg" type="Control" parent="P2Stats"]
 anchors_preset = 0
 offset_left = 1.0
@@ -313,16 +269,17 @@ offset_bottom = 200.0
 
 [node name="Label" type="Label" parent="P2Stats/BaseDmg"]
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_left = 1.0
+offset_top = -26.0
+offset_right = 83.0
 text = "Base Dmg:"
 
 [node name="Value" type="Label" parent="P2Stats/BaseDmg"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 1.0
-offset_right = 139.0
-offset_bottom = 27.0
+offset_left = 89.0
+offset_top = -25.0
+offset_right = 140.0
+offset_bottom = 1.0
 text = "VALUE"
 
 [node name="Outcomes" type="GridContainer" parent="."]
