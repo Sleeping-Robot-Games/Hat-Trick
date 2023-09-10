@@ -207,7 +207,7 @@ func calculate_outcome():
 #	}
 	for i in range(players.size()):
 		var player = players[i]
-		add_outcome("%s:" % player.name)
+		add_outcome('Player 1' if (player.name == 'p1') else 'Player 2')
 		add_outcome(player.current_choice.label)
 		if player.current_choice.self:
 			apply_changes(player, player.current_choice)
