@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://o4dyoxm5eih1"]
 
-[ext_resource type="Script" path="res://play_test.gd" id="1_o1cky"]
+[ext_resource type="Script" path="res://scripts/play_test.gd" id="1_8ia30"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6rh0"]
 bg_color = Color(0.976471, 0.372549, 0.282353, 1)
@@ -11,7 +11,7 @@ bg_color = Color(0.976471, 0.372549, 0.282353, 1)
 [node name="PlayTest" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_o1cky")
+script = ExtResource("1_8ia30")
 
 [node name="p1_display_name" type="Label" parent="."]
 layout_mode = 0

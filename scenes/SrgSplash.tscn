@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=3 uid="uid://buotj24yh78vp"]
+
+[ext_resource type="Texture2D" uid="uid://b4lcq6fveq84h" path="res://assets/splash/sleepingrobotlogo001.png" id="1_n68cn"]
+[ext_resource type="Texture2D" uid="uid://uysfpotqv7ac" path="res://assets/splash/sleepingrobotlogo002.png" id="2_mkknm"]
+[ext_resource type="Texture2D" uid="uid://dkiwtfc3eosra" path="res://assets/splash/sleepingrobotlogo003.png" id="3_h0jkc"]
+[ext_resource type="Texture2D" uid="uid://b8aoqf03x3a0y" path="res://assets/splash/sleepingrobotlogo004.png" id="4_1yvht"]
+[ext_resource type="Texture2D" uid="uid://bmm6g8is18l8n" path="res://assets/splash/sleepingrobotlogo005.png" id="5_fyv13"]
+[ext_resource type="Texture2D" uid="uid://bd3568y6xn17d" path="res://assets/splash/sleepingrobotlogo007.png" id="6_b5grw"]
+[ext_resource type="FontFile" uid="uid://w5au3qgso01t" path="res://fonts/AstroSpace-0Wl3o.otf" id="7_os0or"]
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n68cn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mkknm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h0jkc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1yvht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fyv13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b5grw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="12"]
+resource_name = "SRG"
+length = 4.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 2.4, 2.6, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sleeping:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sleeping:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.4, 1.6, 2, 2.4, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 0), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Games:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 1.2, 1.6, 1.8, 2, 2.8, 3, 3.6, 3.8, 4, 4.2, 4.4, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 0.333333), Color(1, 1, 1, 0), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Robot:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.2, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Games:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Robot:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.2, 1.4, 1.8, 2, 2.2, 3, 3.2, 3.6, 3.8, 4, 4.2, 4.4, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1.03526, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 0.333333), Color(1, 1, 1, 0), Color(1, 1, 1, 0.666667), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sx36o"]
+_data = {
+"SRG": SubResource("12")
+}
+
+[node name="SrgSplash" type="ColorRect"]
+offset_top = -2.0
+offset_right = 973.0
+offset_bottom = 543.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.772549, 0.768627, 0.792157, 1)
+position = Vector2(493, 295)
+scale = Vector2(1.70313, 1.70313)
+sprite_frames = SubResource("5")
+frame = 3
+speed_scale = 0.75
+
+[node name="Sleeping" type="Label" parent="."]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 76.0
+offset_right = 542.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.741176, 1, 0.772549, 1)
+theme_override_fonts/font = ExtResource("7_os0or")
+theme_override_font_sizes/font_size = 32
+text = "Sleeping"
+
+[node name="Robot" type="Label" parent="."]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 114.0
+offset_right = 612.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0.741176, 1, 0.772549, 1)
+theme_override_fonts/font = ExtResource("7_os0or")
+theme_override_font_sizes/font_size = 32
+text = "Robot"
+
+[node name="Games" type="Label" parent="."]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 150.0
+offset_right = 535.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(0.741176, 1, 0.772549, 1)
+theme_override_fonts/font = ExtResource("7_os0or")
+theme_override_font_sizes/font_size = 32
+text = "Games"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sx36o")
+}
