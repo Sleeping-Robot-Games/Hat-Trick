@@ -14,12 +14,12 @@ var p1 = {
 	'current_choice': null,
 	'choices': [],
 	'applied_choices': [],
-	'cooldowns': {'CHA': 0, 'WIT': 0, 'HAT': 0},
+	'cooldowns': {'CHA': 0, 'WIT': 0},
 }
 
 var p2 = {
 	"name": "p2",
-	"hats": ["Cowboy"],
+	"hats": ["Witch"],
 	"STAM": 6,
 	"DEF": 3,
 	"CHA": 2,
@@ -29,7 +29,7 @@ var p2 = {
 	'current_choice': null,
 	'choices': [],
 	'applied_choices': [],
-	'cooldowns': {'CHA': 0, 'WIT': 0, 'HAT': 0},
+	'cooldowns': {'CHA': 0, 'WIT': 0},
 }
 
 var round = 1
@@ -77,18 +77,7 @@ func add_choices_to_player(player):
 			'stats': {},
 			'damage': func(): return player['WIT'] + player['BaseDmg'],
 			'rounds': 0
-		},
-#		{
-#			'type': 'WIT',
-#			'label': '[WIT] Quick Retort - Damage*',
-#			'self': false,
-#			'stats': {},
-#			'damage': func(opp_played_cha): 
-#				var dmg = (player['WIT']-1) + ceil(player['BaseDmg'] / 2)
-#				return dmg*2 if opp_played_cha else dmg,
-#			'rounds': 0
-#		}
-		]
+		}]
 	var hat_choices = [
 		{
 			'type': 'HAT',
@@ -107,7 +96,17 @@ func add_choices_to_player(player):
 			'stats': {"CHA": 2, "DEF": 1},
 			'damage': func(): return 0,
 			'rounds': -1
-		}]
+		},
+		{
+			'type': 'HAT',
+			'hat_type': 'Witch',
+			'label': '[HAT] Witch Curse',
+			'self': false,
+			'stats': {},
+			'damage': func(): return player['WIT'] + player['BaseDmg'] * 2,
+			'rounds': -1
+		},
+	]
 	
 	if player.cooldowns["CHA"] == 0:
 		player.choices.append_array(cha_choices)
@@ -261,7 +260,7 @@ func apply_changes(player, choice):
 		player[stat] = clamp(player[stat] + choice['stats'][stat], 0, INF)
 		add_outcome("%s %s + %s = %s %s" % [stat, old_stat, str(choice['stats'][stat]), stat, player[stat]])
 	var damage = choice['damage'].call() - player["DEF"]
-	var true_damage = clamp(damage, 0, abs(damage))
+	var true_damage = clamp(damage, 0, INF)
 	player["STAM"] = clamp(player["STAM"] - true_damage, 0, INF)
 	if choice['damage'].call() != 0:
 		add_outcome("Dmg %s - DEF %s" % [choice['damage'].call(), player["DEF"]])
@@ -272,7 +271,7 @@ func update_cooldowns(player):
 	for choice in player.applied_choices:
 		if player.cooldowns[choice.type] == 0:
 			for stat in choice.stats.keys():
-				player[stat] -= choice.stats[stat]
+				player[stat] = clamp(player[stat] - choice.stats[stat], 0, INF)
 			player.applied_choices.erase(choice)
 
 	for type in player.cooldowns.keys():
