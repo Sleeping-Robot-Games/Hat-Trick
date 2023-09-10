@@ -457,7 +457,7 @@ func show_outcome_summary():
 		var outcome_label = RichTextLabel.new()
 		outcome_label.bbcode_enabled = true
 		outcome_label.text = outcome
-		outcome_label.custom_minimum_size.x = 600
+		outcome_label.custom_minimum_size.x = 700
 		outcome_label.custom_minimum_size.y = 30
 		await get_tree().create_timer(.5).timeout
 		$Outcomes.add_child(outcome_label)
