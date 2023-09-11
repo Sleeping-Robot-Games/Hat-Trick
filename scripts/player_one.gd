@@ -18,7 +18,6 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity * delta)
 	handle_input()
-	move_and_collide(Vector2(0, 0))
 
 func handle_input():
 	var movement_direction = Vector2.ZERO
