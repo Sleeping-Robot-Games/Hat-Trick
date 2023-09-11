@@ -1,0 +1,396 @@
+[gd_scene load_steps=4 format=3 uid="uid://caa41uuvrufl2"]
+
+[ext_resource type="Script" path="res://play_test.gd" id="1_o1cky"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6rh0"]
+bg_color = Color(0.976471, 0.372549, 0.282353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hikd4"]
+bg_color = Color(0.976471, 0.372549, 0.282353, 1)
+
+[node name="PlayTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_o1cky")
+
+[node name="p1_display_name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 112.0
+offset_bottom = 36.0
+text = "Player 1"
+
+[node name="p1_health_bar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 65.0
+offset_right = 186.0
+offset_bottom = 92.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_k6rh0")
+
+[node name="P1Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 38.0
+offset_right = 209.0
+offset_bottom = 225.0
+
+[node name="avail_hats" type="Control" parent="P1Stats"]
+anchors_preset = 0
+offset_right = 98.0
+offset_bottom = 28.0
+
+[node name="Label" type="Label" parent="P1Stats/avail_hats"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hats avail: "
+
+[node name="Value" type="Label" parent="P1Stats/avail_hats"]
+layout_mode = 0
+offset_left = 89.0
+offset_right = 140.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="STAM" type="Control" parent="P1Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 30.0
+offset_right = 122.0
+offset_bottom = 59.0
+
+[node name="Label" type="Label" parent="P1Stats/STAM"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "STAM:"
+
+[node name="Value" type="Label" parent="P1Stats/STAM"]
+layout_mode = 0
+offset_left = 57.0
+offset_right = 108.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="DEF" type="Control" parent="P1Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 58.0
+offset_right = 122.0
+offset_bottom = 87.0
+
+[node name="Label" type="Label" parent="P1Stats/DEF"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "DEF:"
+
+[node name="Value" type="Label" parent="P1Stats/DEF"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="CHA" type="Control" parent="P1Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 84.0
+offset_right = 122.0
+offset_bottom = 113.0
+
+[node name="Label" type="Label" parent="P1Stats/CHA"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "CHA:"
+
+[node name="Value" type="Label" parent="P1Stats/CHA"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="WIT" type="Control" parent="P1Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 113.0
+offset_right = 121.0
+offset_bottom = 142.0
+
+[node name="Label" type="Label" parent="P1Stats/WIT"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "WIT:"
+
+[node name="Value" type="Label" parent="P1Stats/WIT"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "VALUE"
+
+[node name="base_dmg" type="Control" parent="P1Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 171.0
+offset_right = 121.0
+offset_bottom = 200.0
+
+[node name="Label" type="Label" parent="P1Stats/base_dmg"]
+layout_mode = 0
+offset_top = -25.0
+offset_right = 82.0
+offset_bottom = 1.0
+text = "Base Dmg:"
+
+[node name="Value" type="Label" parent="P1Stats/base_dmg"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = -24.0
+offset_right = 139.0
+offset_bottom = 2.0
+text = "VALUE"
+
+[node name="p2_display_name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 685.0
+offset_top = 10.0
+offset_right = 747.0
+offset_bottom = 36.0
+text = "Player 2"
+
+[node name="p2_health_bar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 683.0
+offset_top = 67.0
+offset_right = 822.0
+offset_bottom = 94.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hikd4")
+
+[node name="P2Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 685.0
+offset_top = 38.0
+offset_right = 844.0
+offset_bottom = 225.0
+
+[node name="avail_hats" type="Control" parent="P2Stats"]
+anchors_preset = 0
+offset_right = 98.0
+offset_bottom = 28.0
+
+[node name="Label" type="Label" parent="P2Stats/avail_hats"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "Hats avail: "
+
+[node name="Value" type="Label" parent="P2Stats/avail_hats"]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 1.0
+offset_right = 138.0
+offset_bottom = 27.0
+text = "VALUE"
+
+[node name="STAM" type="Control" parent="P2Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 30.0
+offset_right = 122.0
+offset_bottom = 59.0
+
+[node name="Label" type="Label" parent="P2Stats/STAM"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "STAM:"
+
+[node name="Value" type="Label" parent="P2Stats/STAM"]
+layout_mode = 0
+offset_left = 57.0
+offset_right = 108.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="DEF" type="Control" parent="P2Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 58.0
+offset_right = 122.0
+offset_bottom = 87.0
+
+[node name="Label" type="Label" parent="P2Stats/DEF"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "DEF:"
+
+[node name="Value" type="Label" parent="P2Stats/DEF"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="CHA" type="Control" parent="P2Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 84.0
+offset_right = 122.0
+offset_bottom = 113.0
+
+[node name="Label" type="Label" parent="P2Stats/CHA"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "CHA:"
+
+[node name="Value" type="Label" parent="P2Stats/CHA"]
+layout_mode = 0
+offset_left = 47.0
+offset_right = 98.0
+offset_bottom = 26.0
+text = "VALUE"
+
+[node name="WIT" type="Control" parent="P2Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 113.0
+offset_right = 121.0
+offset_bottom = 142.0
+
+[node name="Label" type="Label" parent="P2Stats/WIT"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 26.0
+text = "WIT:"
+
+[node name="Value" type="Label" parent="P2Stats/WIT"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "VALUE"
+
+[node name="base_dmg" type="Control" parent="P2Stats"]
+visible = false
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 171.0
+offset_right = 121.0
+offset_bottom = 200.0
+
+[node name="Label" type="Label" parent="P2Stats/base_dmg"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -26.0
+offset_right = 83.0
+text = "Base Dmg:"
+
+[node name="Value" type="Label" parent="P2Stats/base_dmg"]
+layout_mode = 0
+offset_left = 89.0
+offset_top = -25.0
+offset_right = 140.0
+offset_bottom = 1.0
+text = "VALUE"
+
+[node name="Outcomes" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 237.0
+offset_top = 61.0
+offset_right = 649.0
+offset_bottom = 240.0
+
+[node name="Timer" type="Timer" parent="Outcomes"]
+wait_time = 0.5
+one_shot = true
+
+[node name="P1Choices" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 390.0
+offset_right = 947.0
+offset_bottom = 524.0
+
+[node name="P2Choices" type="GridContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 688.0
+offset_top = 258.0
+offset_right = 913.0
+offset_bottom = 523.0
+
+[node name="Round" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 353.0
+offset_top = 5.0
+offset_right = 393.0
+offset_bottom = 45.0
+
+[node name="Label" type="Label" parent="Round"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 3.225
+anchor_bottom = 0.8
+offset_left = 56.0
+offset_top = 6.0
+offset_right = -18.0
+text = "Round:"
+
+[node name="Value" type="Label" parent="Round"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 7.0
+offset_right = 175.0
+offset_bottom = 33.0
+text = "VALUE"
+
+[node name="GameOver" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 298.0
+offset_top = 180.0
+offset_right = 643.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 33
+text = "GAME OVER YOU WIN"
+
+[node name="BattleOver" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 42.0
+offset_top = 281.0
+offset_right = 82.0
+offset_bottom = 304.0
+
+[node name="Button" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 34.0
+offset_top = 319.0
+offset_right = 166.0
+offset_bottom = 350.0
+text = "Start new battle"
+
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

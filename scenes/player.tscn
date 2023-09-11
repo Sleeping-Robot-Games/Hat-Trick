@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dfywlhuf8sf7q"]
+[gd_scene load_steps=13 format=3 uid="uid://cp5akwun658jw"]
 
 [ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_4okdx"]
 [ext_resource type="Texture2D" uid="uid://dyjryfx0esvju" path="res://assets/sprites/body.png" id="1_8s30m"]
