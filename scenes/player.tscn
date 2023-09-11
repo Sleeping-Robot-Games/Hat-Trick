@@ -44,26 +44,22 @@ material = SubResource("ShaderMaterial_qg1bq")
 texture = ExtResource("3_71yho")
 hframes = 8
 vframes = 3
-frame = 4
 
 [node name="hair" type="Sprite2D" parent="SpriteHolder"]
 material = SubResource("ShaderMaterial_way3m")
 texture = ExtResource("3_216po")
 hframes = 8
 vframes = 3
-frame = 4
 
 [node name="outfit" type="Sprite2D" parent="SpriteHolder"]
 texture = ExtResource("2_dev26")
 hframes = 8
 vframes = 3
-frame = 4
 
 [node name="hat" type="Sprite2D" parent="SpriteHolder"]
 texture = ExtResource("8_wbcui")
 hframes = 8
 vframes = 3
-frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

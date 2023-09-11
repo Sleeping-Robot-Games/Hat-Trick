@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://ot024nfuppk8"]
+[gd_scene load_steps=4 format=3 uid="uid://dn0jnues5o1h2"]
 
-[ext_resource type="Texture2D" uid="uid://cn5yslc6nrm0t" path="res://assets/sprites/level_test.png" id="1_i5t5g"]
+[ext_resource type="Texture2D" uid="uid://cn5yslc6nrm0t" path="res://assets/level_test.png" id="1_i5t5g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4o32c"]
 resource_name = "level"
