@@ -10,7 +10,7 @@ var player_1_initial_state = {
 	"display_name": "Bronsky",
 	"hats": [],
 	"avail_hats": [],
-	"STAM": 6,
+	"STAM": 10,
 	"DEF": 1,
 	"CHA": 2,
 	"WIT": 3,
@@ -104,7 +104,7 @@ var npcs = [
 		"display_name": "The Witch",
 		"hats": ["Witch"],
 		"avail_hats": ["Witch"],
-		"STAM": 6,
+		"STAM": 10,
 		"DEF": 2,
 		"CHA": 1,
 		"WIT": 2,
@@ -119,7 +119,7 @@ var npcs = [
 		"display_name": "Emmett",
 		"hats": ["Cowboy"],
 		"avail_hats": ["Cowboy"],
-		"STAM": 6,
+		"STAM": 10,
 		"DEF": 2,
 		"CHA": 3,
 		"WIT": 1,
@@ -134,7 +134,7 @@ var npcs = [
 		"display_name": "Nurse Joy",
 		"hats": ["Nurse"],
 		"avail_hats": ["Nurse"],
-		"STAM": 6,
+		"STAM": 10,
 		"DEF": 2,
 		"CHA": 2,
 		"WIT": 1,
@@ -149,7 +149,7 @@ var npcs = [
 		"display_name": "Bob the Builder",
 		"hats": ["Hard Hat"],
 		"avail_hats": ["Hard Hat"],
-		"STAM": 6,
+		"STAM": 10,
 		"DEF": 3,
 		"CHA": 1,
 		"WIT": 1,
@@ -279,16 +279,7 @@ func add_choices_to_scene(parent, choices):
 		button.button_up.connect(on_choice_button_up.bind(choice))
 		parent.add_child(button)
 
-func update_player_stat_labels():
-	for stat in $P1Stats.get_children():
-		if stat.name == "STAM":
-			stat.get_node('Value').text = "%s/%s" % [str(p1[stat.name]), str(player_1_initial_state["STAM"])]
-		else:
-			stat.get_node('Value').text = str(p1[stat.name])
-	
-	for stat in $P2Stats.get_children():
-		stat.get_node('Value').text = str(p2[stat.name])
-		
+func update_health_bars():
 	# Set health bars
 	var p1_health_bar = get_node(p1.name + '_health_bar')
 	p1_health_bar.value = p1.STAM
@@ -296,7 +287,20 @@ func update_player_stat_labels():
 	var p2_health_bar = get_node(p2.name + '_health_bar')
 	p2_health_bar.value = p2.STAM
 	
+	for stat in $P1Stats.get_children():
+		if stat.name == "STAM":
+			stat.get_node('Value').text = "%s/%s" % [str(p1[stat.name]), str(player_1_initial_state["STAM"])]
+	
 	$Round/Value.text = str(round)
+	
+func update_player_stat_labels():
+	for stat in $P1Stats.get_children():
+		if stat.name != "STAM":
+			stat.get_node('Value').text = str(p1[stat.name])
+	
+	for stat in $P2Stats.get_children():
+		stat.get_node('Value').text = str(p2[stat.name])
+
 
 func populate_choices():
 	add_choices_to_player(p1)
@@ -393,7 +397,7 @@ func calculate_outcome():
 	p1.current_choice = null
 	p2.current_choice = null
 	
-	update_player_stat_labels()
+	update_health_bars()
 	
 	if winner:
 		$BattleOver.text = winner.display_name + " Wins!"
@@ -406,6 +410,8 @@ func calculate_outcome():
 	update_cooldowns(p1)
 	update_cooldowns(p2)
 	
+	update_player_stat_labels()
+	
 
 func start_new_battle():
 	reset_battle()
@@ -413,6 +419,7 @@ func start_new_battle():
 	show_outcome_summary()
 	populate_choices()
 	update_player_stat_labels()
+	update_health_bars()
 
 func reset_battle():
 	print("BATTLE OVER RESET STATE")
@@ -464,6 +471,7 @@ func show_outcome_summary():
 		outcome_label.custom_minimum_size.y = 30
 		await get_tree().create_timer(.5).timeout
 		$Outcomes.add_child(outcome_label)
+		update_player_stat_labels()
 
 func add_outcome(msg):
 	outcome_summary.append(msg)
@@ -480,9 +488,10 @@ func apply_changes(player, choice):
 			add_outcome("%s rises!" % stat)
 		else:
 			add_outcome("%s falls.." % stat)
-	var damage = choice['damage'].call() - player["DEF"]
-	var true_damage = clamp(damage, 0, INF)
-	player["STAM"] = clamp(player["STAM"] - true_damage, 0, INF)
+	var damage = choice['damage'].call()
+	var true_damage = clamp(damage - player["DEF"], 1, INF) # always do at least one damage
+	if damage > 0:
+		player["STAM"] = clamp(player["STAM"] - true_damage, 0, INF)
 	if choice['damage'].call() != 0:
 		#add_outcome("Dmg %s - DEF %s" % [choice['damage'].call(), player["DEF"]])
 		add_outcome("Dealt [color=#FF0000]%s[/color] to [u]%s" % [str(true_damage), player.display_name])
