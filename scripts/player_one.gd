@@ -14,8 +14,11 @@ var inputs = {
 	"left": ["ui_left", KEY_A]
 }
 
-func _process(delta):
+func _physics_process(delta):
+	
+	var collision = move_and_collide(velocity * delta)
 	handle_input()
+	move_and_collide(Vector2(0, 0))
 
 func handle_input():
 	var movement_direction = Vector2.ZERO
@@ -31,7 +34,7 @@ func handle_input():
 		anim_player.play("Player/walk_%s" % determine_animation_suffix(movement_direction))
 	else:
 		anim_player.play("Player/idle_%s" % idle_direction)
-		
+
 func determine_animation_suffix(direction: Vector2) -> String:
 	if direction == Vector2(1, 0):
 		return "right"
