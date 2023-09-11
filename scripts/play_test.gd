@@ -178,6 +178,7 @@ func _ready():
 	$p2_health_bar.max_value = p2.STAM
 	
 	update_player_stat_labels()
+	update_health_bars()
 	$Round/Value.text = str(round)
 	populate_choices()
 
