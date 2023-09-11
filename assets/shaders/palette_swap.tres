@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dfyipm2bnt7lu"]
+
+[ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_t6jr7"]
+[ext_resource type="Texture2D" uid="uid://dm3tqt5dkr1d6" path="res://assets/palettes/body/body_000.png" id="2_0a837"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nmgna"]
+load_path = "res://.godot/imported/body_005.png-5f957dc16420a6c6b39e5131d581c913.ctex"
+
+[resource]
+shader = ExtResource("1_t6jr7")
+shader_parameter/palette_swap = SubResource("CompressedTexture2D_nmgna")
+shader_parameter/greyscale_palette = ExtResource("2_0a837")

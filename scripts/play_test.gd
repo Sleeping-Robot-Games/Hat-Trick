@@ -1,10 +1,5 @@
 extends Control
 
-var rng = RandomNumberGenerator.new()
-
-var winner
-var loser
-
 var player_1_initial_state = {
 	"name": "p1",
 	"display_name": "Bronsky",
@@ -95,6 +90,10 @@ var nurse_hat_options = [
 "Need a quick patch-up?"
 ]
 
+var rng = RandomNumberGenerator.new()
+
+var winner
+var loser
 
 var p1
 var p2 

@@ -1,0 +1,183 @@
+[gd_scene load_steps=6 format=3 uid="uid://wtnpobjnudp3"]
+
+[ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_t5nvq"]
+[ext_resource type="Texture2D" uid="uid://soeimwgoyqx6" path="res://assets/sprites/hair/hair_000.png" id="2_n0kgh"]
+[ext_resource type="Material" uid="uid://dfyipm2bnt7lu" path="res://assets/shaders/palette_swap.tres" id="2_wlobv"]
+[ext_resource type="Texture2D" uid="uid://cdu0rl5qun17d" path="res://assets/sprites/outfit/outfit_001.png" id="3_6bk6h"]
+[ext_resource type="FontFile" uid="uid://w5au3qgso01t" path="res://fonts/AstroSpace-0Wl3o.otf" id="5_23a7o"]
+
+[node name="CharacterCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_t5nvq")
+
+[node name="PlayerSprites" type="Node2D" parent="."]
+position = Vector2(305, 137)
+scale = Vector2(12, 12)
+
+[node name="body" type="Sprite2D" parent="PlayerSprites"]
+material = ExtResource("2_wlobv")
+hframes = 8
+vframes = 3
+metadata/_edit_lock_ = true
+
+[node name="hair" type="Sprite2D" parent="PlayerSprites"]
+material = ExtResource("2_wlobv")
+texture = ExtResource("2_n0kgh")
+hframes = 8
+vframes = 3
+metadata/_edit_lock_ = true
+
+[node name="outfit" type="Sprite2D" parent="PlayerSprites"]
+material = ExtResource("2_wlobv")
+texture = ExtResource("3_6bk6h")
+hframes = 8
+vframes = 3
+metadata/_edit_lock_ = true
+
+[node name="hat" type="Sprite2D" parent="PlayerSprites"]
+material = ExtResource("2_wlobv")
+hframes = 8
+vframes = 3
+metadata/_edit_lock_ = true
+
+[node name="Hat" type="Label" parent="."]
+layout_mode = 0
+offset_left = 618.0
+offset_top = 75.0
+offset_right = 684.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Hat"
+
+[node name="Left" type="Button" parent="Hat"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -5.0
+offset_right = -24.0
+offset_bottom = 26.0
+text = "Left"
+
+[node name="Right" type="Button" parent="Hat"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = -6.0
+offset_right = 121.0
+offset_bottom = 25.0
+text = "Right"
+
+[node name="Hair" type="Label" parent="."]
+layout_mode = 0
+offset_left = 616.0
+offset_top = 125.0
+offset_right = 682.0
+offset_bottom = 161.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Hair"
+
+[node name="Left" type="Button" parent="Hair"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -5.0
+offset_right = -24.0
+offset_bottom = 26.0
+text = "Left"
+
+[node name="Right" type="Button" parent="Hair"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = -6.0
+offset_right = 121.0
+offset_bottom = 25.0
+text = "Right"
+
+[node name="HairColor" type="Label" parent="."]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 174.0
+offset_right = 754.0
+offset_bottom = 210.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Hair Color"
+
+[node name="Left" type="Button" parent="HairColor"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -5.0
+offset_right = -24.0
+offset_bottom = 26.0
+text = "Left"
+
+[node name="Right" type="Button" parent="HairColor"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = -1.0
+offset_right = 253.0
+offset_bottom = 30.0
+text = "Right"
+
+[node name="Body" type="Label" parent="."]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 223.0
+offset_right = 693.0
+offset_bottom = 259.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Body"
+
+[node name="Left" type="Button" parent="Body"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -5.0
+offset_right = -24.0
+offset_bottom = 26.0
+text = "Left"
+
+[node name="Right" type="Button" parent="Body"]
+layout_mode = 0
+offset_left = 108.0
+offset_top = -1.0
+offset_right = 157.0
+offset_bottom = 30.0
+text = "Right"
+
+[node name="Outfit" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 270.0
+offset_right = 706.0
+offset_bottom = 306.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Outfit
+"
+
+[node name="Left" type="Button" parent="Outfit"]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -5.0
+offset_right = -24.0
+offset_bottom = 26.0
+text = "Left"
+
+[node name="Right" type="Button" parent="Outfit"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = -4.0
+offset_right = 170.0
+offset_bottom = 27.0
+text = "Right"
+
+[node name="Random" type="Button" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 292.0
+offset_right = 123.0
+offset_bottom = 323.0
+text = "Random"
+
+[connection signal="button_up" from="Random" to="." method="_on_random_button_up"]
