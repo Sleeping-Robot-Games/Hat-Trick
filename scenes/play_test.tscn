@@ -28,13 +28,14 @@ offset_top = 65.0
 offset_right = 186.0
 offset_bottom = 92.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_k6rh0")
+show_percentage = false
 
 [node name="P1Stats" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 50.0
+offset_left = 46.0
 offset_top = 38.0
-offset_right = 209.0
+offset_right = 205.0
 offset_bottom = 225.0
 
 [node name="avail_hats" type="Control" parent="P1Stats"]
@@ -56,7 +57,6 @@ offset_bottom = 26.0
 text = "VALUE"
 
 [node name="STAM" type="Control" parent="P1Stats"]
-visible = false
 anchors_preset = 0
 offset_left = 2.0
 offset_top = 30.0
@@ -64,80 +64,91 @@ offset_right = 122.0
 offset_bottom = 59.0
 
 [node name="Label" type="Label" parent="P1Stats/STAM"]
+visible = false
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_left = 11.0
+offset_top = 24.0
+offset_right = 59.0
+offset_bottom = 50.0
 text = "STAM:"
 
 [node name="Value" type="Label" parent="P1Stats/STAM"]
 layout_mode = 0
-offset_left = 57.0
-offset_right = 108.0
-offset_bottom = 26.0
+offset_left = 14.0
+offset_top = -1.0
+offset_right = 125.0
+offset_bottom = 25.0
 text = "VALUE"
+horizontal_alignment = 1
 
 [node name="DEF" type="Control" parent="P1Stats"]
-visible = false
 anchors_preset = 0
-offset_left = 2.0
-offset_top = 58.0
-offset_right = 122.0
-offset_bottom = 87.0
+offset_left = -1.0
+offset_top = 41.0
+offset_right = 119.0
+offset_bottom = 70.0
+scale = Vector2(1, 1.00661)
 
 [node name="Label" type="Label" parent="P1Stats/DEF"]
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_left = -2.0
+offset_top = 24.8359
+offset_right = 42.0
+offset_bottom = 50.8359
 text = "DEF:"
 
 [node name="Value" type="Label" parent="P1Stats/DEF"]
 layout_mode = 0
-offset_left = 47.0
-offset_right = 98.0
-offset_bottom = 26.0
+offset_left = 46.0
+offset_top = 23.8425
+offset_right = 97.0
+offset_bottom = 49.8425
 text = "VALUE"
 
 [node name="CHA" type="Control" parent="P1Stats"]
-visible = false
 anchors_preset = 0
-offset_left = 2.0
+offset_left = -1.0
 offset_top = 84.0
-offset_right = 122.0
+offset_right = 119.0
 offset_bottom = 113.0
 
 [node name="Label" type="Label" parent="P1Stats/CHA"]
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_left = -2.0
+offset_top = 5.0
+offset_right = 42.0
+offset_bottom = 31.0
 text = "CHA:"
 
 [node name="Value" type="Label" parent="P1Stats/CHA"]
 layout_mode = 0
-offset_left = 47.0
-offset_right = 98.0
-offset_bottom = 26.0
+offset_left = 46.0
+offset_top = 5.0
+offset_right = 97.0
+offset_bottom = 31.0
 text = "VALUE"
 
 [node name="WIT" type="Control" parent="P1Stats"]
-visible = false
 anchors_preset = 0
-offset_left = 1.0
-offset_top = 113.0
-offset_right = 121.0
-offset_bottom = 142.0
+offset_left = 2.0
+offset_top = 140.0
+offset_right = 122.0
+offset_bottom = 169.0
 
 [node name="Label" type="Label" parent="P1Stats/WIT"]
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 26.0
+offset_left = -2.0
+offset_top = -29.0
+offset_right = 42.0
+offset_bottom = -3.0
 text = "WIT:"
 
 [node name="Value" type="Label" parent="P1Stats/WIT"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = -3.0
-offset_right = 100.0
-offset_bottom = 23.0
+offset_left = 43.0
+offset_top = -28.0
+offset_right = 94.0
+offset_bottom = -2.0
 text = "VALUE"
 
 [node name="base_dmg" type="Control" parent="P1Stats"]
@@ -178,6 +189,7 @@ offset_top = 67.0
 offset_right = 822.0
 offset_bottom = 94.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_hikd4")
+show_percentage = false
 
 [node name="P2Stats" type="Control" parent="."]
 layout_mode = 3

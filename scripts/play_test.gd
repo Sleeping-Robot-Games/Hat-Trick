@@ -281,7 +281,10 @@ func add_choices_to_scene(parent, choices):
 
 func update_player_stat_labels():
 	for stat in $P1Stats.get_children():
-		stat.get_node('Value').text = str(p1[stat.name])
+		if stat.name == "STAM":
+			stat.get_node('Value').text = "%s/%s" % [str(p1[stat.name]), str(player_1_initial_state["STAM"])]
+		else:
+			stat.get_node('Value').text = str(p1[stat.name])
 	
 	for stat in $P2Stats.get_children():
 		stat.get_node('Value').text = str(p2[stat.name])

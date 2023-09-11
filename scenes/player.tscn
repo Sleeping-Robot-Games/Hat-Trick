@@ -1,0 +1,55 @@
+[gd_scene load_steps=13 format=3 uid="uid://dfywlhuf8sf7q"]
+
+[ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_4okdx"]
+[ext_resource type="Texture2D" uid="uid://dyjryfx0esvju" path="res://assets/sprites/body.png" id="1_8s30m"]
+[ext_resource type="Texture2D" uid="uid://dm3tqt5dkr1d6" path="res://assets/palettes/body_000.png" id="2_7s0uj"]
+[ext_resource type="Texture2D" uid="uid://cdu0rl5qun17d" path="res://assets/sprites/outfit/outfit_001.png" id="2_dev26"]
+[ext_resource type="Texture2D" uid="uid://d10whr3egygfr" path="res://assets/sprites/hair/hair_006.png" id="3_216po"]
+[ext_resource type="Texture2D" uid="uid://bcvp4euahnejn" path="res://assets/palettes/body_005.png" id="3_iyqyp"]
+[ext_resource type="Texture2D" uid="uid://brijoqeupxl23" path="res://assets/sprites/hats/snapback.png" id="4_wt0qm"]
+[ext_resource type="Texture2D" uid="uid://bfgdnnjdqimif" path="res://assets/palettes/haircolor_000.png" id="5_r6h7d"]
+[ext_resource type="Texture2D" uid="uid://dgpfbaiardfy8" path="res://assets/palettes/haircolor_007.png" id="6_kstjx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c2sdf"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
+shader = ExtResource("1_4okdx")
+shader_parameter/palette_swap = ExtResource("3_iyqyp")
+shader_parameter/greyscale_palette = ExtResource("2_7s0uj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_way3m"]
+shader = ExtResource("1_4okdx")
+shader_parameter/palette_swap = ExtResource("6_kstjx")
+shader_parameter/greyscale_palette = ExtResource("5_r6h7d")
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 7)
+shape = SubResource("CapsuleShape2D_c2sdf")
+
+[node name="SpriteHolder" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="SpriteHolder"]
+material = SubResource("ShaderMaterial_qg1bq")
+texture = ExtResource("1_8s30m")
+hframes = 8
+vframes = 3
+
+[node name="Hair" type="Sprite2D" parent="SpriteHolder"]
+material = SubResource("ShaderMaterial_way3m")
+texture = ExtResource("3_216po")
+hframes = 8
+vframes = 3
+
+[node name="Outfit" type="Sprite2D" parent="SpriteHolder"]
+texture = ExtResource("2_dev26")
+hframes = 8
+vframes = 3
+
+[node name="Hat" type="Sprite2D" parent="SpriteHolder"]
+texture = ExtResource("4_wt0qm")
+hframes = 8
+vframes = 3
