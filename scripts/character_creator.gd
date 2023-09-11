@@ -3,10 +3,10 @@ extends Control
 var rng = RandomNumberGenerator.new()
 
 @onready var character_sprite = {
-	'body': $PlayerSprites/body,
-	'hair': $PlayerSprites/hair,
-	'outfit': $PlayerSprites/outfit,
-	'hat': $PlayerSprites/hat
+	'body': $SpriteHolder/body,
+	'hair': $SpriteHolder/hair,
+	'outfit': $SpriteHolder/outfit,
+	'hat': $SpriteHolder/hat
 }
 
 @onready var character_sprite_palette = {
@@ -35,6 +35,8 @@ func _ready():
 	$Outfit/Right.button_up.connect(_on_Sprite_Selection_button_up.bind(1, "outfit"))
 
 	create_random_character()
+	
+	$AnimationPlayer.play("player_animations/idle_right")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -59,19 +61,6 @@ func set_random_texture(sprite_name: String):
 
 func set_random_color(palette_type: String) -> void:
 	var random_color
-#	if palette_type == 'Color':
-#		var available_colors = []
-#		var all_colors = g.files_in_dir(palette_folder_path+'Color')
-#		for color in all_colors:
-#			if not '000' in color and not selection.used_colors.has(color):
-#				available_colors.append(color)
-#		rng.randomize()
-#		var random_index = rng.randi_range(0, available_colors.size() - 1)
-#		random_color = available_colors[random_index]
-#		selection.add_color(random_color)
-#		if 'Color' in pallete_sprite_state.keys():
-#			selection.remove_color("Color_" + pallete_sprite_state['Color'] + ".png")
-#	else:
 	random_color = random_asset(palette_folder_path + palette_type)
 	if random_color == "" or "000" in random_color:
 		random_color = random_color.replace("000", "001")
