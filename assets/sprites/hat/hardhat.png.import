@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cybwtwwkv377k"
-path="res://.godot/imported/hair_008.png-5c87bd2556b155d7832bb454e45175d1.ctex"
+uid="uid://cuwjjs5u8m8ol"
+path="res://.godot/imported/hardhat.png-788c322b8caae19dd3fe9ac57aca6755.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/hair/hair_008.png"
-dest_files=["res://.godot/imported/hair_008.png-5c87bd2556b155d7832bb454e45175d1.ctex"]
+source_file="res://assets/sprites/hat/hardhat.png"
+dest_files=["res://.godot/imported/hardhat.png-788c322b8caae19dd3fe9ac57aca6755.ctex"]
 
 [params]
 
