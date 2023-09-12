@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 2
+const SPEED = 3
 var idle_direction = "left"
 @onready var anim_player = $AnimationPlayer
 
@@ -30,9 +30,9 @@ func handle_input():
 	if movement_direction.length() > 0:
 		movement_direction = movement_direction.normalized()
 		position += movement_direction * SPEED
-		anim_player.play("Player/walk_%s" % determine_animation_suffix(movement_direction))
+		anim_player.play("player/walk_%s" % determine_animation_suffix(movement_direction))
 	else:
-		anim_player.play("Player/idle_%s" % idle_direction)
+		anim_player.play("player/idle_%s" % idle_direction)
 
 func determine_animation_suffix(direction: Vector2) -> String:
 	if direction == Vector2(1, 0):

@@ -1,0 +1,49 @@
+[gd_scene load_steps=12 format=3 uid="uid://b122j6j8bxdt8"]
+
+[ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_3cgbj"]
+[ext_resource type="Texture2D" uid="uid://dm3tqt5dkr1d6" path="res://assets/palettes/body/body_000.png" id="2_a0g4y"]
+[ext_resource type="Texture2D" uid="uid://1jn08j1qrijk" path="res://assets/palettes/body/body_002.png" id="3_3x1pf"]
+[ext_resource type="Texture2D" uid="uid://dyjryfx0esvju" path="res://assets/sprites/body/body.png" id="4_qpyue"]
+[ext_resource type="Texture2D" uid="uid://bfgdnnjdqimif" path="res://assets/palettes/haircolor/haircolor_000.png" id="5_8s56o"]
+[ext_resource type="Texture2D" uid="uid://dgpfbaiardfy8" path="res://assets/palettes/haircolor/haircolor_007.png" id="6_0xvtb"]
+[ext_resource type="Texture2D" uid="uid://d2m2c7q8veh5u" path="res://assets/sprites/hair/hair_006.png" id="7_wwm0y"]
+[ext_resource type="Texture2D" uid="uid://cdu0rl5qun17d" path="res://assets/sprites/outfit/outfit_001.png" id="8_lowsh"]
+[ext_resource type="Texture2D" uid="uid://brijoqeupxl23" path="res://assets/sprites/hat/snapback.png" id="9_jbgmn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
+shader = ExtResource("1_3cgbj")
+shader_parameter/palette_swap = ExtResource("3_3x1pf")
+shader_parameter/greyscale_palette = ExtResource("2_a0g4y")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_way3m"]
+shader = ExtResource("1_3cgbj")
+shader_parameter/palette_swap = ExtResource("6_0xvtb")
+shader_parameter/greyscale_palette = ExtResource("5_8s56o")
+
+[node name="SpriteHolder" type="Node2D"]
+
+[node name="body" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qg1bq")
+texture = ExtResource("4_qpyue")
+hframes = 8
+vframes = 3
+frame = 1
+
+[node name="hair" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_way3m")
+texture = ExtResource("7_wwm0y")
+hframes = 8
+vframes = 3
+frame = 1
+
+[node name="outfit" type="Sprite2D" parent="."]
+texture = ExtResource("8_lowsh")
+hframes = 8
+vframes = 3
+frame = 1
+
+[node name="hat" type="Sprite2D" parent="."]
+texture = ExtResource("9_jbgmn")
+hframes = 8
+vframes = 3
+frame = 1

@@ -185,7 +185,7 @@ text = "Random"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"player_animations": ExtResource("8_o6rbx")
+"player": ExtResource("8_o6rbx")
 }
 
 [connection signal="button_up" from="Random" to="." method="_on_random_button_up"]

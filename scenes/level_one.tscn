@@ -262,8 +262,9 @@ texture = ExtResource("1_i5t5g")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_bu5jm")
 
-[node name="Node2D" type="Node2D"]
-scale = Vector2(2, 2)
+[node name="Level" type="Node2D"]
+position = Vector2(-2, -526)
+scale = Vector2(4, 4)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0.5, 269.5)

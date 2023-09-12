@@ -1,30 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfywlhuf8sf7q"]
+[gd_scene load_steps=5 format=3 uid="uid://dfywlhuf8sf7q"]
 
-[ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_4okdx"]
 [ext_resource type="Script" path="res://scripts/player_one.gd" id="1_x4b10"]
-[ext_resource type="Texture2D" uid="uid://dm3tqt5dkr1d6" path="res://assets/palettes/body/body_000.png" id="2_cmx4e"]
-[ext_resource type="Texture2D" uid="uid://cdu0rl5qun17d" path="res://assets/sprites/outfit/outfit_001.png" id="2_dev26"]
-[ext_resource type="Texture2D" uid="uid://dyjryfx0esvju" path="res://assets/sprites/body/body.png" id="3_71yho"]
-[ext_resource type="Texture2D" uid="uid://d2m2c7q8veh5u" path="res://assets/sprites/hair/hair_006.png" id="3_216po"]
-[ext_resource type="Texture2D" uid="uid://1jn08j1qrijk" path="res://assets/palettes/body/body_002.png" id="4_cogda"]
-[ext_resource type="Texture2D" uid="uid://bfgdnnjdqimif" path="res://assets/palettes/haircolor/haircolor_000.png" id="4_f8tdt"]
-[ext_resource type="Texture2D" uid="uid://dgpfbaiardfy8" path="res://assets/palettes/haircolor/haircolor_007.png" id="5_g1qi7"]
-[ext_resource type="Texture2D" uid="uid://brijoqeupxl23" path="res://assets/sprites/hat/snapback.png" id="8_wbcui"]
+[ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_v2oy6"]
 [ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://player_animations.res" id="10_f0ir3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c2sdf"]
 radius = 7.0
 height = 18.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
-shader = ExtResource("1_4okdx")
-shader_parameter/palette_swap = ExtResource("4_cogda")
-shader_parameter/greyscale_palette = ExtResource("2_cmx4e")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_way3m"]
-shader = ExtResource("1_4okdx")
-shader_parameter/palette_swap = ExtResource("5_g1qi7")
-shader_parameter/greyscale_palette = ExtResource("4_f8tdt")
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -35,35 +17,9 @@ script = ExtResource("1_x4b10")
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_c2sdf")
 
-[node name="SpriteHolder" type="Node2D" parent="."]
-
-[node name="body" type="Sprite2D" parent="SpriteHolder"]
-material = SubResource("ShaderMaterial_qg1bq")
-texture = ExtResource("3_71yho")
-hframes = 8
-vframes = 3
-frame = 1
-
-[node name="hair" type="Sprite2D" parent="SpriteHolder"]
-material = SubResource("ShaderMaterial_way3m")
-texture = ExtResource("3_216po")
-hframes = 8
-vframes = 3
-frame = 1
-
-[node name="outfit" type="Sprite2D" parent="SpriteHolder"]
-texture = ExtResource("2_dev26")
-hframes = 8
-vframes = 3
-frame = 1
-
-[node name="hat" type="Sprite2D" parent="SpriteHolder"]
-texture = ExtResource("8_wbcui")
-hframes = 8
-vframes = 3
-frame = 1
+[node name="SpriteHolder" parent="." instance=ExtResource("2_v2oy6")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"Player": ExtResource("10_f0ir3")
+"player": ExtResource("10_f0ir3")
 }

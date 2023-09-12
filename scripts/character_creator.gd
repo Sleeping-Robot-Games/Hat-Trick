@@ -36,7 +36,7 @@ func _ready():
 
 	create_random_character()
 	
-	$AnimationPlayer.play("player_animations/idle_right")
+	$AnimationPlayer.play("player/idle_right")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
