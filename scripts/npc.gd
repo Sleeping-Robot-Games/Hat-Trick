@@ -5,6 +5,7 @@ var start_pos = Vector2(128, 436)
 var end_pos = Vector2(1875, 436)
 var target_pos = start_pos
 var is_moving = true
+var is_dancing = false
 var last_direction = 1 # 1 for right, -1 for left
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
@@ -12,6 +13,7 @@ var last_direction = 1 # 1 for right, -1 for left
 @onready var text_bubble_label = $TextBubble/Text
 
 const idle_text_lines = ["Zzz...", "This place is a dump...", "M'lady!"]
+const dancing_text_lines = ["Let's break it down", "Oh yeah baby!", "ohh ahh"]
 
 func _ready():
 	global_position = start_pos
@@ -22,7 +24,9 @@ func _physics_process(delta):
 		var move_direction = (target_pos - global_position).normalized()
 		var movement = move_direction * speed * delta
 		move_and_collide(movement)
-
+		
+		is_dancing = false
+		# Check direction so correct walking animation plays
 		if move_direction.x < 0:
 			anim_npc.play("player/walk_left")
 			last_direction = -1
@@ -40,14 +44,23 @@ func reach_target():
 	play_idle_animation()
 
 func play_idle_animation():
-	if last_direction == -1:
+	# Dance 
+	var groove_chance = randf()
+	if groove_chance < 0.5:
+		anim_npc.play("player/dance")
+		is_dancing = true
+	# Face previous direction if idleing
+	elif last_direction == -1:
 		anim_npc.play("player/idle_left")
 	elif last_direction == 1:
 		anim_npc.play("player/idle_right")
 		
 	# Show the text bubble and set its text
 	text_bubble.visible = true
-	text_bubble_label.text = idle_text_lines.pick_random()
+	if is_dancing:
+		text_bubble_label.text = dancing_text_lines.pick_random()
+	else:
+		text_bubble_label.text = idle_text_lines.pick_random()
 
 func set_new_target():
 	text_bubble.visible = false
