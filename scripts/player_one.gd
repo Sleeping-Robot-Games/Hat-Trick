@@ -15,7 +15,7 @@ var inputs = {
 }
 
 func _physics_process(delta):
-	var collision = move_and_collide(velocity * delta)
+	move_and_collide(velocity * delta)
 	handle_input()
 
 func handle_input():
