@@ -8,6 +8,10 @@ var is_moving = true
 var last_direction = 1 # 1 for right, -1 for left
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
+@onready var text_bubble = $TextBubble
+@onready var text_bubble_label = $TextBubble/Text
+
+const idle_text_lines = ["Zzz...", "This place is a dump...", "M'lady!"]
 
 func _ready():
 	global_position = start_pos
@@ -40,8 +44,13 @@ func play_idle_animation():
 		anim_npc.play("player/idle_left")
 	elif last_direction == 1:
 		anim_npc.play("player/idle_right")
+		
+	# Show the text bubble and set its text
+	text_bubble.visible = true
+	text_bubble_label.text = idle_text_lines.pick_random()
 
 func set_new_target():
+	text_bubble.visible = false
 	target_pos.x = randf_range(start_pos.x, end_pos.x)
 	target_pos.y = 436
 
