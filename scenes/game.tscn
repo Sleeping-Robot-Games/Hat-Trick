@@ -1,14 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt6v7wgiewnn2"]
+[gd_scene load_steps=4 format=3 uid="uid://dt6v7wgiewnn2"]
 
 [ext_resource type="PackedScene" uid="uid://dn0jnues5o1h2" path="res://scenes/level_one.tscn" id="1_x2dao"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_ivu6y"]
 [ext_resource type="PackedScene" uid="uid://bdrfler07o685" path="res://scenes/npc.tscn" id="3_2s0g3"]
-
-[sub_resource type="Curve2D" id="Curve2D_pwx5k"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -0.666656, 0, 0, 0, 0, 0, -276.667, 0, 0, 0, 0, 0, -87.3333, 0, 0, 0, 0, 0, -184.667, 0, 0, 0, 0, 0, -74, 0, 0, 0, 0, 0, -0.666656, 0)
-}
-point_count = 6
 
 [node name="Game" type="Node2D"]
 
@@ -19,17 +13,6 @@ z_index = 0
 position = Vector2(102, 436)
 scale = Vector2(3, 3)
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="NPC" parent="." instance=ExtResource("3_2s0g3")]
 position = Vector2(898, 436)
 scale = Vector2(3, 3)
-curve = SubResource("Curve2D_pwx5k")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-0.666656, 0)
-rotation = 3.14159
-rotates = false
-
-[node name="NPC" parent="Path2D/PathFollow2D" instance=ExtResource("3_2s0g3")]
-position = Vector2(-0.666656, 0)
-rotation = 3.14159
-scale = Vector2(1, 1)
