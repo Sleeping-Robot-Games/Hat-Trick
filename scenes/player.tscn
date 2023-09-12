@@ -17,8 +17,10 @@ script = ExtResource("1_x4b10")
 offset = Vector2(0, -112)
 zoom = Vector2(1.25, 1.25)
 limit_left = 0
-limit_right = 960
+limit_right = 1920
 position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+drag_horizontal_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
