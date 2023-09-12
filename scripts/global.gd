@@ -2,6 +2,19 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
+const hat_index = {
+	"wizard": 11,
+	"witch": 12,
+	"snapback": 5,
+	"shroom": 11,
+	"nurse": 7,
+	"hardhat":7,
+	"fedora": 7,
+	"crown": 7,
+	"cowboy": 8,
+	"baseball": 5
+}
+
 func folders_in_dir(path: String) -> Array:
 	var folders = []
 	var dir = DirAccess.open(path)

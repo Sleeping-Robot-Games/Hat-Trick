@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_krb1d"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="1_wjy8m"]
 [ext_resource type="PackedScene" uid="uid://bvqjq7w1aabqg" path="res://scenes/text_bubble.tscn" id="2_4ut4b"]
-[ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://player_animations.res" id="2_85d04"]
+[ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://assets/animations/player_animations.res" id="2_85d04"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44yo4"]
 radius = 7.0
