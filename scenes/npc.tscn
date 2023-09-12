@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdrfler07o685"]
+[gd_scene load_steps=5 format=3 uid="uid://bdrfler07o685"]
 
+[ext_resource type="Script" path="res://scenes/npc.gd" id="1_qllc0"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="1_wjy8m"]
 [ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://player_animations.res" id="2_85d04"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44yo4"]
+radius = 7.0
+height = 18.0
+
 [node name="NPC" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_qllc0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_44yo4")
 
 [node name="SpriteHolder" parent="." instance=ExtResource("1_wjy8m")]
 

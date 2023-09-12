@@ -10,7 +10,7 @@ height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 script = ExtResource("1_x4b10")
 
 [node name="Player Camera" type="Camera2D" parent="."]
