@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
 const speed = 3
-
-@onready var anim_player = $AnimationPlayer
-
 var facing = "left"
+var is_dancing = false
+@onready var anim_player = $AnimationPlayer
 
 var directions = {
 	"right": Vector2(1, 0),
@@ -13,7 +12,8 @@ var directions = {
 	
 var inputs = {
 	"right": ["ui_right", KEY_D],
-	"left": ["ui_left", KEY_A]
+	"left": ["ui_left", KEY_A],
+	"action": ["ui_action", KEY_ENTER]
 }
 
 func _ready():
@@ -33,9 +33,17 @@ func handle_input():
 			facing = determine_animation_suffix(directions[direction])
 			
 	if movement_direction.length() > 0:
+		is_dancing = false
 		movement_direction = movement_direction.normalized()
 		position += movement_direction * speed
 		anim_player.play("player/walk_%s" % determine_animation_suffix(movement_direction))
+	elif Input.is_action_just_pressed("ui_accept", KEY_E):
+		if !is_dancing:
+			is_dancing = true
+		else:
+			is_dancing = false
+	elif is_dancing:
+		anim_player.play("player/dance")
 	else:
 		anim_player.play("player/idle_%s" % facing)
 
@@ -45,8 +53,6 @@ func determine_animation_suffix(direction: Vector2) -> String:
 	elif direction == Vector2(-1, 0):
 		return "left"
 	return ""
-
-
 
 ## TESTING HAT TOWER STACK
 var active_hat = 'snapback'
