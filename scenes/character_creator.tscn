@@ -1,18 +1,54 @@
-[gd_scene load_steps=5 format=3 uid="uid://wtnpobjnudp3"]
+[gd_scene load_steps=15 format=3 uid="uid://wtnpobjnudp3"]
 
 [ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_t5nvq"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_f7lx2"]
+[ext_resource type="Texture2D" uid="uid://bih2uy8kkvg6y" path="res://assets/ui/createwallpaper.png" id="2_fhw3x"]
+[ext_resource type="Texture2D" uid="uid://cmq4jdp1ootpg" path="res://assets/ui/mirror.png" id="3_ycx6l"]
 [ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://assets/animations/player_animations.res" id="4_07d35"]
 [ext_resource type="FontFile" uid="uid://w5au3qgso01t" path="res://fonts/AstroSpace-0Wl3o.otf" id="5_23a7o"]
+[ext_resource type="Texture2D" uid="uid://7v52chobb36e" path="res://assets/ui/leftarrow.png" id="6_1g7lo"]
+[ext_resource type="Texture2D" uid="uid://cs0w76avx3cy6" path="res://assets/ui/random.png" id="6_mady8"]
+[ext_resource type="Texture2D" uid="uid://cjyh5j50xpnl7" path="res://assets/ui/randompressed.png" id="7_4a1hx"]
+[ext_resource type="Texture2D" uid="uid://d3g002piwpexy" path="res://assets/ui/rightarrow.png" id="7_cvof0"]
+[ext_resource type="Texture2D" uid="uid://dg5bruls1q1f3" path="res://assets/ui/leftarrowpressed.png" id="7_vmcs7"]
+[ext_resource type="Texture2D" uid="uid://cui27mviwsei0" path="res://assets/ui/rightarrowpressed.png" id="9_ydop7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nmpfv"]
+texture = ExtResource("2_fhw3x")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7350o"]
+sources/2 = SubResource("TileSetAtlasSource_nmpfv")
 
 [node name="CharacterCreator" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(377, 364)
 script = ExtResource("1_t5nvq")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_7350o")
+format = 2
+layer_0/name = "wallpaper"
+layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(0, 2, 0, 65536, 2, 0, 131072, 2, 0, 196608, 2, 0, 262144, 2, 0, 327680, 2, 0, 393216, 2, 1, 458752, 2, 2, 1, 2, 0, 65537, 2, 0, 131073, 2, 0, 196609, 2, 0, 262145, 2, 0, 327681, 2, 0, 393217, 65538, 1, 458753, 65538, 2, 2, 2, 0, 65538, 2, 0, 131074, 2, 0, 196610, 2, 0, 262146, 2, 0, 327682, 2, 0, 393218, 2, 1, 458754, 2, 2, 3, 2, 0, 65539, 2, 0, 131075, 2, 0, 196611, 2, 0, 262147, 2, 0, 327683, 2, 0, 393219, 65538, 1, 458755, 65538, 2, 4, 2, 0, 65540, 2, 0, 131076, 2, 0, 196612, 2, 0, 262148, 2, 0, 327684, 2, 0, 393220, 2, 1, 458756, 2, 2, 5, 2, 0, 65541, 2, 0, 131077, 2, 0, 196613, 2, 0, 262149, 2, 0, 327685, 2, 0, 393221, 65538, 1, 458757, 65538, 2, 6, 2, 0, 65542, 2, 0, 131078, 2, 0, 196614, 2, 0, 262150, 2, 0, 327686, 2, 0, 393222, 2, 1, 458758, 2, 2, 7, 2, 0, 65543, 2, 0, 131079, 2, 0, 196615, 2, 0, 262151, 2, 0, 327687, 2, 0, 393223, 65538, 1, 458759, 65538, 2, 8, 2, 0, 65544, 2, 0, 131080, 2, 0, 196616, 2, 0, 262152, 2, 0, 327688, 2, 0, 393224, 2, 1, 458760, 2, 2, 9, 2, 0, 65545, 2, 0, 131081, 2, 0, 196617, 2, 0, 262153, 2, 0, 327689, 2, 0, 393225, 65538, 1, 458761, 65538, 2, 10, 2, 0, 65546, 2, 0, 131082, 2, 0, 196618, 2, 0, 262154, 2, 0, 327690, 2, 0, 393226, 2, 1, 458762, 2, 2, 11, 2, 0, 65547, 2, 0, 131083, 2, 0, 196619, 2, 0, 262155, 2, 0, 327691, 2, 0, 393227, 65538, 1, 458763, 65538, 2, 12, 2, 0, 65548, 2, 0, 131084, 2, 0, 196620, 2, 0, 262156, 2, 0, 327692, 2, 0, 393228, 2, 1, 458764, 2, 2, 13, 2, 0, 65549, 2, 0, 131085, 2, 0, 196621, 2, 0, 262157, 2, 0, 327693, 2, 0, 393229, 65538, 1, 458765, 65538, 2, 14, 2, 0, 65550, 2, 0, 131086, 2, 0, 196622, 2, 0, 262158, 2, 0, 327694, 2, 0, 393230, 2, 1, 458766, 2, 2, -65536, 2, 0, -65535, 2, 0, -65534, 2, 0, -65533, 2, 0, -65532, 2, 0, -65531, 2, 0, -65530, 2, 0, -65529, 2, 0, -65528, 2, 0, -65527, 2, 0, -65526, 2, 0, -65525, 2, 0, -65524, 2, 0, -65523, 2, 0, -65522, 2, 0)
+
+[node name="Mirror" type="Sprite2D" parent="."]
+position = Vector2(320, 112)
+scale = Vector2(10, 10)
+texture = ExtResource("3_ycx6l")
 
 [node name="SpriteHolder" parent="." instance=ExtResource("2_f7lx2")]
 position = Vector2(305, 112)
-scale = Vector2(12, 12)
+scale = Vector2(10, 10)
 
 [node name="Hat" type="Label" parent="."]
 layout_mode = 0
@@ -24,21 +60,25 @@ theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "Hat"
 
-[node name="Left" type="Button" parent="Hat"]
+[node name="Left" type="TextureButton" parent="Hat"]
 layout_mode = 0
 offset_left = -62.0
 offset_top = -5.0
 offset_right = -24.0
 offset_bottom = 26.0
-text = "Left"
+texture_normal = ExtResource("6_1g7lo")
+texture_pressed = ExtResource("7_vmcs7")
+stretch_mode = 0
 
-[node name="Right" type="Button" parent="Hat"]
+[node name="Right" type="TextureButton" parent="Hat"]
 layout_mode = 0
 offset_left = 83.0
 offset_top = -6.0
 offset_right = 121.0
 offset_bottom = 25.0
-text = "Right"
+texture_normal = ExtResource("7_cvof0")
+texture_pressed = ExtResource("9_ydop7")
+stretch_mode = 0
 
 [node name="Hair" type="Label" parent="."]
 layout_mode = 0
@@ -50,21 +90,25 @@ theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "Hair"
 
-[node name="Left" type="Button" parent="Hair"]
+[node name="Left" type="TextureButton" parent="Hair"]
 layout_mode = 0
 offset_left = -62.0
 offset_top = -5.0
 offset_right = -24.0
 offset_bottom = 26.0
-text = "Left"
+texture_normal = ExtResource("6_1g7lo")
+texture_pressed = ExtResource("7_vmcs7")
+stretch_mode = 0
 
-[node name="Right" type="Button" parent="Hair"]
+[node name="Right" type="TextureButton" parent="Hair"]
 layout_mode = 0
 offset_left = 83.0
 offset_top = -6.0
 offset_right = 121.0
 offset_bottom = 25.0
-text = "Right"
+texture_normal = ExtResource("7_cvof0")
+texture_pressed = ExtResource("9_ydop7")
+stretch_mode = 0
 
 [node name="HairColor" type="Label" parent="."]
 layout_mode = 0
@@ -76,21 +120,28 @@ theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "Hair Color"
 
-[node name="Left" type="Button" parent="HairColor"]
+[node name="Left" type="TextureButton" parent="HairColor"]
 layout_mode = 0
-offset_left = -62.0
-offset_top = -5.0
-offset_right = -24.0
-offset_bottom = 26.0
-text = "Left"
-
-[node name="Right" type="Button" parent="HairColor"]
-layout_mode = 0
-offset_left = 204.0
+offset_left = -43.0
 offset_top = -1.0
-offset_right = 253.0
+offset_right = -5.0
 offset_bottom = 30.0
-text = "Right"
+texture_normal = ExtResource("6_1g7lo")
+texture_pressed = ExtResource("7_vmcs7")
+stretch_mode = 0
+
+[node name="Right" type="TextureButton" parent="HairColor"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.03315
+anchor_top = -0.0277778
+anchor_right = 1.23757
+anchor_bottom = 0.833333
+offset_left = 1.52588e-05
+texture_normal = ExtResource("7_cvof0")
+texture_pressed = ExtResource("9_ydop7")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Body" type="Label" parent="."]
 layout_mode = 0
@@ -102,21 +153,25 @@ theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "Body"
 
-[node name="Left" type="Button" parent="Body"]
+[node name="Left" type="TextureButton" parent="Body"]
 layout_mode = 0
 offset_left = -62.0
 offset_top = -5.0
 offset_right = -24.0
 offset_bottom = 26.0
-text = "Left"
+texture_normal = ExtResource("6_1g7lo")
+texture_pressed = ExtResource("7_vmcs7")
+stretch_mode = 0
 
-[node name="Right" type="Button" parent="Body"]
+[node name="Right" type="TextureButton" parent="Body"]
 layout_mode = 0
-offset_left = 108.0
-offset_top = -1.0
-offset_right = 157.0
-offset_bottom = 30.0
-text = "Right"
+offset_left = 100.0
+offset_top = -2.0
+offset_right = 141.0
+offset_bottom = 29.0
+texture_normal = ExtResource("7_cvof0")
+texture_pressed = ExtResource("9_ydop7")
+stretch_mode = 0
 
 [node name="Outfit" type="Label" parent="."]
 layout_mode = 0
@@ -129,29 +184,34 @@ theme_override_font_sizes/font_size = 28
 text = "Outfit
 "
 
-[node name="Left" type="Button" parent="Outfit"]
+[node name="Left" type="TextureButton" parent="Outfit"]
 layout_mode = 0
 offset_left = -62.0
 offset_top = -5.0
 offset_right = -24.0
 offset_bottom = 26.0
-text = "Left"
+texture_normal = ExtResource("6_1g7lo")
+texture_pressed = ExtResource("7_vmcs7")
+stretch_mode = 0
 
-[node name="Right" type="Button" parent="Outfit"]
+[node name="Right" type="TextureButton" parent="Outfit"]
 layout_mode = 0
-offset_left = 121.0
+offset_left = 120.0
 offset_top = -4.0
-offset_right = 170.0
+offset_right = 158.0
 offset_bottom = 27.0
-text = "Right"
+texture_normal = ExtResource("7_cvof0")
+stretch_mode = 0
 
-[node name="Random" type="Button" parent="."]
+[node name="Random" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 292.0
-offset_right = 123.0
-offset_bottom = 323.0
-text = "Random"
+offset_left = 86.0
+offset_top = 280.0
+offset_right = 162.0
+offset_bottom = 356.0
+texture_normal = ExtResource("6_mady8")
+texture_pressed = ExtResource("7_4a1hx")
+stretch_mode = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -160,50 +220,50 @@ libraries = {
 
 [node name="Stam" type="Label" parent="."]
 layout_mode = 0
-offset_left = 381.0
-offset_top = 408.0
-offset_right = 465.0
-offset_bottom = 440.0
+offset_left = 380.0
+offset_top = 424.0
+offset_right = 464.0
+offset_bottom = 456.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "STAM"
 
 [node name="Def" type="Label" parent="."]
 layout_mode = 0
-offset_left = 532.0
-offset_top = 407.0
-offset_right = 616.0
-offset_bottom = 439.0
+offset_left = 531.0
+offset_top = 423.0
+offset_right = 615.0
+offset_bottom = 455.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "DEF"
 
 [node name="Cha" type="Label" parent="."]
 layout_mode = 0
-offset_left = 682.0
-offset_top = 407.0
-offset_right = 766.0
-offset_bottom = 439.0
+offset_left = 681.0
+offset_top = 423.0
+offset_right = 765.0
+offset_bottom = 455.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "CHA"
 
 [node name="Wit" type="Label" parent="."]
 layout_mode = 0
-offset_left = 823.0
-offset_top = 407.0
-offset_right = 907.0
-offset_bottom = 439.0
+offset_left = 822.0
+offset_top = 423.0
+offset_right = 906.0
+offset_bottom = 455.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "WIT"
 
 [node name="Hat2" type="Label" parent="."]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 408.0
-offset_right = 108.0
-offset_bottom = 440.0
+offset_left = 23.0
+offset_top = 424.0
+offset_right = 107.0
+offset_bottom = 456.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "Hat:"
