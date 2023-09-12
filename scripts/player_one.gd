@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 3
+const speed = 3
 var idle_direction = "left"
 @onready var anim_player = $AnimationPlayer
 
@@ -15,7 +15,6 @@ var inputs = {
 }
 
 func _physics_process(delta):
-	
 	var collision = move_and_collide(velocity * delta)
 	handle_input()
 
@@ -29,7 +28,7 @@ func handle_input():
 			
 	if movement_direction.length() > 0:
 		movement_direction = movement_direction.normalized()
-		position += movement_direction * SPEED
+		position += movement_direction * speed
 		anim_player.play("player/walk_%s" % determine_animation_suffix(movement_direction))
 	else:
 		anim_player.play("player/idle_%s" % idle_direction)
