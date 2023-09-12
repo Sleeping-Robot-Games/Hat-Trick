@@ -158,4 +158,54 @@ libraries = {
 "player": ExtResource("4_07d35")
 }
 
+[node name="Stam" type="Label" parent="."]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 408.0
+offset_right = 465.0
+offset_bottom = 440.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "STAM"
+
+[node name="Def" type="Label" parent="."]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 407.0
+offset_right = 616.0
+offset_bottom = 439.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "DEF"
+
+[node name="Cha" type="Label" parent="."]
+layout_mode = 0
+offset_left = 682.0
+offset_top = 407.0
+offset_right = 766.0
+offset_bottom = 439.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "CHA"
+
+[node name="Wit" type="Label" parent="."]
+layout_mode = 0
+offset_left = 823.0
+offset_top = 407.0
+offset_right = 907.0
+offset_bottom = 439.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "WIT"
+
+[node name="Hat2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 408.0
+offset_right = 108.0
+offset_bottom = 440.0
+theme_override_fonts/font = ExtResource("5_23a7o")
+theme_override_font_sizes/font_size = 28
+text = "Hat:"
+
 [connection signal="button_up" from="Random" to="." method="_on_random_button_up"]

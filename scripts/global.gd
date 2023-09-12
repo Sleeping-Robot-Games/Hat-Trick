@@ -2,6 +2,7 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
+## indexs all hats and their height in pixels
 const hat_index = {
 	"wizard": 11,
 	"witch": 12,
