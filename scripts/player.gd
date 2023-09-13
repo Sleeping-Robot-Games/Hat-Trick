@@ -3,7 +3,9 @@ extends CharacterBody2D
 const speed = 3
 var facing = "left"
 var is_dancing = false
+var is_fighting = false
 @onready var anim_player = $AnimationPlayer
+@onready var game = get_parent()
 
 var directions = {
 	"right": Vector2(1, 0),
@@ -39,8 +41,7 @@ func handle_input():
 		position += movement_direction * speed
 		anim_player.play("player/walk_%s" % determine_animation_suffix(movement_direction))
 	elif Input.is_action_just_pressed('interact') and g.focused_npc:
-		g.focused_npc.hat_fight()
-		g.unfocus_all()
+		game.hat_fight(self, g.focused_npc)
 	elif Input.is_action_just_pressed("ui_accept", KEY_E):
 		if !is_dancing:
 			is_dancing = true
@@ -50,6 +51,10 @@ func handle_input():
 		anim_player.play("player/dance")
 	else:
 		anim_player.play("player/idle_%s" % facing)
+
+func start_fighting(x, y):
+	is_fighting = true
+	# TODO: move player to x, y
 
 func determine_animation_suffix(direction: Vector2) -> String:
 	if direction == Vector2(1, 0):

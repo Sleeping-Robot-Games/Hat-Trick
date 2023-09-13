@@ -97,7 +97,7 @@ func unfocus_npc(npc):
 		focused_npc.hide_interact()
 		focused_npc = null
 
-func unfocus_all():
+func unfocus_current():
 	if focused_npc:
 		focused_npc.hide_interact()
 	focused_npc = null

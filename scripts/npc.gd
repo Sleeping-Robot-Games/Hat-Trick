@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 var speed = 100
-var start_pos = Vector2(128, 450)
+var start_pos = Vector2(randi_range(128, 640), 450)
 var end_pos = Vector2(1875, 450)
 var target_pos = start_pos
 var is_moving = true
 var is_dancing = false
+var is_paused = false
+var is_fighting = false
 var last_direction = 1 # 1 for right, -1 for left
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
@@ -22,6 +24,8 @@ func _ready():
 	set_new_target()
 
 func _physics_process(delta):
+	if is_paused:
+		return
 	if is_moving:
 		var move_direction = (target_pos - global_position).normalized()
 		var movement = move_direction * speed * delta
@@ -42,8 +46,11 @@ func _physics_process(delta):
 
 func reach_target():
 	is_moving = false
-	idle_timer.start(randf_range(2, 8))
-	play_idle_animation()
+	if not is_fighting:
+		idle_timer.start(randf_range(2, 8))
+		play_idle_animation()
+	else:
+		play_idle_animation()
 
 func play_idle_animation():
 	# Dance 
@@ -64,10 +71,12 @@ func play_idle_animation():
 #	else:
 #		text_bubble_label.text = idle_text_lines.pick_random()
 
-func set_new_target():
+func set_new_target(x = randf_range(start_pos.x, end_pos.x), y = 450):
 #	text_bubble.visible = false
-	target_pos.x = randf_range(start_pos.x, end_pos.x)
-	target_pos.y = 450
+	#print('moving to ('+str(x)+','+str(y)+')')
+	is_moving = true
+	target_pos.x = x
+	target_pos.y = y
 
 func show_interact():
 	$InteractButton.visible = true
@@ -77,12 +86,17 @@ func hide_interact():
 	$InteractButton.visible = false
 	$InteractButton.stop()
 
-func hat_fight():
-	print('HAT FIGHT!')
+func start_fighting(x, y):
+	is_fighting = true
+	set_new_target(x, y)
+
+func fade_out():
+	is_paused = true
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 1.5)
 
 func _on_idle_timer_timeout():
 	set_new_target()
-	is_moving = true
 
 func _on_interact_area_body_entered(body):
 	if body.name == 'Player':
