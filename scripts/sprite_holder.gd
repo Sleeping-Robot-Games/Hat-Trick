@@ -24,11 +24,12 @@ var palette_folder_path = "res://assets/palettes/"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parent = get_parent()
-	if 'NPC' == parent.type and parent.random:
-		create_random_character()
-	elif 'Player' == parent.type:
-		load_character()
-		## TODO: Get the data from load_character to apply stats and starting hat
+	if parent is CharacterBody2D:
+		if 'NPC' == parent.type and parent.random:
+			create_random_character()
+		elif 'Player' == parent.type:
+			load_character()
+			## TODO: Get the data from load_character to apply stats and starting hat
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
