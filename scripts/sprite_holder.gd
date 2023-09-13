@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasGroup
 
 var rng = RandomNumberGenerator.new()
 

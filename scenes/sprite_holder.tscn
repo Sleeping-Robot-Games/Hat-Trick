@@ -23,7 +23,7 @@ shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("6_0xvtb")
 shader_parameter/greyscale_palette = ExtResource("5_8s56o")
 
-[node name="SpriteHolder" type="Node2D"]
+[node name="SpriteHolder" type="CanvasGroup"]
 script = ExtResource("1_6f0od")
 
 [node name="body" type="Sprite2D" parent="."]
