@@ -69,6 +69,25 @@ func set_new_target():
 	target_pos.x = randf_range(start_pos.x, end_pos.x)
 	target_pos.y = 450
 
+func show_interact():
+	$InteractButton.visible = true
+	$InteractButton.play('default')
+
+func hide_interact():
+	$InteractButton.visible = false
+	$InteractButton.stop()
+
+func hat_fight():
+	print('HAT FIGHT!')
+
 func _on_idle_timer_timeout():
 	set_new_target()
 	is_moving = true
+
+func _on_interact_area_body_entered(body):
+	if body.name == 'Player':
+		g.focus_npc(self)
+
+func _on_interact_area_body_exited(body):
+	if body.name == 'Player':
+		g.unfocus_npc(self)

@@ -1,6 +1,7 @@
 extends Node
 
 var rng = RandomNumberGenerator.new()
+var focused_npc = null
 
 ## indexs all hats and their height in pixels
 const hat_index = {
@@ -84,3 +85,19 @@ func play_sfx(parent, name, db_override = 0):
 #	sfx_player.connect("finished", sfx_player, "queue_free")
 #	parent.add_child(sfx_player)
 #	sfx_player.play()
+
+func focus_npc(npc):
+	if focused_npc and focused_npc != npc:
+		focused_npc.hide_interact()
+	focused_npc = npc
+	focused_npc.show_interact()
+
+func unfocus_npc(npc):
+	if focused_npc and focused_npc == npc:
+		focused_npc.hide_interact()
+		focused_npc = null
+
+func unfocus_all():
+	if focused_npc:
+		focused_npc.hide_interact()
+	focused_npc = null

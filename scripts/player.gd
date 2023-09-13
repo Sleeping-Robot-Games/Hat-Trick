@@ -37,6 +37,9 @@ func handle_input():
 		movement_direction = movement_direction.normalized()
 		position += movement_direction * speed
 		anim_player.play("player/walk_%s" % determine_animation_suffix(movement_direction))
+	elif Input.is_action_just_pressed('interact') and g.focused_npc:
+		g.focused_npc.hat_fight()
+		g.unfocus_all()
 	elif Input.is_action_just_pressed("ui_accept", KEY_E):
 		if !is_dancing:
 			is_dancing = true
