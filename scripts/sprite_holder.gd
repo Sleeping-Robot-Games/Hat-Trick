@@ -47,9 +47,10 @@ func load_character():
 			if part is Sprite2D:
 				if not part.name == 'body':
 					part.texture = load(data.sprite_state[part.name])
-				if part.name == 'body' or part.name == 'haircolor':
-					part.material.set_shader_parameter("palette_swap", load(palette_folder_path+part.name+"/"+part.name+"_"+data.pallete_sprite_state[part.name]+".png"))
-					part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path+part.name+"/"+part.name+"_000.png"))
+				if part.name == 'body' or part.name == 'hair':
+					var sprite_name = 'haircolor' if part.name == 'hair' else part.name
+					part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
+					part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
 					g.make_shaders_unique(part)
 	
 func random_asset(folder: String, keyword: String = "") -> String:

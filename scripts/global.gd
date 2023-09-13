@@ -2,6 +2,7 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 var focused_npc = null
+var current_level_y_pos = 435
 
 ## indexs all hats and their height in pixels
 const hat_index = {

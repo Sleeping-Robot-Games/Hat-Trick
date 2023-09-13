@@ -14,17 +14,6 @@ scale = Vector2(4, 4)
 collision_mask = 7
 script = ExtResource("1_vkxup")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-visible = false
-position = Vector2(0, -22)
-offset = Vector2(0, -112)
-enabled = false
-limit_left = 0
-limit_right = 1920
-position_smoothing_enabled = true
-position_smoothing_speed = 4.0
-drag_horizontal_enabled = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_c2sdf")

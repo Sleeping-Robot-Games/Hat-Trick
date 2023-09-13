@@ -5,7 +5,6 @@ const type = 'Player'
 var facing = "left"
 var is_dancing = false
 var is_fighting = false
-var in_battle_pos = false
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 @onready var anim_player = $AnimationPlayer
@@ -27,28 +26,19 @@ func _ready():
 	# position.y = 435
 	pass
 
-func start_fighting(x, y):
+func start_fighting(x):
 	battle_pos.x = x
-	battle_pos.y = y
-	in_battle_pos = false
+	battle_pos.y = g.current_level_y_pos
 	is_fighting = true
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", battle_pos, 1)
+	
+	anim_player.play("player/idle_right")
+	
 
 func _physics_process(delta):
-	if is_fighting and not in_battle_pos:
-		var move_direction = (battle_pos - global_position).normalized()
-		var motion = move_direction * battle_pos_speed * delta
-		move_and_collide(motion)
-		# Check direction so correct walking animation plays
-		if move_direction.x < 0:
-			anim_player.play("player/walk_left")
-		elif move_direction.x > 0:
-			anim_player.play("player/walk_right")
-
-		# Check if player is in position
-		if global_position.x <= battle_pos.x:
-			in_battle_pos = true
-			anim_player.play("player/idle_right")
-	elif not is_fighting:
+	if not is_fighting:
 		move_and_collide(velocity * delta)
 		handle_input()
 
