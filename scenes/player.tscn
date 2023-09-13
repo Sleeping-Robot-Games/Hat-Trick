@@ -14,7 +14,7 @@ scale = Vector2(4, 4)
 script = ExtResource("1_vkxup")
 
 [node name="Player Camera" type="Camera2D" parent="."]
-position = Vector2(0, -20.75)
+position = Vector2(0, -22)
 offset = Vector2(0, -112)
 limit_left = 0
 limit_right = 1920

@@ -22,6 +22,15 @@ func _ready():
 func _process(delta):
 	pass
 
+func store_player_state():
+	var player_customized_state = {
+		'sprite_state': sprite_holder.sprite_state,
+		'pallete_sprite_state': sprite_holder.pallete_sprite_state
+	}
+	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
+	var json = JSON.new()
+	f.store_string(json.stringify(player_customized_state, "  "))
+	f.close()
 
 func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 	var folder_path = sprite_holder.sprite_folder_path + sprite
@@ -50,3 +59,8 @@ func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 
 func _on_random_button_up():
 	sprite_holder.create_random_character()
+
+
+func _on_continue_button_up():
+	await store_player_state()
+	get_tree().change_scene_to_file("res://scenes/game.tscn")

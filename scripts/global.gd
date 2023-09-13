@@ -45,7 +45,6 @@ func files_in_dir(path: String, keyword: String = "") -> Array:
 	dir.list_dir_end()
 	return files
 
-
 func make_shaders_unique(sprite: Sprite2D):
 	var mat = sprite.material.duplicate(true)
 	sprite.material = mat
@@ -58,15 +57,9 @@ func load_character(parent_node: Node2D):
 	var data = json.get_data()
 	for part in parent_node.get_children():
 		if part is Sprite2D:
-			if part.name == 'Hair' or part.name == 'Hat':
+			if not part.name == 'body':
 				part.texture = load(data.sprite_state[part.name])
-			if part.name == 'Robe' or part.name == 'Hat':
-				part.material.set_shader_param("palette_swap", load("res://players/wizard/creator/palette/Color/Color_"+data.pallete_sprite_state["Color"]+".png"))
-				part.material.set_shader_param("greyscale_palette", load("res://players/wizard/creator/palette/Color/Color_000.png"))
-			elif part.name == 'Hair':
-				part.material.set_shader_param("palette_swap", load("res://players/wizard/creator/palette/"+part.name+"color/"+part.name+"color_"+data.pallete_sprite_state[part.name+'color']+".png"))
-				part.material.set_shader_param("greyscale_palette", load("res://players/wizard/creator/palette/"+part.name+"color/"+part.name+"color_000.png"))
-			else:
+			if part.name == 'body' or part.name == 'hair':
 				part.material.set_shader_param("palette_swap", load("res://players/wizard/creator/palette/"+part.name+"/"+part.name+"_"+data.pallete_sprite_state[part.name]+".png"))
 				part.material.set_shader_param("greyscale_palette", load("res://players/wizard/creator/palette/"+part.name+"/"+part.name+"_000.png"))
 			make_shaders_unique(part)

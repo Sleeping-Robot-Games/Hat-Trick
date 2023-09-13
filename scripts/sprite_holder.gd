@@ -14,8 +14,6 @@ var rng = RandomNumberGenerator.new()
 	'haircolor': character_sprite['hair']
 }
 
-@export var random = false
-
 var pallete_sprite_state: Dictionary
 var sprite_state: Dictionary
 
@@ -25,14 +23,31 @@ var palette_folder_path = "res://assets/palettes/"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if random:
+	var parent = get_parent()
+	if 'NPC' in parent.name and parent.random:
 		create_random_character()
-
+	elif 'Player' == parent.name:
+		load_character()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
+	
+func load_character():
+	var f = FileAccess.open("user://player_state.save", FileAccess.READ)
+	var json = JSON.new()
+	if f:
+		json.parse(f.get_as_text())
+		f.close()
+		var data = json.get_data()
+		for part in get_children():
+			if part is Sprite2D:
+				if not part.name == 'body':
+					part.texture = load(data.sprite_state[part.name])
+				if part.name == 'body' or part.name == 'haircolor':
+					part.material.set_shader_parameter("palette_swap", load(palette_folder_path+part.name+"/"+part.name+"_"+data.pallete_sprite_state[part.name]+".png"))
+					part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path+part.name+"/"+part.name+"_000.png"))
+					g.make_shaders_unique(part)
 	
 func random_asset(folder: String, keyword: String = "") -> String:
 	var files: Array
