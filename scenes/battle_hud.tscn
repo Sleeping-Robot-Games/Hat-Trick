@@ -34,9 +34,6 @@ offset_right = 80.0
 offset_bottom = 416.0
 alignment = 2
 
-[node name="HatStackItem6" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
-layout_mode = 2
-
 [node name="HatStackItem5" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
 
@@ -49,8 +46,12 @@ layout_mode = 2
 [node name="HatStackItem2" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
 
-[node name="HatStackItem" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
+[node name="HatStackItem1" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+
+[node name="HatStackItem0" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
+layout_mode = 2
+active = true
 
 [node name="OpponentHatStack" type="VBoxContainer" parent="."]
 clip_contents = true
@@ -60,9 +61,6 @@ offset_top = 16.0
 offset_right = 944.0
 offset_bottom = 416.0
 alignment = 2
-
-[node name="HatStackItem6" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
-layout_mode = 2
 
 [node name="HatStackItem5" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
@@ -76,5 +74,9 @@ layout_mode = 2
 [node name="HatStackItem2" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
 
-[node name="HatStackItem" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
+[node name="HatStackItem1" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+
+[node name="HatStackItem0" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
+layout_mode = 2
+active = true

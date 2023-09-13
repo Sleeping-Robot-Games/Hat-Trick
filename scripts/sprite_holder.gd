@@ -29,6 +29,7 @@ func _ready():
 	if parent is CharacterBody2D:
 		if 'NPC' == parent.type and parent.random:
 			create_random_character()
+			parent.add_hat(random_starter_hat.to_lower())
 		elif 'Player' == parent.type:
 			load_character()
 			## TODO: Get the data from load_character to apply stats and starting hat

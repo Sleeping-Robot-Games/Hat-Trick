@@ -14,6 +14,7 @@ var available_for_battle = true
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
+var hat_array = []
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
 #@onready var text_bubble = $SpeechBubble
@@ -111,6 +112,9 @@ func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
 	is_moving = true
 	target_pos.x = x
 	target_pos.y = g.current_level_y_pos
+
+func add_hat(hat_name):
+	hat_array.push_front(hat_name)
 
 func show_interact():
 	$InteractButton.visible = true

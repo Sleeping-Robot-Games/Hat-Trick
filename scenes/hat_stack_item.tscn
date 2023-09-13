@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dcrgeuqw2qtkl" path="res://assets/sprites/hat/baseball.png" id="1_8usrk"]
 [ext_resource type="Texture2D" uid="uid://bhlday8eq1j2u" path="res://assets/ui/border1.png" id="1_c6kad"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ceie4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq1r1"]
+resource_local_to_scene = true
 atlas = ExtResource("1_8usrk")
 region = Rect2(0, 0, 32, 32)
 
@@ -37,4 +38,4 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 65.0
 offset_bottom = 65.0
-texture = SubResource("AtlasTexture_ceie4")
+texture = SubResource("AtlasTexture_jq1r1")
