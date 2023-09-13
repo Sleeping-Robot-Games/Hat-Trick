@@ -8,6 +8,9 @@ var is_moving = true
 var is_dancing = false
 var is_paused = false
 var is_fighting = false
+var in_battle_pos = false
+var battle_pos = Vector2.ZERO
+var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
@@ -26,7 +29,21 @@ func _ready():
 func _physics_process(delta):
 	if is_paused:
 		return
-	if is_moving:
+	elif is_fighting and not in_battle_pos:
+		var move_direction = (battle_pos - global_position).normalized()
+		var motion = move_direction * battle_pos_speed * delta
+		move_and_collide(motion)
+		# Check direction so correct walking animation plays
+		if move_direction.x < 0:
+			anim_npc.play("player/walk_left")
+		elif move_direction.x > 0:
+			anim_npc.play("player/walk_right")
+
+		# Check if in position
+		if global_position.x >= battle_pos.x:
+			in_battle_pos = true
+			anim_npc.play("player/idle_left")
+	elif not is_fighting and is_moving:
 		var move_direction = (target_pos - global_position).normalized()
 		var movement = move_direction * speed * delta
 		move_and_collide(movement)
@@ -87,8 +104,11 @@ func hide_interact():
 	$InteractButton.stop()
 
 func start_fighting(x, y):
+	battle_pos.x = x
+	battle_pos.y = y
+	in_battle_pos = false
 	is_fighting = true
-	set_new_target(x, y)
+	is_moving = false
 
 func fade_out():
 	is_paused = true
