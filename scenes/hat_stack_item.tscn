@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgqwbsdjpeb43"]
+
+[ext_resource type="Script" path="res://scripts/hat_stack_item.gd" id="1_2iig3"]
+[ext_resource type="Texture2D" uid="uid://dcrgeuqw2qtkl" path="res://assets/sprites/hat/baseball.png" id="1_8usrk"]
+[ext_resource type="Texture2D" uid="uid://bhlday8eq1j2u" path="res://assets/ui/border1.png" id="1_c6kad"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceie4"]
+atlas = ExtResource("1_8usrk")
+region = Rect2(0, 0, 32, 32)
+
+[node name="HatStackItem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -896.0
+offset_bottom = -476.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2iig3")
+
+[node name="Border" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_c6kad")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Hat" type="TextureRect" parent="Border"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 65.0
+texture = SubResource("AtlasTexture_ceie4")

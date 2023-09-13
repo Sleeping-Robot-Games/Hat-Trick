@@ -36,31 +36,19 @@ func hat_fight(player, opponent):
 			npc.fade_out()
 	$NPCSpawnTimer.stop()
 	# TODO: zoom in - I tried doing a zoom with a tween on the player script and the drag/level bounds is making it a PAIN, lets shelf it for now -bronsky
-	# TODO: show battle overlay
+	$BattleHUD.start_battle(player, opponent)
 
 func get_left_battle_pos():
 	var half_viewport = cam.get_viewport_rect().size.x / 2
 	var cam_center = cam.get_screen_center_position().x
-	var cam_current_pos = cam_center - half_viewport
-	var battle_spot = cam_current_pos + battle_pos_offset
-
-	if battle_spot < cam_current_pos:
-		return Vector2(cam_current_pos + battle_pos_offset, battle_pos_y)
-	else:
-		return Vector2(battle_spot, battle_pos_y)
+	var cam_left = cam_center - half_viewport + battle_pos_offset
+	return Vector2(cam_left, battle_pos_y)
 
 func get_right_battle_pos() -> Vector2:
 	var half_viewport = cam.get_viewport_rect().size.x / 2
 	var cam_center = cam.get_screen_center_position().x
-	var cam_right_end = cam_center + half_viewport
-	var battle_spot = cam_right_end - battle_pos_offset
-
-	if battle_spot > cam_right_end:
-		return Vector2(cam_right_end - battle_pos_offset, battle_pos_y)
-	else:
-		return Vector2(battle_spot, battle_pos_y)
-
-
+	var cam_right = cam_center + half_viewport - battle_pos_offset
+	return Vector2(cam_right, battle_pos_y)
 
 func _on_npc_spawn_timer_timeout():
 	if active_npcs.size() < max_npcs:

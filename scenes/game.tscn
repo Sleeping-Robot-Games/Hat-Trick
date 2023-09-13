@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt6v7wgiewnn2"]
+[gd_scene load_steps=6 format=3 uid="uid://dt6v7wgiewnn2"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_13ukk"]
 [ext_resource type="PackedScene" uid="uid://dn0jnues5o1h2" path="res://scenes/level_one.tscn" id="1_x2dao"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_ivu6y"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="5_m3toh"]
+[ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="5_nqbwm"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_13ukk")
@@ -30,5 +31,7 @@ script = ExtResource("5_m3toh")
 [node name="NPCSpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="BattleHUD" parent="." instance=ExtResource("5_nqbwm")]
 
 [connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]
