@@ -9,8 +9,8 @@ var is_dancing = false
 var last_direction = 1 # 1 for right, -1 for left
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
-#@onready var text_bubble = $TextBubble
-#@onready var text_bubble_label = $TextBubble/Text
+#@onready var text_bubble = $SpeechBubble
+#@onready var text_bubble_label = text_bubble.get_node("MarginContainer/NinePatchRect/CenterContainer/Label")
 
 @export var random = false
 

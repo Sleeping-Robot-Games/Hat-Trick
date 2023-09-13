@@ -10,9 +10,8 @@
 radius = 7.0
 height = 18.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c36qr"]
-radius = 15.0
-height = 50.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hs45j"]
+size = Vector2(35, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lcyxc"]
 animations = [{
@@ -54,8 +53,8 @@ libraries = {
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
-position = Vector2(0, 7)
-shape = SubResource("CapsuleShape2D_c36qr")
+position = Vector2(-0.5, 7)
+shape = SubResource("RectangleShape2D_hs45j")
 
 [node name="InteractButton" type="AnimatedSprite2D" parent="."]
 visible = false
