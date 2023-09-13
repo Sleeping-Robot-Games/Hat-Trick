@@ -28,6 +28,7 @@ func _ready():
 		create_random_character()
 	elif 'Player' == parent.name:
 		load_character()
+		## TODO: Get the data from load_character to apply stats and starting hat
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

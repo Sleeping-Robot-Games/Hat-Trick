@@ -16,5 +16,5 @@ scale = Vector2(3, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_ivu6y")]
 z_index = 0
-position = Vector2(103, 450)
+position = Vector2(119, 440)
 scale = Vector2(3, 3)

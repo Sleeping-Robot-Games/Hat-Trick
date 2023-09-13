@@ -18,6 +18,7 @@ var inputs = {
 
 func _ready():
 	# $HatTowerTimerTest.start()
+	position.y = 450
 	pass
 
 func _physics_process(delta):

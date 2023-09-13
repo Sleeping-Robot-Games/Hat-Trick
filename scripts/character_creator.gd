@@ -2,6 +2,12 @@ extends Control
 
 @onready var sprite_holder = $SpriteHolder
 
+var player_stats = {
+	"HAT": "",
+	"STAM": 0,
+	# etc...
+}
+
 func _ready():
 	# Connect buttons
 	$Hat/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "hat"))
@@ -25,7 +31,8 @@ func _process(delta):
 func store_player_state():
 	var player_customized_state = {
 		'sprite_state': sprite_holder.sprite_state,
-		'pallete_sprite_state': sprite_holder.pallete_sprite_state
+		'pallete_sprite_state': sprite_holder.pallete_sprite_state,
+		'player_stats': player_stats
 	}
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
 	var json = JSON.new()
@@ -59,7 +66,6 @@ func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 
 func _on_random_button_up():
 	sprite_holder.create_random_character()
-
 
 func _on_continue_button_up():
 	await store_player_state()
