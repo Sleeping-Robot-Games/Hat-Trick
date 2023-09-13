@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dep7866ey2ofj"]
 
-[ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/sprites/bigguy/bigguy001.png" id="1_aml5q"]
+[ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/todo/bigguy/bigguy001.png" id="1_aml5q"]
 
 [sub_resource type="Animation" id="Animation_d4ovi"]
 resource_name = "idle"

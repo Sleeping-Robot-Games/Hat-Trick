@@ -35,6 +35,8 @@ func _ready():
 	$Body/Right.button_up.connect(_on_Color_Selection_button_up.bind(1, "body"))
 	$Outfit/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "outfit"))
 	$Outfit/Right.button_up.connect(_on_Sprite_Selection_button_up.bind(1, "outfit"))
+	$OutfitColor/Left.button_up.connect(_on_Color_Selection_button_up.bind(-1, "outfitcolor"))
+	$OutfitColor/Right.button_up.connect(_on_Color_Selection_button_up.bind(1, "outfitcolor"))
 	
 	# Character Stats
 	$Stam/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "stam_up"))

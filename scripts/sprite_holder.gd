@@ -11,7 +11,8 @@ var rng = RandomNumberGenerator.new()
 
 @onready var character_sprite_palette = {
 	'body': character_sprite['body'],
-	'haircolor': character_sprite['hair']
+	'haircolor': character_sprite['hair'],
+	'outfitcolor': character_sprite['outfit'],
 }
 
 var pallete_sprite_state: Dictionary
