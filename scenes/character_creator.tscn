@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://wtnpobjnudp3"]
+[gd_scene load_steps=23 format=3 uid="uid://wtnpobjnudp3"]
 
 [ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_t5nvq"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_f7lx2"]
@@ -14,6 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://cui27mviwsei0" path="res://assets/ui/rightarrowpressed.png" id="9_ydop7"]
 [ext_resource type="Texture2D" uid="uid://d28l0af4gf8bo" path="res://assets/ui/stamup.png" id="13_ss0la"]
 [ext_resource type="Texture2D" uid="uid://dcowjwslvchpy" path="res://assets/ui/stamdown.png" id="14_a04iy"]
+[ext_resource type="Texture2D" uid="uid://k4ni5vlaa8kp" path="res://assets/ui/defup.png" id="15_j7jh6"]
+[ext_resource type="Texture2D" uid="uid://bnhliddvrheks" path="res://assets/ui/defdown.png" id="16_hwb66"]
+[ext_resource type="Texture2D" uid="uid://dqq7rjtpswsfr" path="res://assets/ui/charup.png" id="17_opva3"]
+[ext_resource type="Texture2D" uid="uid://b5cwqnm2yoiyb" path="res://assets/ui/chardown.png" id="18_0ry56"]
+[ext_resource type="Texture2D" uid="uid://4yy7dvv0efq3" path="res://assets/ui/witup.png" id="19_rus7q"]
+[ext_resource type="Texture2D" uid="uid://duoeu7jochfdd" path="res://assets/ui/witdown.png" id="20_klr7j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nmpfv"]
 texture = ExtResource("2_fhw3x")
@@ -217,7 +223,7 @@ scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("7_cvof0")
 stretch_mode = 0
 
-[node name="Random" type="TextureButton" parent="."]
+[node name="RandomCharacter" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 275.0
@@ -232,32 +238,64 @@ libraries = {
 "player": ExtResource("4_07d35")
 }
 
+[node name="RandomStats" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 459.0
+offset_right = 340.0
+offset_bottom = 479.0
+texture_normal = ExtResource("6_mady8")
+texture_pressed = ExtResource("7_4a1hx")
+stretch_mode = 0
+
+[node name="AvailablePoints" type="Label" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 433.0
+offset_right = 376.0
+offset_bottom = 459.0
+text = "Available: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Stam" type="Label" parent="."]
 layout_mode = 0
-offset_left = 388.0
-offset_top = 435.0
-offset_right = 472.0
-offset_bottom = 467.0
+offset_left = 400.0
+offset_top = 433.0
+offset_right = 484.0
+offset_bottom = 465.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "STAM"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Stamup" type="Sprite2D" parent="Stam"]
-position = Vector2(116, -19)
-scale = Vector2(4, 4)
-texture = ExtResource("13_ss0la")
-
-[node name="Stamdown" type="Sprite2D" parent="Stam"]
-position = Vector2(117, 44)
-scale = Vector2(4, 4)
-texture = ExtResource("14_a04iy")
+[node name="Up" type="TextureButton" parent="Stam"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = -34.0
+offset_right = 140.0
+offset_bottom = 6.0
+texture_normal = ExtResource("13_ss0la")
+stretch_mode = 0
 
 [node name="Label" type="Label" parent="Stam"]
 layout_mode = 0
-offset_left = 106.0
-offset_right = 146.0
+offset_left = 100.0
+offset_right = 140.0
 offset_bottom = 26.0
-text = "10"
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="TextureButton" parent="Stam"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 21.0
+offset_right = 140.0
+offset_bottom = 61.0
+texture_normal = ExtResource("14_a04iy")
+stretch_mode = 0
 
 [node name="Def" type="Label" parent="."]
 layout_mode = 0
@@ -268,6 +306,35 @@ offset_bottom = 465.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "DEF"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Up" type="TextureButton" parent="Def"]
+layout_mode = 0
+offset_left = 69.0
+offset_top = -34.0
+offset_right = 109.0
+offset_bottom = 6.0
+texture_normal = ExtResource("15_j7jh6")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = 69.0
+offset_right = 109.0
+offset_bottom = 26.0
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="TextureButton" parent="Def"]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 23.0
+offset_right = 109.0
+offset_bottom = 63.0
+texture_normal = ExtResource("16_hwb66")
+stretch_mode = 0
 
 [node name="Cha" type="Label" parent="."]
 layout_mode = 0
@@ -279,6 +346,33 @@ theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "CHA"
 
+[node name="Up" type="TextureButton" parent="Cha"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = -34.0
+offset_right = 111.0
+offset_bottom = 6.0
+texture_normal = ExtResource("17_opva3")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = 71.0
+offset_right = 111.0
+offset_bottom = 26.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="TextureButton" parent="Cha"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 23.0
+offset_right = 111.0
+offset_bottom = 63.0
+texture_normal = ExtResource("18_0ry56")
+stretch_mode = 0
+
 [node name="Wit" type="Label" parent="."]
 layout_mode = 0
 offset_left = 814.0
@@ -288,6 +382,34 @@ offset_bottom = 464.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "WIT"
+
+[node name="Up" type="TextureButton" parent="Wit"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = -33.0
+offset_right = 106.0
+offset_bottom = 7.0
+texture_normal = ExtResource("19_rus7q")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 1.0
+offset_right = 106.0
+offset_bottom = 27.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="TextureButton" parent="Wit"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 24.0
+offset_right = 106.0
+offset_bottom = 64.0
+texture_normal = ExtResource("20_klr7j")
+stretch_mode = 0
 
 [node name="HatDetail" type="Label" parent="."]
 layout_mode = 0
@@ -315,5 +437,6 @@ offset_right = 926.0
 offset_bottom = 362.0
 text = "Continue"
 
-[connection signal="button_up" from="Random" to="." method="_on_random_button_up"]
+[connection signal="button_up" from="RandomCharacter" to="." method="_on_random_character_button_up"]
+[connection signal="button_up" from="RandomStats" to="." method="_on_random_stats_button_up"]
 [connection signal="button_up" from="Continue" to="." method="_on_continue_button_up"]

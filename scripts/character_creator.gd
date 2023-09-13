@@ -1,6 +1,24 @@
 extends Control
 
 @onready var sprite_holder = $SpriteHolder
+@onready var stam_label = $Stam/Label
+@onready var def_label = $Def/Label
+@onready var cha_label = $Cha/Label
+@onready var wit_label = $Wit/Label
+@onready var available_points_label = $AvailablePoints
+
+var stam = 0
+var def = 0
+var cha = 0
+var wit = 0
+var max = 5
+var current_total_stats = 0
+var stats = {
+	"stam": 0,
+	"def": 0,
+	"cha": 0,
+	"wit": 0
+}
 
 var player_stats = {
 	"HAT": "",
@@ -9,7 +27,9 @@ var player_stats = {
 }
 
 func _ready():
+	
 	# Connect buttons
+	# Character Style
 	$Hat/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "hat"))
 	$Hat/Right.button_up.connect(_on_Sprite_Selection_button_up.bind(1, "hat"))
 	$Hair/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "hair"))
@@ -20,9 +40,23 @@ func _ready():
 	$Body/Right.button_up.connect(_on_Color_Selection_button_up.bind(1, "body"))
 	$Outfit/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "outfit"))
 	$Outfit/Right.button_up.connect(_on_Sprite_Selection_button_up.bind(1, "outfit"))
-
-	sprite_holder.create_random_character()
 	
+	# Character Stats
+	$Stam/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "stam_up"))
+	$Stam/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "stam_down"))
+	$Def/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "def_up"))
+	$Def/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "def_down"))
+	$Cha/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "cha_up"))
+	$Cha/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "cha_down"))
+	$Wit/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "wit_up"))
+	$Wit/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "wit_down"))
+	
+	# Generate random stats
+	generate_random_stats(max)
+	available_points_label.text = "Available: 0"
+	
+	# Generate random character idling
+	sprite_holder.create_random_character()
 	$AnimationPlayer.play("player/idle_right")
 
 func _process(delta):
@@ -32,12 +66,87 @@ func store_player_state():
 	var player_customized_state = {
 		'sprite_state': sprite_holder.sprite_state,
 		'pallete_sprite_state': sprite_holder.pallete_sprite_state,
-		'player_stats': player_stats
+		'player_stats': stats,
 	}
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
 	var json = JSON.new()
 	f.store_string(json.stringify(player_customized_state, "  "))
 	f.close()
+
+func generate_random_stats(max_value: int) -> void:
+	# Ensure max_value can be distributed among the four stats
+	if max_value < 4:
+		print("Max value is too small to distribute among all stats!")
+		return
+
+	var remaining = max_value
+
+	# Randomly distribute values among the first three stats and assign the rest to the last stat
+	stats["stam"] = randi() % (remaining - 2) + 1
+	remaining -= stats["stam"]
+	stats["def"] = randi() % (remaining - 1) + 1
+	remaining -= stats["def"]
+	stats["cha"] = randi() % remaining + 1
+	remaining -= stats["cha"]
+	stats["wit"] = remaining
+
+	# Update labels
+	stam_label.text = str(stats["stam"])
+	def_label.text = str(stats["def"])
+	cha_label.text = str(stats["cha"])
+	wit_label.text = str(stats["wit"])
+
+func _on_Character_Selection_button_up(dir: int, sprite: String):
+	var stat_key = sprite.replace("_up", "").replace("_down", "")
+	var old_value = stats[stat_key]
+	var new_value = old_value + dir
+
+	# Calculate current total stats
+	var current_total = stats["stam"] + stats["def"] + stats["cha"] + stats["wit"]
+
+	# If decreasing a value
+	if dir == -1:
+		# If we're trying to decrease the stat below -1, or if another stat is already at -1, don't allow
+		if new_value < -1 or (new_value == -1 and count_negative_ones() > 0):
+			print("Cannot decrease further!")
+			return
+	# If increasing a value
+	elif dir == 1:
+		# Check if this increase will make the total exceed max
+		if (current_total + dir) > max:
+			print("Cannot increase further!")
+			return
+
+	# Apply the change and update the respective label
+	stats[stat_key] = new_value
+
+	# Recalculate the current total after making changes
+	current_total = stats["stam"] + stats["def"] + stats["cha"] + stats["wit"]
+
+	# Update labels based on the sprite
+	match sprite:
+		"stam_up", "stam_down":
+			stam_label.text = str(new_value)
+		"def_up", "def_down":
+			def_label.text = str(new_value)
+		"cha_up", "cha_down":
+			cha_label.text = str(new_value)
+		"wit_up", "wit_down":
+			wit_label.text = str(new_value)
+
+	update_available_points_label(max - current_total)
+
+func update_available_points_label(total_points: int):
+	var format_available_points = "Available: %s"
+	var available_points = format_available_points % str(total_points)
+	available_points_label.text = available_points
+
+func count_negative_ones() -> int:
+	var count = 0
+	for value in stats.values():
+		if value == -1:
+			count += 1
+	return count
 
 func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 	var folder_path = sprite_holder.sprite_folder_path + sprite
@@ -64,9 +173,13 @@ func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 	sprite_holder.set_sprite_color(palette_sprite, sprite_holder.character_sprite_palette[palette_sprite], color_num)
 	sprite_holder.pallete_sprite_state[palette_sprite] = color_num
 
-func _on_random_button_up():
+func _on_random_character_button_up():
 	sprite_holder.create_random_character()
 
 func _on_continue_button_up():
 	await store_player_state()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+func _on_random_stats_button_up():
+	available_points_label.text = "Available: 0"
+	generate_random_stats(max)
