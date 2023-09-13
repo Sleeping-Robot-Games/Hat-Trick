@@ -3,6 +3,7 @@ render_mode unshaded;
 
 uniform sampler2D palette_swap;
 uniform sampler2D greyscale_palette;
+uniform vec4 parent_modulation = vec4(1.0, 1.0, 1.0, 1.0);
 
 void fragment()
 {
@@ -15,4 +16,5 @@ void fragment()
 	} else {
 		COLOR = old_color;
 	}
+	COLOR *= parent_modulation;
 }

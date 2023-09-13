@@ -13,11 +13,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
 shader = ExtResource("1_3cgbj")
+shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("3_3x1pf")
 shader_parameter/greyscale_palette = ExtResource("2_a0g4y")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_way3m"]
 shader = ExtResource("1_3cgbj")
+shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("6_0xvtb")
 shader_parameter/greyscale_palette = ExtResource("5_8s56o")
 

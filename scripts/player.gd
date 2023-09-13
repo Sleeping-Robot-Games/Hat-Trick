@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const speed = 3
+const type = 'Player'
 var facing = "left"
 var is_dancing = false
 var is_fighting = false
@@ -23,7 +24,7 @@ var inputs = {
 
 func _ready():
 	# $HatTowerTimerTest.start()
-	position.y = 450
+	# position.y = 435
 	pass
 
 func start_fighting(x, y):

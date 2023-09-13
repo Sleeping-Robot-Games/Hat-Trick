@@ -12,6 +12,7 @@ script = ExtResource("1_13ukk")
 [node name="Level" parent="." instance=ExtResource("1_x2dao")]
 
 [node name="NPCPool" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="NPC" parent="NPCPool" instance=ExtResource("3_2s0g3")]
 position = Vector2(892, 450)
@@ -23,8 +24,7 @@ scale = Vector2(3, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_ivu6y")]
 z_index = 0
-position = Vector2(119, 440)
-scale = Vector2(3, 3)
+position = Vector2(117, 435)
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, 382)
@@ -35,3 +35,9 @@ position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 drag_horizontal_enabled = true
 script = ExtResource("5_m3toh")
+
+[node name="NPCSpawnTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]

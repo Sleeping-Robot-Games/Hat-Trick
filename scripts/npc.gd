@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+var type = "NPC"
 var speed = 100
-var start_pos = Vector2(randi_range(128, 640), 450)
-var end_pos = Vector2(1875, 450)
+var y_pos = 435
+var start_pos = Vector2(195, y_pos)
+var end_pos = Vector2(1875, y_pos)
 var target_pos = start_pos
-var is_moving = true
+var is_entering = false
+var is_moving = false
 var is_dancing = false
 var is_paused = false
 var is_fighting = false
@@ -17,14 +20,36 @@ var last_direction = 1 # 1 for right, -1 for left
 #@onready var text_bubble = $SpeechBubble
 #@onready var text_bubble_label = text_bubble.get_node("MarginContainer/NinePatchRect/CenterContainer/Label")
 
-@export var random = false
+@export var random = true
 
 const idle_text_lines = ["Zzz...", "This place is a dump...", "M'lady!"]
 const dancing_text_lines = ["Let's break it down", "Oh yeah baby!", "ohh ahh"]
 
 func _ready():
-	global_position = start_pos
-	set_new_target()
+	if is_entering:
+		modulate = Color(1, 1, 1, 0)
+		
+		var duration = 4
+		var tween = get_tree().create_tween()
+		
+		tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(self, "scale", Vector2(4, 4), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		tween.parallel().tween_property(self, "position", Vector2(start_pos), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		
+		tween.parallel().tween_callback(set_moving.bind(true)).set_delay(duration)
+		
+		var shader_tween_hack = get_tree().create_tween()
+		shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 1), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+		
+func _update_shader_modulation(current_modulation):
+	for sprite in $SpriteHolder.get_children():
+		if sprite is Sprite2D:
+			var mat = sprite.material
+			if mat:
+				mat.set_shader_parameter("parent_modulation", current_modulation)
+			
+func set_moving(move):
+	is_moving = move
 
 func _physics_process(delta):
 	if is_paused:
@@ -46,6 +71,7 @@ func _physics_process(delta):
 	elif not is_fighting and is_moving:
 		var move_direction = (target_pos - global_position).normalized()
 		var movement = move_direction * speed * delta
+		
 		move_and_collide(movement)
 		
 		is_dancing = false
@@ -72,7 +98,7 @@ func reach_target():
 func play_idle_animation():
 	# Dance 
 	var groove_chance = randf()
-	if groove_chance < 0.5:
+	if groove_chance < 0.01:
 		anim_npc.play("player/dance")
 		is_dancing = true
 	# Face previous direction if idleing

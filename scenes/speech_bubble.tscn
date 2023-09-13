@@ -30,4 +30,4 @@ offset_bottom = 24.0
 [node name="Label" type="Label" parent="MarginContainer/NinePatchRect/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "dfad"
+text = "This is hard..."

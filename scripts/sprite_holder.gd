@@ -24,9 +24,9 @@ var palette_folder_path = "res://assets/palettes/"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parent = get_parent()
-	if 'NPC' in parent.name and parent.random:
+	if 'NPC' == parent.type and parent.random:
 		create_random_character()
-	elif 'Player' == parent.name:
+	elif 'Player' == parent.type:
 		load_character()
 		## TODO: Get the data from load_character to apply stats and starting hat
 
