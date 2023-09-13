@@ -338,10 +338,10 @@ stretch_mode = 0
 
 [node name="Cha" type="Label" parent="."]
 layout_mode = 0
-offset_left = 681.0
-offset_top = 433.0
-offset_right = 765.0
-offset_bottom = 465.0
+offset_left = 837.0
+offset_top = 434.0
+offset_right = 921.0
+offset_bottom = 466.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "CHA"
@@ -375,10 +375,10 @@ stretch_mode = 0
 
 [node name="Wit" type="Label" parent="."]
 layout_mode = 0
-offset_left = 814.0
-offset_top = 432.0
-offset_right = 898.0
-offset_bottom = 464.0
+offset_left = 702.0
+offset_top = 434.0
+offset_right = 786.0
+offset_bottom = 466.0
 theme_override_fonts/font = ExtResource("5_23a7o")
 theme_override_font_sizes/font_size = 28
 text = "WIT"

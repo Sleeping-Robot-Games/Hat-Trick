@@ -14,21 +14,16 @@ var wit = 0
 var max = 5
 var current_total_stats = 0
 var stats = {
-	"stam": 0,
-	"def": 0,
-	"cha": 0,
-	"wit": 0
+	"stam": 2, # 8 (or 10?) is the base for STAM so 2 here would make the overall STAM 10 (or 12?)
+	"def": 1,
+	"cha": 1,
+	"wit": 1
 }
-
-var player_stats = {
-	"HAT": "",
-	"STAM": 0,
-	# etc...
-}
+var starter_hat = ""
 
 func _ready():
-	
 	# Connect buttons
+	
 	# Character Style
 	$Hat/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "hat"))
 	$Hat/Right.button_up.connect(_on_Sprite_Selection_button_up.bind(1, "hat"))
@@ -51,12 +46,15 @@ func _ready():
 	$Wit/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "wit_up"))
 	$Wit/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "wit_down"))
 	
-	# Generate random stats
-	generate_random_stats(max)
+	update_stat_labels()
 	available_points_label.text = "Available: 0"
 	
 	# Generate random character idling
 	sprite_holder.create_random_character()
+	
+	starter_hat = sprite_holder.random_starter_hat
+	$HatDetail/Label.text = starter_hat
+	
 	$AnimationPlayer.play("player/idle_right")
 
 func _process(delta):
@@ -67,6 +65,7 @@ func store_player_state():
 		'sprite_state': sprite_holder.sprite_state,
 		'pallete_sprite_state': sprite_holder.pallete_sprite_state,
 		'player_stats': stats,
+		'starter_hat': starter_hat
 	}
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
 	var json = JSON.new()
@@ -91,6 +90,9 @@ func generate_random_stats(max_value: int) -> void:
 	stats["wit"] = remaining
 
 	# Update labels
+	update_stat_labels()
+
+func update_stat_labels():
 	stam_label.text = str(stats["stam"])
 	def_label.text = str(stats["def"])
 	cha_label.text = str(stats["cha"])
@@ -107,13 +109,13 @@ func _on_Character_Selection_button_up(dir: int, sprite: String):
 	# If decreasing a value
 	if dir == -1:
 		# If we're trying to decrease the stat below -1, or if another stat is already at -1, don't allow
-		if new_value < -1 or (new_value == -1 and count_negative_ones() > 0):
+		if new_value < 0:
 			print("Cannot decrease further!")
 			return
 	# If increasing a value
 	elif dir == 1:
 		# Check if this increase will make the total exceed max
-		if (current_total + dir) > max:
+		if (current_total + dir) > max or new_value > 3:
 			print("Cannot increase further!")
 			return
 
@@ -141,13 +143,6 @@ func update_available_points_label(total_points: int):
 	var available_points = format_available_points % str(total_points)
 	available_points_label.text = available_points
 
-func count_negative_ones() -> int:
-	var count = 0
-	for value in stats.values():
-		if value == -1:
-			count += 1
-	return count
-
 func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 	var folder_path = sprite_holder.sprite_folder_path + sprite
 	var files = g.files_in_dir(folder_path)
@@ -160,6 +155,9 @@ func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 		new_index = len(files) -1
 	var new_sprite_path = folder_path + '/' + files[new_index]
 	sprite_holder.set_sprite_texture(sprite, new_sprite_path)
+	if sprite == 'hat':
+		starter_hat = files[new_index].get_slice('.', 0).capitalize()
+		$HatDetail/Label.text = starter_hat
 
 func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 	var folder_path = sprite_holder.palette_folder_path + palette_sprite
@@ -175,6 +173,8 @@ func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 
 func _on_random_character_button_up():
 	sprite_holder.create_random_character()
+	starter_hat = sprite_holder.random_starter_hat
+	$HatDetail/Label.text = starter_hat
 
 func _on_continue_button_up():
 	await store_player_state()

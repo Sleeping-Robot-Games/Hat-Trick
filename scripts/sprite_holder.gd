@@ -20,6 +20,7 @@ var sprite_state: Dictionary
 var sprite_folder_path = "res://assets/sprites/"
 var palette_folder_path = "res://assets/palettes/"
 
+var random_starter_hat = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,6 +61,8 @@ func random_asset(folder: String, keyword: String = "") -> String:
 		return ""
 	rng.randomize()
 	var random_index = rng.randi_range(0, files.size() - 1)
+	if 'hat' in folder:
+		random_starter_hat = files[random_index].get_slice('.', 0).capitalize()
 	return folder+"/"+files[random_index]
 	
 func set_random_texture(sprite_name: String):
