@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://wtnpobjnudp3"]
+[gd_scene load_steps=31 format=3 uid="uid://wtnpobjnudp3"]
 
 [ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_t5nvq"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_f7lx2"]
@@ -14,12 +14,20 @@
 [ext_resource type="Texture2D" uid="uid://cui27mviwsei0" path="res://assets/ui/rightarrowpressed.png" id="9_ydop7"]
 [ext_resource type="Texture2D" uid="uid://d28l0af4gf8bo" path="res://assets/ui/stamup.png" id="13_ss0la"]
 [ext_resource type="Texture2D" uid="uid://dcowjwslvchpy" path="res://assets/ui/stamdown.png" id="14_a04iy"]
+[ext_resource type="Texture2D" uid="uid://dqhvcqsi0dyib" path="res://assets/ui/stamuppressed.png" id="14_yjjla"]
 [ext_resource type="Texture2D" uid="uid://k4ni5vlaa8kp" path="res://assets/ui/defup.png" id="15_j7jh6"]
+[ext_resource type="Texture2D" uid="uid://dhfqcfi0er66d" path="res://assets/ui/stamdownpressed.png" id="16_1d5y5"]
 [ext_resource type="Texture2D" uid="uid://bnhliddvrheks" path="res://assets/ui/defdown.png" id="16_hwb66"]
 [ext_resource type="Texture2D" uid="uid://dqq7rjtpswsfr" path="res://assets/ui/charup.png" id="17_opva3"]
 [ext_resource type="Texture2D" uid="uid://b5cwqnm2yoiyb" path="res://assets/ui/chardown.png" id="18_0ry56"]
+[ext_resource type="Texture2D" uid="uid://cqjjsnq22ko8i" path="res://assets/ui/defuppressed.png" id="18_1yg2i"]
 [ext_resource type="Texture2D" uid="uid://4yy7dvv0efq3" path="res://assets/ui/witup.png" id="19_rus7q"]
+[ext_resource type="Texture2D" uid="uid://c3w102mak5258" path="res://assets/ui/defdownpressed.png" id="20_3u8iq"]
 [ext_resource type="Texture2D" uid="uid://duoeu7jochfdd" path="res://assets/ui/witdown.png" id="20_klr7j"]
+[ext_resource type="Texture2D" uid="uid://cuugqrjx0vx14" path="res://assets/ui/charuppressed.png" id="22_4fpcm"]
+[ext_resource type="Texture2D" uid="uid://c17ofk7gjqinu" path="res://assets/ui/chardownpressed.png" id="24_76ik1"]
+[ext_resource type="Texture2D" uid="uid://bac7u6vpaqlmj" path="res://assets/ui/wituppressed.png" id="26_7x1ld"]
+[ext_resource type="Texture2D" uid="uid://bt3b3lwb0c2pv" path="res://assets/ui/witdownpressed.png" id="28_0ik0x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nmpfv"]
 texture = ExtResource("2_fhw3x")
@@ -50,12 +58,12 @@ layer_0/z_index = -1
 layer_0/tile_data = PackedInt32Array(0, 2, 0, 65536, 2, 0, 131072, 2, 0, 196608, 2, 0, 262144, 2, 0, 327680, 2, 0, 393216, 2, 1, 458752, 2, 2, 1, 2, 0, 65537, 2, 0, 131073, 2, 0, 196609, 2, 0, 262145, 2, 0, 327681, 2, 0, 393217, 65538, 1, 458753, 65538, 2, 2, 2, 0, 65538, 2, 0, 131074, 2, 0, 196610, 2, 0, 262146, 2, 0, 327682, 2, 0, 393218, 2, 1, 458754, 2, 2, 3, 2, 0, 65539, 2, 0, 131075, 2, 0, 196611, 2, 0, 262147, 2, 0, 327683, 2, 0, 393219, 65538, 1, 458755, 65538, 2, 4, 2, 0, 65540, 2, 0, 131076, 2, 0, 196612, 2, 0, 262148, 2, 0, 327684, 2, 0, 393220, 2, 1, 458756, 2, 2, 5, 2, 0, 65541, 2, 0, 131077, 2, 0, 196613, 2, 0, 262149, 2, 0, 327685, 2, 0, 393221, 65538, 1, 458757, 65538, 2, 6, 2, 0, 65542, 2, 0, 131078, 2, 0, 196614, 2, 0, 262150, 2, 0, 327686, 2, 0, 393222, 2, 1, 458758, 2, 2, 7, 2, 0, 65543, 2, 0, 131079, 2, 0, 196615, 2, 0, 262151, 2, 0, 327687, 2, 0, 393223, 65538, 1, 458759, 65538, 2, 8, 2, 0, 65544, 2, 0, 131080, 2, 0, 196616, 2, 0, 262152, 2, 0, 327688, 2, 0, 393224, 2, 1, 458760, 2, 2, 9, 2, 0, 65545, 2, 0, 131081, 2, 0, 196617, 2, 0, 262153, 2, 0, 327689, 2, 0, 393225, 65538, 1, 458761, 65538, 2, 10, 2, 0, 65546, 2, 0, 131082, 2, 0, 196618, 2, 0, 262154, 2, 0, 327690, 2, 0, 393226, 2, 1, 458762, 2, 2, 11, 2, 0, 65547, 2, 0, 131083, 2, 0, 196619, 2, 0, 262155, 2, 0, 327691, 2, 0, 393227, 65538, 1, 458763, 65538, 2, 12, 2, 0, 65548, 2, 0, 131084, 2, 0, 196620, 2, 0, 262156, 2, 0, 327692, 2, 0, 393228, 2, 1, 458764, 2, 2, 13, 2, 0, 65549, 2, 0, 131085, 2, 0, 196621, 2, 0, 262157, 2, 0, 327693, 2, 0, 393229, 65538, 1, 458765, 65538, 2, 14, 2, 0, 65550, 2, 0, 131086, 2, 0, 196622, 2, 0, 262158, 2, 0, 327694, 2, 0, 393230, 2, 1, 458766, 2, 2, -65536, 2, 0, -65535, 2, 0, -65534, 2, 0, -65533, 2, 0, -65532, 2, 0, -65531, 2, 0, -65530, 2, 0, -65529, 2, 0, -65528, 2, 0, -65527, 2, 0, -65526, 2, 0, -65525, 2, 0, -65524, 2, 0, -65523, 2, 0, -65522, 2, 0)
 
 [node name="Mirror" type="Sprite2D" parent="."]
-position = Vector2(320, 112)
+position = Vector2(320, 127)
 scale = Vector2(10, 10)
 texture = ExtResource("3_ycx6l")
 
 [node name="SpriteHolder" parent="." instance=ExtResource("2_f7lx2")]
-position = Vector2(305, 112)
+position = Vector2(305, 127)
 scale = Vector2(10, 10)
 
 [node name="Hat" type="Label" parent="."]
@@ -277,6 +285,7 @@ offset_top = -34.0
 offset_right = 140.0
 offset_bottom = 6.0
 texture_normal = ExtResource("13_ss0la")
+texture_pressed = ExtResource("14_yjjla")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Stam"]
@@ -295,6 +304,7 @@ offset_top = 21.0
 offset_right = 140.0
 offset_bottom = 61.0
 texture_normal = ExtResource("14_a04iy")
+texture_pressed = ExtResource("16_1d5y5")
 stretch_mode = 0
 
 [node name="Def" type="Label" parent="."]
@@ -316,6 +326,7 @@ offset_top = -34.0
 offset_right = 109.0
 offset_bottom = 6.0
 texture_normal = ExtResource("15_j7jh6")
+texture_pressed = ExtResource("18_1yg2i")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Def"]
@@ -334,6 +345,7 @@ offset_top = 23.0
 offset_right = 109.0
 offset_bottom = 63.0
 texture_normal = ExtResource("16_hwb66")
+texture_pressed = ExtResource("20_3u8iq")
 stretch_mode = 0
 
 [node name="Cha" type="Label" parent="."]
@@ -353,6 +365,7 @@ offset_top = -34.0
 offset_right = 111.0
 offset_bottom = 6.0
 texture_normal = ExtResource("17_opva3")
+texture_pressed = ExtResource("22_4fpcm")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Cha"]
@@ -371,6 +384,7 @@ offset_top = 23.0
 offset_right = 111.0
 offset_bottom = 63.0
 texture_normal = ExtResource("18_0ry56")
+texture_pressed = ExtResource("24_76ik1")
 stretch_mode = 0
 
 [node name="Wit" type="Label" parent="."]
@@ -390,6 +404,7 @@ offset_top = -33.0
 offset_right = 106.0
 offset_bottom = 7.0
 texture_normal = ExtResource("19_rus7q")
+texture_pressed = ExtResource("26_7x1ld")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Wit"]
@@ -409,6 +424,7 @@ offset_top = 24.0
 offset_right = 106.0
 offset_bottom = 64.0
 texture_normal = ExtResource("20_klr7j")
+texture_pressed = ExtResource("28_0ik0x")
 stretch_mode = 0
 
 [node name="HatDetail" type="Label" parent="."]
