@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=19 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
+[ext_resource type="Script" path="res://scripts/battle.gd" id="2_ly450"]
 [ext_resource type="Texture2D" uid="uid://caoxj7jlrfgwk" path="res://assets/ui/defbubble.png" id="3_saua8"]
 [ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="4_7f5ua"]
 [ext_resource type="Texture2D" uid="uid://18brqxysgmsj" path="res://assets/ui/charbubble.png" id="5_wpifh"]
@@ -43,6 +44,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_0aivd"]
+resource_name = "opp_shoot"
+
 [sub_resource type="Animation" id="Animation_6jqvc"]
 resource_name = "start"
 length = 3.0
@@ -71,9 +75,6 @@ tracks/1/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_0aivd"]
-resource_name = "opp_shoot"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_so5vo"]
 _data = {
 "opp_shoot": SubResource("Animation_0aivd"),
@@ -95,6 +96,9 @@ offset_bottom = 272.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xmyp1")
+
+[node name="Battle" type="Node" parent="."]
+script = ExtResource("2_ly450")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
