@@ -94,20 +94,21 @@ color = Color(0.14902, 0.0705882, 0.027451, 0.501961)
 
 [node name="Hat" type="Label" parent="."]
 layout_mode = 0
-offset_left = 663.0
+offset_left = 580.0
 offset_top = 31.0
-offset_right = 729.0
+offset_right = 804.0
 offset_bottom = 70.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 28
 text = "Hat"
+horizontal_alignment = 1
 
 [node name="Left" type="TextureButton" parent="Hat"]
 layout_mode = 0
-offset_left = -136.0
-offset_top = -4.0
-offset_right = -98.0
-offset_bottom = 27.0
+offset_left = -53.0
+offset_top = -7.0
+offset_right = -15.0
+offset_bottom = 24.0
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("6_1g7lo")
 texture_pressed = ExtResource("7_vmcs7")
@@ -115,10 +116,10 @@ stretch_mode = 0
 
 [node name="Right" type="TextureButton" parent="Hat"]
 layout_mode = 0
-offset_left = 136.0
-offset_top = -5.0
-offset_right = 174.0
-offset_bottom = 26.0
+offset_left = 220.0
+offset_top = -7.0
+offset_right = 258.0
+offset_bottom = 24.0
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("7_cvof0")
 texture_pressed = ExtResource("9_ydop7")
@@ -311,10 +312,10 @@ libraries = {
 
 [node name="RandomStats" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 396.0
-offset_top = 438.0
-offset_right = 412.0
-offset_bottom = 454.0
+offset_left = 416.0
+offset_top = 439.0
+offset_right = 432.0
+offset_bottom = 455.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("6_mady8")
 texture_pressed = ExtResource("7_4a1hx")
@@ -322,10 +323,10 @@ stretch_mode = 0
 
 [node name="AvailablePoints" type="Label" parent="."]
 layout_mode = 0
-offset_left = 285.0
-offset_top = 443.0
-offset_right = 391.0
-offset_bottom = 471.0
+offset_left = 316.0
+offset_top = 444.0
+offset_right = 422.0
+offset_bottom = 472.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 12
 text = "Available: 0"
@@ -334,10 +335,10 @@ vertical_alignment = 1
 
 [node name="Stam" type="Label" parent="."]
 layout_mode = 0
-offset_left = 439.0
-offset_top = 436.0
-offset_right = 536.0
-offset_bottom = 475.0
+offset_left = 454.0
+offset_top = 435.0
+offset_right = 551.0
+offset_bottom = 474.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 28
 text = "STAM:"
@@ -378,10 +379,10 @@ stretch_mode = 0
 
 [node name="Def" type="Label" parent="."]
 layout_mode = 0
-offset_left = 585.0
-offset_top = 436.0
-offset_right = 669.0
-offset_bottom = 475.0
+offset_left = 600.0
+offset_top = 435.0
+offset_right = 684.0
+offset_bottom = 474.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 28
 text = "DEF:"
@@ -464,10 +465,10 @@ stretch_mode = 0
 
 [node name="Wit" type="Label" parent="."]
 layout_mode = 0
-offset_left = 711.0
-offset_top = 438.0
-offset_right = 795.0
-offset_bottom = 477.0
+offset_left = 726.0
+offset_top = 437.0
+offset_right = 810.0
+offset_bottom = 476.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 28
 text = "WIT:"
@@ -506,33 +507,63 @@ stretch_mode = 0
 
 [node name="HatDetail" type="Label" parent="."]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 437.0
-offset_right = 105.0
-offset_bottom = 476.0
+offset_left = 18.0
+offset_top = 444.0
+offset_right = 101.0
+offset_bottom = 483.0
 theme_override_fonts/font = ExtResource("5_0so8r")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 19
 text = "HAT:"
 
 [node name="Label" type="Label" parent="HatDetail"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 2.0
-offset_right = 205.0
-offset_bottom = 41.0
+offset_left = 54.0
+offset_top = 3.0
+offset_right = 298.0
+offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("5_0so8r")
-theme_override_font_sizes/font_size = 26
-text = "Cowboy"
+theme_override_font_sizes/font_size = 14
+text = "Raises CHA and DEF"
 autowrap_mode = 2
 
 [node name="Continue" type="Button" parent="."]
 layout_mode = 0
-offset_left = 843.0
+offset_left = 849.0
 offset_top = 335.0
 offset_right = 946.0
 offset_bottom = 379.0
 theme_override_fonts/font = ExtResource("5_0so8r")
 text = "Continue"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 345.0
+offset_right = 608.0
+offset_bottom = 375.0
+theme_override_fonts/font = ExtResource("5_0so8r")
+theme_override_font_sizes/font_size = 21
+text = "Name:"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 622.0
+offset_top = 334.0
+offset_right = 838.0
+offset_bottom = 381.0
+theme_override_fonts/font = ExtResource("5_0so8r")
+theme_override_font_sizes/font_size = 21
+
+[node name="Error" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 616.0
+offset_top = 382.0
+offset_right = 851.0
+offset_bottom = 408.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_0so8r")
+text = "Enter Name to Continue"
 
 [connection signal="button_up" from="RandomCharacter" to="." method="_on_random_character_button_up"]
 [connection signal="button_up" from="RandomStats" to="." method="_on_random_stats_button_up"]

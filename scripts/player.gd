@@ -10,6 +10,7 @@ var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var hat_array = []
 var stats
+var player_name
 
 @onready var anim_player = $AnimationPlayer
 @onready var game = get_parent()

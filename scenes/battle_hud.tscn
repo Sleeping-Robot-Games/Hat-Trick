@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=18 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
@@ -7,6 +7,78 @@
 [ext_resource type="Texture2D" uid="uid://18brqxysgmsj" path="res://assets/ui/charbubble.png" id="5_wpifh"]
 [ext_resource type="Texture2D" uid="uid://5ga8gkkpm4aq" path="res://assets/ui/witbubble.png" id="6_117ng"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="7_g2x0w"]
+[ext_resource type="Texture2D" uid="uid://b5ym3jj3s5dut" path="res://assets/ui/healthbar.png" id="8_0bxmv"]
+[ext_resource type="Texture2D" uid="uid://dk73ou6hfx875" path="res://assets/ui/healthbarfill.png" id="9_c36qa"]
+[ext_resource type="Texture2D" uid="uid://c27vafgsd3l10" path="res://assets/ui/projectilebubble-f1.png" id="10_wttcd"]
+[ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
+[ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
+[ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a62df"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_wttcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_kvcfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6xy54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_kccq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_kccq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6xy54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_kvcfg")
+}],
+"loop": true,
+"name": &"fill",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_6jqvc"]
+resource_name = "start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(315, -65), Vector2(315, 150), Vector2(315, 150), Vector2(315, -65)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0aivd"]
+resource_name = "opp_shoot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_so5vo"]
+_data = {
+"opp_shoot": SubResource("Animation_0aivd"),
+"start": SubResource("Animation_6jqvc")
+}
 
 [node name="BattleHUD" type="Control"]
 visible = false
@@ -30,61 +102,154 @@ offset_right = 960.0
 offset_bottom = 540.0
 color = Color(0, 0, 0, 0.219608)
 
-[node name="PlayerHatStack" type="VBoxContainer" parent="."]
+[node name="PlayerHatStack" type="Control" parent="."]
 clip_contents = true
-layout_mode = 0
+anchors_preset = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 80.0
 offset_bottom = 416.0
-alignment = 2
 
 [node name="HatStackItem5" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 64.0
+offset_bottom = 63.0
 
 [node name="HatStackItem4" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 67.0
+offset_right = 64.0
+offset_bottom = 130.0
 
 [node name="HatStackItem3" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 134.0
+offset_right = 64.0
+offset_bottom = 197.0
 
 [node name="HatStackItem2" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 201.0
+offset_right = 64.0
+offset_bottom = 265.0
 
 [node name="HatStackItem1" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 269.0
+offset_right = 64.0
+offset_bottom = 332.0
 
 [node name="HatStackItem0" parent="PlayerHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 400.0
 active = true
 
-[node name="OpponentHatStack" type="VBoxContainer" parent="."]
+[node name="OpponentHatStack" type="Control" parent="."]
 clip_contents = true
-layout_mode = 0
+anchors_preset = 0
 offset_left = 880.0
 offset_top = 16.0
 offset_right = 944.0
 offset_bottom = 416.0
-alignment = 2
 
 [node name="HatStackItem5" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 64.0
+offset_bottom = 63.0
 
 [node name="HatStackItem4" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 67.0
+offset_right = 64.0
+offset_bottom = 130.0
 
 [node name="HatStackItem3" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 134.0
+offset_right = 64.0
+offset_bottom = 197.0
 
 [node name="HatStackItem2" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 201.0
+offset_right = 64.0
+offset_bottom = 265.0
 
 [node name="HatStackItem1" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 269.0
+offset_right = 64.0
+offset_bottom = 332.0
 
 [node name="HatStackItem0" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 400.0
 active = true
+
+[node name="HealthBarPlayer" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 305.0
+offset_right = 188.0
+offset_bottom = 316.0
+max_value = 10.0
+value = 10.0
+nine_patch_stretch = true
+texture_progress = ExtResource("9_c36qa")
+
+[node name="HealthBorderPlayer" type="NinePatchRect" parent="HealthBarPlayer"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 95.0
+offset_bottom = 12.0
+texture = ExtResource("8_0bxmv")
+draw_center = false
+region_rect = Rect2(14, 12.6744, 20.2949, 5.40522)
+patch_margin_left = 9
+patch_margin_top = 4
+patch_margin_right = 9
+patch_margin_bottom = 3
 
 [node name="Def" type="TextureRect" parent="."]
 layout_mode = 0
@@ -173,6 +338,31 @@ theme_override_font_sizes/font_size = 11
 text = "3
 "
 
+[node name="HealthBarOpponenet" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 770.0
+offset_top = 307.0
+offset_right = 864.0
+offset_bottom = 318.0
+max_value = 10.0
+value = 10.0
+nine_patch_stretch = true
+texture_progress = ExtResource("9_c36qa")
+
+[node name="HealthBorderOpponent" type="NinePatchRect" parent="HealthBarOpponenet"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 95.0
+offset_bottom = 12.0
+texture = ExtResource("8_0bxmv")
+draw_center = false
+region_rect = Rect2(14, 12.6744, 20.2949, 5.40522)
+patch_margin_left = 9
+patch_margin_top = 4
+patch_margin_right = 9
+patch_margin_bottom = 3
+
 [node name="OptionContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 348.0
@@ -196,7 +386,7 @@ flat = true
 
 [node name="Option3" type="Button" parent="OptionContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.462745, 0.462745, 1)
+theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
 text = "[HAT] This is a test option"
 flat = true
@@ -213,11 +403,13 @@ alignment = 1
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_7f5ua")
+bbcode_enabled = true
 fit_content = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="DialogContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_7f5ua")
+bbcode_enabled = true
 fit_content = true
 
 [node name="SpriteHolder" parent="." instance=ExtResource("7_g2x0w")]
@@ -229,5 +421,34 @@ scale = Vector2(3, 3)
 visible = false
 position = Vector2(844, 135)
 scale = Vector2(3, 3)
+
+[node name="OpponentDialogBubble" type="AnimatedSprite2D" parent="."]
+position = Vector2(800, 435)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_a62df")
+animation = &"fill"
+
+[node name="PlayerDialogBubble" type="AnimatedSprite2D" parent="."]
+position = Vector2(175, 435)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_a62df")
+animation = &"fill"
+flip_h = true
+
+[node name="HatDispute" type="Label" parent="."]
+layout_mode = 0
+offset_left = 315.0
+offset_top = -65.0
+offset_right = 677.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 48
+text = "Hat Dispute!"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../HatDispute")
+libraries = {
+"": SubResource("AnimationLibrary_so5vo")
+}
 
 [connection signal="button_up" from="OptionContainer/Option2" to="." method="_on_option_2_button_up"]

@@ -31,6 +31,28 @@ const hat_index = {
 	"party": 8
 }
 
+var names_by_hat = {
+	"wizard": ["Merlin", "Gandalf", "Elodin", "Radagast", "Morgana"],
+	"witch": ["Sabrina", "Morgana", "Hecate", "Elphaba", "Glinda"],
+	"snapback": ["Jayden", "Kai", "Logan", "Brooklyn", "Maddox"],
+	"shroom": ["Fungo", "Moss", "Lichen", "Sporus", "Mycelium"],
+	"nurse": ["Florence", "Clara", "Nightingale", "Agnes", "Edith"],
+	"hardhat": ["Bob", "Mason", "Bill", "Jack", "Ella"],
+	"fedora": ["Frank", "Dean", "Sammy", "Vincent", "Leonard"],
+	"crown": ["Arthur", "Elizabeth", "Victoria", "Henry", "Diana"],
+	"cowboy": ["Wyatt", "Cody", "Jesse", "Daisy", "Billy"],
+	"baseball": ["Derek", "Babe", "Jackie", "Lou", "Mickey"],
+	"cloche": ["Josephine", "Flora", "Daisy", "Evelyn", "Harriet"],
+	"floppy": ["Summer", "Lily", "Rose", "Bree", "Sunny"],
+	"pirate": ["Blackbeard", "Jack", "Morgan", "Grace", "Anne"],
+	"straw": ["Dorothy", "Penny", "Juliet", "Harvey", "Lucas"],
+	"beanie": ["Skyler", "Winter", "Hazel", "Jasper", "Milo"],
+	"fairy": ["Link", "Titania", "Oberon", "Navi", "Luna"],
+	"monster": ["Sully", "Mike", "Frank", "Morty", "Drac"],
+	"sport": ["Jordan", "Serena", "Tiger", "Ronaldo", "Simone"]
+}
+
+
 func folders_in_dir(path: String) -> Array:
 	var folders = []
 	var dir = DirAccess.open(path)

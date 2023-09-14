@@ -20,8 +20,22 @@ var opponent = null
 	},
 }
 
+func _ready():
+	pass
+#	$OptionContainer.hide()
+#	$HealthBarPlayer.hide()
+#	$HealthBarOpponenet.hide()
+#	$Def.hide()
+#	$Cha.hide()
+#	$Wit.hide()
+#	for hat in $PlayerHatStack.get_children():
+#		hat.hide()
+#	for hat in $OpponentHatStack.get_children():
+#		hat.hide()
+
 func start_battle(pl, op):
 	visible = true
+	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
 	var player_hcount = player.hat_array.size()
@@ -37,7 +51,28 @@ func start_battle(pl, op):
 		else:
 			hat_nodes['opponent'][i].no_hat()
 	
-	await get_tree().create_timer(1).timeout
+	## ANIMATIONS: 
+#	await get_tree().create_timer(.5).timeout
+#	$HealthBarPlayer.show()
+#	$HealthBarOpponenet.show()
+#	await get_tree().create_timer(.1).timeout
+#	$Def.show()
+#	await get_tree().create_timer(.1).timeout
+#	$Cha.show()
+#	await get_tree().create_timer(.1).timeout
+#	$Wit.show()
+#	await get_tree().create_timer(.1).timeout
+#	for hat in $PlayerHatStack.get_children():
+#		if hat.has_hat:
+#			hat.show()
+#			await get_tree().create_timer(.1).timeout
+#	for hat in $OpponentHatStack.get_children():
+#		if hat.has_hat:
+#			hat.show()
+#			await get_tree().create_timer(.1).timeout
+#	$OptionContainer.show()
+
+	await get_tree().create_timer(3).timeout
 	for option in $OptionContainer.get_children():
 		option.grab_focus()
 		await get_tree().create_timer(.5).timeout
@@ -46,9 +81,12 @@ func start_battle(pl, op):
 
 ## TESTING ONLY
 func _on_option_2_button_up():
-	# clear prev dialogs
-	for dialog in $DialogContainer.get_children():
-		dialog.text = ""
+	$OptionContainer.hide()
+	
+	$PlayerDialogBubble.show()
+	$PlayerDialogBubble.play("fill")
+	$OpponentDialogBubble.show()
+	$OpponentDialogBubble.play("fill")
 	
 	var insult_1 = "You must have been born on a highway, because that's where most accidents happen."
 	var insult_2 = "Keep talking, maybe one day you'll say something intelligent."
@@ -58,6 +96,7 @@ func _on_option_2_button_up():
 		'sprite_state': player.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': player.get_node("SpriteHolder").pallete_sprite_state
 	})
+	$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=7fa6be]: WIT[/color] " % player.player_name
 	for i in insult_1:
 		$DialogContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
@@ -69,8 +108,17 @@ func _on_option_2_button_up():
 		'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 	})
+	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: WIT[/color] " % opponent.npc_name
 	for i in insult_2:
 		$DialogContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout
 	await get_tree().create_timer(1).timeout
 	$SpriteHolder2.hide()
+	
+	await get_tree().create_timer(1).timeout
+	
+	# if opponent played wit
+	# $AnimationPlayer.play('opp_shoot')
+	# if player played wit
+	# $AnimationPlayer.play('player_shoot')
+

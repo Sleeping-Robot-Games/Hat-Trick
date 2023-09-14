@@ -48,14 +48,15 @@ func _ready():
 	$Wit/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "wit_up"))
 	$Wit/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "wit_down"))
 	
+	print(starter_hat)
 	update_stat_labels()
 	available_points_label.text = "Available: 0"
 	
 	# Generate random character idling
 	sprite_holder.create_random_character()
-	
 	starter_hat = sprite_holder.random_starter_hat
-	$HatDetail/Label.text = starter_hat
+	
+	$Hat.text = starter_hat
 	
 	$AnimationPlayer.play("player/idle_right")
 
@@ -67,7 +68,8 @@ func store_player_state():
 		'sprite_state': sprite_holder.sprite_state,
 		'pallete_sprite_state': sprite_holder.pallete_sprite_state,
 		'player_stats': stats,
-		'starter_hat': starter_hat
+		'starter_hat': starter_hat,
+		'name': $TextEdit.text
 	}
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
 	var json = JSON.new()
@@ -159,7 +161,7 @@ func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 	sprite_holder.set_sprite_texture(sprite, new_sprite_path)
 	if sprite == 'hat':
 		starter_hat = files[new_index].get_slice('.', 0).capitalize()
-		$HatDetail/Label.text = starter_hat
+		$Hat.text = starter_hat
 
 func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 	var folder_path = sprite_holder.palette_folder_path + palette_sprite
@@ -176,9 +178,13 @@ func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 func _on_random_character_button_up():
 	sprite_holder.create_random_character()
 	starter_hat = sprite_holder.random_starter_hat
-	$HatDetail/Label.text = starter_hat
+	$Hat.text = starter_hat
 
 func _on_continue_button_up():
+	$Error.hide()
+	if $TextEdit.text == "":
+		$Error.show()
+		return
 	await store_player_state()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 

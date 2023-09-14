@@ -16,6 +16,7 @@ var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
 var hat_array
 var stats
+var npc_name
 
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer

@@ -32,12 +32,14 @@ func _ready():
 		if 'NPC' == parent.type and parent.random:
 			create_random_character()
 			parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
+			parent.npc_name = g.names_by_hat[random_starter_hat.to_lower()].pick_random()
 		elif 'Player' == parent.type:
 			var character_data = load_character()
 			sprite_state = character_data.sprite_state
 			pallete_sprite_state = character_data.pallete_sprite_state
 			parent.add_hat(character_data.starter_hat.to_lower())
 			parent.apply_stats(character_data.player_stats)
+			parent.player_name = character_data.name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

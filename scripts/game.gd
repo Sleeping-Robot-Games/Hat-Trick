@@ -13,6 +13,7 @@ var battle_pos_y = g.current_level_y_pos
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	npc_enters()
+	#$NPCSpawnTimer.start()
 
 func npc_enters():
 	var new_npc = npc_scene.instantiate()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt6v7wgiewnn2"]
+[gd_scene load_steps=7 format=3 uid="uid://dt6v7wgiewnn2"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_13ukk"]
 [ext_resource type="PackedScene" uid="uid://dn0jnues5o1h2" path="res://scenes/level_one.tscn" id="1_x2dao"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_ivu6y"]
+[ext_resource type="PackedScene" uid="uid://bdrfler07o685" path="res://scenes/npc.tscn" id="3_2uk3j"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="5_m3toh"]
 [ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="5_nqbwm"]
 
@@ -14,12 +15,16 @@ script = ExtResource("1_13ukk")
 [node name="NPCPool" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="NPC" parent="NPCPool" instance=ExtResource("3_2uk3j")]
+position = Vector2(281, 429)
+scale = Vector2(4, 4)
+
 [node name="Player" parent="." instance=ExtResource("2_ivu6y")]
 z_index = 0
 position = Vector2(117, 435)
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(0, 382)
+position = Vector2(0, 367)
 offset = Vector2(0, -112)
 limit_left = 0
 limit_right = 1920
@@ -30,7 +35,6 @@ script = ExtResource("5_m3toh")
 
 [node name="NPCSpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
-autostart = true
 
 [node name="Button" type="Button" parent="."]
 offset_left = 548.0
