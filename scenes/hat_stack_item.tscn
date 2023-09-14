@@ -32,10 +32,18 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 
+[node name="ColorRect" type="ColorRect" parent="Border"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 62.0
+offset_bottom = 62.0
+color = Color(1, 1, 1, 0.27451)
+
 [node name="Hat" type="TextureRect" parent="Border"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 1.0
 offset_right = 65.0
-offset_bottom = 65.0
+offset_bottom = 64.0
 texture = SubResource("AtlasTexture_jq1r1")
+stretch_mode = 1

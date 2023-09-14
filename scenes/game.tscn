@@ -32,6 +32,14 @@ script = ExtResource("5_m3toh")
 wait_time = 10.0
 autostart = true
 
+[node name="Button" type="Button" parent="."]
+offset_left = 548.0
+offset_top = 68.0
+offset_right = 610.0
+offset_bottom = 106.0
+text = "Hat plz"
+
 [node name="BattleHUD" parent="." instance=ExtResource("5_nqbwm")]
 
 [connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]
+[connection signal="button_up" from="Button" to="Player" method="_on_button_button_up"]

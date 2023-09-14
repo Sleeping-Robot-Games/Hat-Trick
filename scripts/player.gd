@@ -28,7 +28,7 @@ var inputs = {
 }
 
 func _ready():
-	# $HatTowerTimerTest.start()
+	#$HatTowerTimerTest.start()
 	# position.y = 435
 	pass
 
@@ -126,3 +126,6 @@ func _on_timer_timeout():
 	
 	if hat_iteration == all_hats.size():
 		$HatTowerTimerTest.stop()
+
+func _on_button_button_up():
+	add_hat(all_hats.pick_random())

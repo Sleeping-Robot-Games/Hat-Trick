@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=8 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
+[ext_resource type="Texture2D" uid="uid://caoxj7jlrfgwk" path="res://assets/ui/defbubble.png" id="3_saua8"]
+[ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="4_7f5ua"]
+[ext_resource type="Texture2D" uid="uid://18brqxysgmsj" path="res://assets/ui/charbubble.png" id="5_wpifh"]
+[ext_resource type="Texture2D" uid="uid://5ga8gkkpm4aq" path="res://assets/ui/witbubble.png" id="6_117ng"]
+[ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="7_g2x0w"]
 
 [node name="BattleHUD" type="Control"]
 visible = false
@@ -80,3 +85,149 @@ layout_mode = 2
 [node name="HatStackItem0" parent="OpponentHatStack" instance=ExtResource("1_lwhad")]
 layout_mode = 2
 active = true
+
+[node name="Def" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 314.0
+offset_right = 165.0
+offset_bottom = 354.0
+texture = ExtResource("3_saua8")
+
+[node name="Label" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 13.0
+offset_right = 5.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "DEF:"
+
+[node name="Value" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 13.0
+offset_right = 29.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="Cha" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 337.0
+offset_right = 165.0
+offset_bottom = 377.0
+texture = ExtResource("5_wpifh")
+
+[node name="Label" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = -25.0
+offset_top = 13.0
+offset_right = 4.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "CHA:"
+
+[node name="Value" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 13.0
+offset_right = 28.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="Wit" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 360.0
+offset_right = 165.0
+offset_bottom = 401.0
+texture = ExtResource("6_117ng")
+
+[node name="Label" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = -25.0
+offset_top = 13.0
+offset_right = 4.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "WIT:"
+
+[node name="Value" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 13.0
+offset_right = 28.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="OptionContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 339.0
+offset_right = 632.0
+offset_bottom = 407.0
+
+[node name="Option1" type="Button" parent="OptionContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+text = "[CHA] This is a test option"
+flat = true
+
+[node name="Option2" type="Button" parent="OptionContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.498039, 0.65098, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+text = "[WIT] This is a test option"
+flat = true
+
+[node name="Option3" type="Button" parent="OptionContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.462745, 0.462745, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+text = "[HAT] This is a test option"
+flat = true
+
+[node name="DialogContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 37.0
+offset_right = 816.0
+offset_bottom = 292.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_7f5ua")
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="DialogContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_7f5ua")
+fit_content = true
+
+[node name="SpriteHolder" parent="." instance=ExtResource("7_g2x0w")]
+visible = false
+position = Vector2(132, 136)
+scale = Vector2(3, 3)
+
+[node name="SpriteHolder2" parent="." instance=ExtResource("7_g2x0w")]
+visible = false
+position = Vector2(844, 135)
+scale = Vector2(3, 3)
+
+[connection signal="button_up" from="OptionContainer/Option2" to="." method="_on_option_2_button_up"]

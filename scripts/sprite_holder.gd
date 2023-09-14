@@ -15,8 +15,8 @@ var rng = RandomNumberGenerator.new()
 	'outfitcolor': character_sprite['outfit'],
 }
 
-var pallete_sprite_state: Dictionary
 var sprite_state: Dictionary
+var pallete_sprite_state: Dictionary
 
 var sprite_folder_path = "res://assets/sprites/"
 var palette_folder_path = "res://assets/palettes/"
@@ -34,6 +34,8 @@ func _ready():
 			parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
 		elif 'Player' == parent.type:
 			var character_data = load_character()
+			sprite_state = character_data.sprite_state
+			pallete_sprite_state = character_data.pallete_sprite_state
 			parent.add_hat(character_data.starter_hat.to_lower())
 			parent.apply_stats(character_data.player_stats)
 
@@ -58,16 +60,19 @@ func load_character():
 		json.parse(f.get_as_text())
 		f.close()
 		var data = json.get_data()
-		for part in get_children():
-			if part is Sprite2D:
-				if not part.name == 'body':
-					part.texture = load(data.sprite_state[part.name])
-				if part.name == 'body' or part.name == 'hair':
-					var sprite_name = 'haircolor' if part.name == 'hair' else part.name
-					part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
-					part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
-					g.make_shaders_unique(part)
+		set_sprites(data)
 		return data
+
+func set_sprites(data):
+	for part in get_children():
+		if part is Sprite2D:
+			if not part.name == 'body':
+				part.texture = load(data.sprite_state[part.name])
+			if part.name == 'body' or part.name == 'hair':
+				var sprite_name = 'haircolor' if part.name == 'hair' else part.name
+				part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
+				part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
+				g.make_shaders_unique(part)
 	
 func random_asset(folder: String, keyword: String = "") -> String:
 	var files: Array
@@ -120,3 +125,7 @@ func set_sprite_color(folder, sprite: Sprite2D, color_num: String):
 	g.make_shaders_unique(sprite)
 	sprite.material.set_shader_parameter("palette_swap", load(palette_path))
 	sprite.material.set_shader_parameter("greyscale_palette", load(gray_palette_path))
+
+func flip_h():
+	for sprite in get_children():
+		sprite.flip_h = true

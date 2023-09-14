@@ -31,10 +31,10 @@ func hat_fight(player, opponent):
 	player.start_fighting(player_pos.x)
 	opponent.start_fighting(opponent_pos.x)
 	# TODO: trigger below once both player and opponent in battle pos?
+	$NPCSpawnTimer.stop()
 	for npc in npc_pool.get_children():
 		if npc != opponent:
 			npc.fade_out()
-	$NPCSpawnTimer.stop()
 	# TODO: zoom in - I tried doing a zoom with a tween on the player script and the drag/level bounds is making it a PAIN, lets shelf it for now -bronsky
 	$BattleHUD.start_battle(player, opponent)
 
