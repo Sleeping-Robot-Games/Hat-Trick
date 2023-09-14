@@ -22,6 +22,8 @@ var sprite_folder_path = "res://assets/sprites/"
 var palette_folder_path = "res://assets/palettes/"
 
 var random_starter_hat = ""
+var starter_hat
+var player_stats: Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,14 +31,25 @@ func _ready():
 	if parent is CharacterBody2D:
 		if 'NPC' == parent.type and parent.random:
 			create_random_character()
-			parent.add_hat(random_starter_hat.to_lower())
+			parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
 		elif 'Player' == parent.type:
-			load_character()
-			## TODO: Get the data from load_character to apply stats and starting hat
+			var character_data = load_character()
+			parent.add_hat(character_data.starter_hat.to_lower())
+			parent.apply_stats(character_data.player_stats)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func generate_random_stats(max):
+	# Randomly distribute values among the first three stats and assign the rest to the last stat
+	player_stats["stam"] = randi() % (max - 2) + 1
+	max -= player_stats["stam"]
+	player_stats["def"] = randi() % (max - 1) + 1
+	max -= player_stats["def"]
+	player_stats["cha"] = randi() % max + 1
+	max -= player_stats["cha"]
+	player_stats["wit"] = max
 	
 func load_character():
 	var f = FileAccess.open("user://player_state.save", FileAccess.READ)
@@ -54,6 +67,7 @@ func load_character():
 					part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
 					part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
 					g.make_shaders_unique(part)
+		return data
 	
 func random_asset(folder: String, keyword: String = "") -> String:
 	var files: Array

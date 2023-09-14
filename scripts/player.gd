@@ -2,18 +2,24 @@ extends CharacterBody2D
 
 const speed = 3
 const type = 'Player'
+
 var facing = "left"
 var is_dancing = false
 var is_fighting = false
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
+var hat_array = []
+var stats
+
 @onready var anim_player = $AnimationPlayer
 @onready var game = get_parent()
 
 var directions = {
-	"right": Vector2(1, 0),
-	"left": Vector2(-1, 0)
+	"right": 1,
+	"left": -1
 }
+var direction = 0
+
 	
 var inputs = {
 	"right": ["ui_right", KEY_D],
@@ -35,20 +41,54 @@ func start_fighting(x):
 	tween.tween_property(self, "position", battle_pos, 1)
 	
 	anim_player.play("player/idle_right")
+
+func add_hat(hat_name):
+	hat_array.append(hat_name)
+	if hat_array.size() == 1:
+		return # this is the first hat from the character creation
+	var active_hat = hat_array[0]
+	var new_hat = Sprite2D.new()
+	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_name))
+	new_hat.hframes = 8
+	new_hat.vframes = 3
+	new_hat.frame = 0
 	
+	var cumulative_y_decrement = 0
+	for i in range(hat_array.size()-1):
+		cumulative_y_decrement += g.hat_index[hat_array[i]] / 1.5
+	new_hat.position.y = new_hat.position.y - cumulative_y_decrement
+	
+	$HatHolder.add_child(new_hat)
+
+func apply_stats(_stats):
+	stats = _stats
 
 func _physics_process(delta):
 	if not is_fighting:
 		move_and_collide(velocity * delta)
 		handle_input()
-
+		
+	var hat_shift = 0.0
+	for hat in $HatHolder.get_children():
+		hat.flip_h = (facing == "right")
+		hat_shift += 1.0
+		var target_x = -direction * hat_shift
+		hat.position.x = lerp(hat.position.x, target_x, 0.05)
+		
+		
 func handle_input():
 	var movement_direction = Vector2.ZERO
+	var is_moving = false
+
+	for dir_key in directions.keys():
+		if Input.is_action_pressed(inputs[dir_key][0]) or Input.is_key_pressed(inputs[dir_key][1]):
+			direction = directions[dir_key]
+			movement_direction += Vector2(direction, 0)
+			facing = determine_animation_suffix(Vector2(direction, 0))
+			is_moving = true
 	
-	for direction in directions.keys():
-		if Input.is_action_pressed(inputs[direction][0]) or Input.is_key_pressed(inputs[direction][1]):
-			movement_direction += directions[direction]
-			facing = determine_animation_suffix(directions[direction])
+	if not is_moving:
+		direction = 0
 			
 	if movement_direction.length() > 0:
 		is_dancing = false
@@ -76,26 +116,13 @@ func determine_animation_suffix(direction: Vector2) -> String:
 
 ## TESTING HAT TOWER STACK
 var active_hat = 'snapback'
-var hat_array = g.hat_index.keys()
+var all_hats = g.hat_index.keys()
 var hat_iteration = 0
 
 func _on_timer_timeout():
-	var new_hat = Sprite2D.new()
-	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_array[hat_iteration]))
-	new_hat.hframes = 8
-	new_hat.vframes = 3
-	new_hat.frame = 0
-	if hat_iteration == 0:
-		new_hat.position.y = new_hat.position.y - g.hat_index[active_hat]
-	else:
-		var cumulative_y_decrement = g.hat_index[active_hat]
-		for i in range(hat_iteration): 
-			cumulative_y_decrement += g.hat_index[hat_array[i]]
-		
-		new_hat.position.y = new_hat.position.y - cumulative_y_decrement
-		
-	$HatHolder.add_child(new_hat)
+	add_hat(all_hats[hat_iteration])
 	
 	hat_iteration += 1
-	if hat_iteration == len(hat_array):
+	
+	if hat_iteration == all_hats.size():
 		$HatTowerTimerTest.stop()

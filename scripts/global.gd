@@ -11,13 +11,17 @@ const hat_index = {
 	"wizard": 11,
 	"witch": 12,
 	"snapback": 5,
-	"shroom": 11,
+	"shroom": 8,
 	"nurse": 7,
 	"hardhat":7,
 	"fedora": 7,
 	"crown": 7,
 	"cowboy": 8,
-	"baseball": 5
+	"baseball": 5,
+	"cloche": 5,
+	"floppy": 6,
+	"pirate": 8,
+	"straw": 5
 }
 
 func folders_in_dir(path: String) -> Array:

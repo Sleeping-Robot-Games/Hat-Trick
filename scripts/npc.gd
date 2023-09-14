@@ -14,7 +14,9 @@ var available_for_battle = true
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
-var hat_array = []
+var hat_array
+var stats
+
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
 #@onready var text_bubble = $SpeechBubble
@@ -52,6 +54,10 @@ func _update_shader_modulation(current_modulation):
 func set_moving(move):
 	is_moving = move
 	available_for_battle = move # Only set in the tween callback when they're out the door
+
+func init_stats(hats, _stats):
+	hat_array = hats
+	stats = _stats
 
 func _physics_process(delta):
 	if is_paused:
@@ -112,9 +118,6 @@ func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
 	is_moving = true
 	target_pos.x = x
 	target_pos.y = g.current_level_y_pos
-
-func add_hat(hat_name):
-	hat_array.push_front(hat_name)
 
 func show_interact():
 	$InteractButton.visible = true

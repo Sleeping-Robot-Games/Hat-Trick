@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cdu0rl5qun17d" path="res://assets/sprites/outfit/outfit_001.png" id="8_lowsh"]
 [ext_resource type="Texture2D" uid="uid://brijoqeupxl23" path="res://assets/sprites/hat/snapback.png" id="9_jbgmn"]
 [ext_resource type="Texture2D" uid="uid://btq1fkhhqwkwb" path="res://assets/palettes/outfitcolor/outfitcolor_000.png" id="9_qy1pg"]
-[ext_resource type="Texture2D" uid="uid://c7fcg35agfhqh" path="res://assets/palettes/outfitcolor/outfitcolor_001.png" id="10_vclev"]
+[ext_resource type="Texture2D" uid="uid://c6y3pd0xdtqov" path="res://assets/palettes/outfitcolor/outfitcolor_002.png" id="10_ve50p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
 shader = ExtResource("1_3cgbj")
@@ -28,7 +28,7 @@ shader_parameter/greyscale_palette = ExtResource("5_8s56o")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yhubs"]
 shader = ExtResource("1_3cgbj")
 shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
-shader_parameter/palette_swap = ExtResource("10_vclev")
+shader_parameter/palette_swap = ExtResource("10_ve50p")
 shader_parameter/greyscale_palette = ExtResource("9_qy1pg")
 
 [node name="SpriteHolder" type="CanvasGroup"]
