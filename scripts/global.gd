@@ -49,7 +49,10 @@ var names_by_hat = {
 	"beanie": ["Skyler", "Winter", "Hazel", "Jasper", "Milo"],
 	"fairy": ["Link", "Titania", "Oberon", "Navi", "Luna"],
 	"monster": ["Sully", "Mike", "Frank", "Morty", "Drac"],
-	"sport": ["Jordan", "Serena", "Tiger", "Ronaldo", "Simone"]
+	"sport": ["Jordan", "Serena", "Tiger", "Ronaldo", "Simone"],
+	"tophat": ['Gerald'],
+	"raccoon": ["Ron"],
+	"party": ["Rod", "Chad"]
 }
 
 
