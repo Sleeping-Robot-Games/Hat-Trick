@@ -22,22 +22,16 @@ var opponent = null
 
 func _ready():
 	pass
-#	$OptionContainer.hide()
-#	$HealthBarPlayer.hide()
-#	$HealthBarOpponenet.hide()
-#	$Def.hide()
-#	$Cha.hide()
-#	$Wit.hide()
-#	for hat in $PlayerHatStack.get_children():
-#		hat.hide()
-#	for hat in $OpponentHatStack.get_children():
-#		hat.hide()
+	
+	$Battle.start()
 
 func start_battle(pl, op):
 	visible = true
 	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
+	
+	
 	var player_hcount = player.hat_array.size()
 	var opponent_hcount = opponent.hat_array.size()
 	for i in g.max_hats:
@@ -53,26 +47,6 @@ func start_battle(pl, op):
 			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
 	
-	## ANIMATIONS: 
-#	await get_tree().create_timer(.5).timeout
-#	$HealthBarPlayer.show()
-#	$HealthBarOpponenet.show()
-#	await get_tree().create_timer(.1).timeout
-#	$Def.show()
-#	await get_tree().create_timer(.1).timeout
-#	$Cha.show()
-#	await get_tree().create_timer(.1).timeout
-#	$Wit.show()
-#	await get_tree().create_timer(.1).timeout
-#	for hat in $PlayerHatStack.get_children():
-#		if hat.has_hat:
-#			hat.show()
-#			await get_tree().create_timer(.1).timeout
-#	for hat in $OpponentHatStack.get_children():
-#		if hat.has_hat:
-#			hat.show()
-#			await get_tree().create_timer(.1).timeout
-#	$OptionContainer.show()
 
 	await get_tree().create_timer(3).timeout
 	for option in $OptionContainer.get_children():
