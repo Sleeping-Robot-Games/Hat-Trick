@@ -115,12 +115,11 @@ func play_random_sfx(parent, name, custom_range = 5, db_override = 0):
 
 func play_sfx(parent, name, db_override = 0):
 	var sfx_player = AudioStreamPlayer.new()
-#	sfx_player.volume_db = db_override
-#	rng.randomize()
-#	sfx_player.stream = load('res://sfx/'+name+'.ogg')
-#	sfx_player.connect("finished", sfx_player, "queue_free")
-#	parent.add_child(sfx_player)
-#	sfx_player.play()
+	sfx_player.volume_db = db_override
+	sfx_player.stream = load('res://assets/sfx/'+name+'.ogg')
+	sfx_player.finished.connect(sfx_player.queue_free)
+	parent.add_child(sfx_player)
+	sfx_player.play()
 
 func focus_npc(npc):
 	if focused_npc and focused_npc != npc:

@@ -41,15 +41,17 @@ func start_battle(pl, op):
 	var player_hcount = player.hat_array.size()
 	var opponent_hcount = opponent.hat_array.size()
 	for i in g.max_hats:
+		hat_nodes['player'][i].no_hat()
+		hat_nodes['opponent'][i].no_hat()
+	for i in g.max_hats:
 		if i + 1 <= player_hcount:
+			await get_tree().create_timer(.3).timeout
+			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['player'][i].change_hat(player.hat_array[i])
-		else:
-			hat_nodes['player'][i].no_hat()
-		
 		if i + 1 <= opponent_hcount:
+			await get_tree().create_timer(.3).timeout
+			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
-		else:
-			hat_nodes['opponent'][i].no_hat()
 	
 	## ANIMATIONS: 
 #	await get_tree().create_timer(.5).timeout

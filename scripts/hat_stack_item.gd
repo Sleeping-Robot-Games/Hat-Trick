@@ -13,8 +13,10 @@ func _ready():
 func change_hat(hat_name):
 	show()
 	has_hat = true
-	$Border/Hat.texture.atlas = load("res://assets/sprites/hat/"+hat_name+".png")
-	$Border/Hat.texture.region = Rect2(0, 0, 32, 32)
+	var atlas_tex = AtlasTexture.new()
+	atlas_tex.atlas = load("res://assets/sprites/hat/"+hat_name+".png")
+	atlas_tex.region = Rect2(0, 0, 32, 32)
+	$Border/Hat.texture = atlas_tex
 
 func no_hat():
 	hide()
