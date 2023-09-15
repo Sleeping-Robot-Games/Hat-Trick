@@ -64,6 +64,7 @@ func _process(delta):
 	pass
 
 func store_player_state():
+	stats['stam'] += 8
 	var player_customized_state = {
 		'sprite_state': sprite_holder.sprite_state,
 		'pallete_sprite_state': sprite_holder.pallete_sprite_state,

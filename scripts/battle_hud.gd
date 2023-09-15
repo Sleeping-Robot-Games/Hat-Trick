@@ -21,7 +21,6 @@ var opponent = null
 }
 
 func _ready():
-	pass
 	
 	$Battle.start()
 
@@ -57,6 +56,10 @@ func start_battle(pl, op):
 
 ## TESTING ONLY
 func _on_option_2_button_up():
+	$Battle.choose('wit')
+	return
+	
+	
 	$OptionContainer.hide()
 	
 	$PlayerDialogBubble.show()

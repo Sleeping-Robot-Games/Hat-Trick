@@ -29,19 +29,19 @@ const hat_sayings = {
 }
 
 func captivate(cha):
-	return { "DEF": cha }
+	return { "def": cha }
 
 func overwhelm(cha):
-	return {"WIT": cha}
+	return {"wit": cha}
 	
 func inspire(cha):
-	return  {'WIT': ceil(cha / 2), 'CHA': ceil(cha / 2)}
+	return  {'wit': ceil(cha / 2), 'cha': ceil(cha / 2)}
 	
 func intimidate(cha):
-	return {"DEF": -1, "WIT": cha}
+	return {"def": -1, "wit": cha}
 
 func fortify(cha):
-	return {"DEF": cha + 2, "WIT": -2}
+	return {"def": cha + 2, "wit": -2}
 	
 	
 ## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
@@ -53,29 +53,28 @@ var CHA_POWERS = {
 	"OVERWHELM": overwhelm
 }
 
-## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
 const HAT_CHA_POWERS = {
-	"wizard": "EMPOWER",        # Wizards are typically known for empowering spells and boosts
-	"witch": "BEGUILE",         # Witches often have deceptive or charming powers
-	"snapback": "DAZZLE",       # Modern and flashy, hence "dazzle"
+	"wizard": "INSPIRE",        # Wizards are known for their inspiration and wisdom
+	"witch": "CAPTIVATE",       # Witches often captivate with their mystique
+	"snapback": "INTIMIDATE",   # Modern snapbacks can be seen as a sign of assertiveness, hence intimidate
 	"shroom": "OVERWHELM",      # Psychedelic and overwhelming in nature
 	"nurse": "FORTIFY",         # Nurses help fortify health and well-being
-	"hardhat": "CAPTIVATE",     # Protective, hence captivating attention
-	"fedora": "INSPIRE",        # Fedora often represents a classical, inspiring figure
-	"crown": "OUTSHINE",        # Kings and queens outshine all
+	"hardhat": "INSPIRE",       # Hard work and perseverance, hence inspire
+	"fedora": "CAPTIVATE",      # Fedora often represents a captivating figure
+	"crown": "OVERWHELM",       # Kings and queens possess an overwhelming presence
 	"cowboy": "INTIMIDATE",     # The wild west cowboy intimidation
-	"baseball": "AMPLIFY",      # Amplifying the team spirit
-	"cloche": "BEGUILE",        # Vintage charm, hence beguiling
-	"floppy": "DAZZLE",         # Often associated with beach and fun, hence dazzling
+	"baseball": "INSPIRE",      # Baseball caps represent team spirit, hence inspire
+	"cloche": "CAPTIVATE",      # Vintage charm, hence captivating
+	"floppy": "FORTIFY",        # Floppy hats offer protection from the sun, hence fortify
 	"pirate": "INTIMIDATE",     # Pirates are known for their intimidating presence
-	"straw": "INSPIRE",         # Simple and grounding
-	"beanie": "AMPLIFY",        # Amplifying warmth
+	"straw": "INSPIRE",         # Straw hats are simple and grounding
+	"beanie": "FORTIFY",        # Beanies fortify against cold weather
 	"fairy": "CAPTIVATE",       # Magical and captivating
 	"monster": "OVERWHELM",     # Monstrous presence can be overwhelming
-	"sport": "AMPLIFY",         # Amplifying sportsmanship
-	"tophat": "OUTSHINE",       # Classic high-class hat, outshining regular hats
-	"raccoon": "BEGUILE",       # Sneaky raccoons are beguiling
-	"party": "DAZZLE"           # It's a party! Dazzle everyone!
+	"sport": "INSPIRE",         # Sports caps represent team spirit, hence inspire
+	"tophat": "CAPTIVATE",      # Classic high-class hat, captivating in nature
+	"raccoon": "INTIMIDATE",    # Sneaky raccoons can be intimidating
+	"party": "CAPTIVATE"        # It's a party! Captivate everyone!
 }
 
 func damage_formula(user_wit, opp_def, damange_range):
@@ -84,59 +83,21 @@ func damage_formula(user_wit, opp_def, damange_range):
 func no_damage(user_wit, opp_def):
 	return 0
 
-func wizard_opponent_damage(user_wit, opp_def):
+func witch(user_wit, opp_def):
 	rng.randomize()
-	return damage_formula(user_wit, opp_def, rng.randi_range(2, 4))
+	return damage_formula(user_wit, opp_def, rng.randi_range(3, 5))
 
-
+func cowboy(cha):
+	return {"wit": cha}
+	
 var HAT_ABILITIES = {
-	"wizard": {
-		"self": {"stats": [{"CHA": 2}], "damage": no_damage},
-		"opponent": {"stats": [{"DEF": -1}], "damage": wizard_opponent_damage}, # bc.HAT_ABILITIES['wizard']['opponent']['damage'].call(2,1)
-		"sayings": hat_sayings["wizard"]
-	},
-	"witch": {
-		"self": {"stats": [{"WIT": 2}], "damage": no_damage},
-		"opponent": {"stats": [], "damage": damage_formula},
-		"sayings": hat_sayings["witch"]
-	},
-	"snapback": {
-		"self": {"stats": [{"DEF": 1}], "damage": no_damage},
-		"opponent": {"stats": [{"CHA": -1}], "damage": damage_formula},
-		"sayings": hat_sayings["snapback"]
-	},
-	"shroom": {
-		"self": {"stats": [], "damage": no_damage},
-		"opponent": {"stats": [{"WIT": -2}], "damage": damage_formula},
-		"sayings": hat_sayings["shroom"]
-	},
-	"nurse": {
-		"self": {"stats": [{"DEF": 3}], "damage": no_damage},
-		"opponent": {"stats": [], "damage": damage_formula},
-		"sayings": hat_sayings["nurse"]
-	},
-	"hardhat": {
-		"self": {"stats": [{"DEF": 3}], "damage": no_damage},
-		"opponent": {"stats": [{"WIT": -2}], "damage": damage_formula},
-		"sayings": hat_sayings["hardhat"]
-	},
-	"fedora": {
-		"self": {"stats": [{"CHA": 2}], "damage": no_damage},
-		"opponent": {"stats": [{"DEF": -1}], "damage": damage_formula},
-		"sayings": hat_sayings["fedora"]
-	},
-	"crown": {
-		"self": {"stats": [{"CHA": 2, "WIT": 1}], "damage": no_damage},
-		"opponent": {"stats": [], "damage": damage_formula},
-		"sayings": hat_sayings["crown"]
-	},
-	"cowboy": {
-		"self": {"stats": [{"DEF": 1, "CHA": 1}], "damage": no_damage},
-		"opponent": {"stats": [{"WIT": -1}], "damage": damage_formula},
-		"sayings": hat_sayings["cowboy"]
-	},
+	# EITHER DMG OR CHA NOT BOTH
+	"witch": {'dmg': witch},
+	"cowboy": {'cha': cowboy},
+	
 	# ... [Continue in this format for the rest of the hats]
 }
+
 
 
 const WIT_INSULTS = [
@@ -760,5 +721,4 @@ const WIT_INSULTS = [
 		"short": "Visor's vexing voyage",
 		"long": "The voyage of that visor ventures into very vexing valleys of vogue."
 	}
-
 ]

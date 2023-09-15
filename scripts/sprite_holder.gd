@@ -23,7 +23,7 @@ var palette_folder_path = "res://assets/palettes/"
 
 var random_starter_hat = ""
 var starter_hat
-var player_stats: Dictionary
+var stats: Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,13 +47,16 @@ func _process(delta):
 
 func generate_random_stats(max):
 	# Randomly distribute values among the first three stats and assign the rest to the last stat
-	player_stats["stam"] = randi() % (max - 2) + 1
-	max -= player_stats["stam"]
-	player_stats["def"] = randi() % (max - 1) + 1
-	max -= player_stats["def"]
-	player_stats["cha"] = randi() % max + 1
-	max -= player_stats["cha"]
-	player_stats["wit"] = max
+	stats["stam"] = randi() % (max - 2) + 1
+	max -= stats["stam"]
+	stats["def"] = randi() % (max - 1) + 1
+	max -= stats["def"]
+	stats["cha"] = randi() % max + 1
+	max -= stats["cha"]
+	stats["wit"] = max
+	
+	stats["stam"] += 8
+	
 	
 func load_character():
 	var f = FileAccess.open("user://player_state.save", FileAccess.READ)
