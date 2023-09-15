@@ -39,7 +39,7 @@ func _ready():
 			pallete_sprite_state = character_data.pallete_sprite_state
 			parent.add_hat(character_data.starter_hat.to_lower())
 			parent.apply_stats(character_data.player_stats)
-			#parent.player_name = character_data.name
+			parent.player_name = character_data.name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

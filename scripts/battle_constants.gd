@@ -28,48 +28,29 @@ const hat_sayings = {
 	"party": {"short": "Dance floor king", "long": "It's time to party and spread joy everywhere."}
 }
 
+func captivate(cha):
+	return { "DEF": cha }
+
+func overwhelm(cha):
+	return {"WIT": cha}
+	
+func inspire(cha):
+	return  {'WIT': ceil(cha / 2), 'CHA': ceil(cha / 2)}
+	
+func intimidate(cha):
+	return {"DEF": -1, "WIT": cha}
+
+func fortify(cha):
+	return {"DEF": cha + 2, "WIT": -2}
+	
+	
 ## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
-const CHA_POWERS = {
-	"CAPTIVATE": {
-		"self": { "stats": [{ "DEF": 5 }] },
-		"opponent": { "stats": [] }
-	},
-	"EMPOWER": {
-		"self": { "stats": [{ "CHA": 3 }] },
-		"opponent": { "stats": [{ "DEF": -2 }] }  # Opponent's defense is slightly lowered
-	},
-	"INTIMIDATE": {
-		"self": { "stats": [] },
-		"opponent": { "stats": [{ "WIT": -3 }] }
-	},
-	"BEGUILE": {
-		"self": { "stats": [{ "CHA": 2 }] }, # Self gains charisma
-		"opponent": { "stats": [{ "DEF": -3 }] }
-	},
-	"AMPLIFY": {
-		"self": { "stats": [{ "CHA": 4 }] },
-		"opponent": { "stats": [] }
-	},
-	"INSPIRE": {
-		"self": { "stats": [{ "WIT": 2 }] },  # Less potent to be more balanced
-		"opponent": { "stats": [{ "WIT": -2 }] }  # Opponent's wit is slightly reduced
-	},
-	"DAZZLE": {
-		"self": { "stats": [] },
-		"opponent": { "stats": [{ "CHA": -3 }] }
-	},
-	"FORTIFY": {
-		"self": { "stats": [{ "DEF": 5 }] },
-		"opponent": { "stats": [{ "CHA": -2 }] }  # Opponent's charisma is slightly lowered
-	},
-	"OVERWHELM": {
-		"self": { "stats": [{ "WIT": 2 }] },  # Self gains some wit
-		"opponent": { "stats": [{ "DEF": -3 }] }
-	},
-	"OUTSHINE": {
-		"self": { "stats": [{ "CHA": 3 }] },
-		"opponent": { "stats": [{ "CHA": -1 }] }
-	}
+var CHA_POWERS = {
+	"CAPTIVATE": captivate,
+	"INSPIRE": inspire,
+	"INTIMIDATE": intimidate,
+	"FORTIFY": fortify,
+	"OVERWHELM": overwhelm
 }
 
 ## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
@@ -98,7 +79,7 @@ const HAT_CHA_POWERS = {
 }
 
 func damage_formula(user_wit, opp_def, damange_range):
-	return user_wit + damange_range - opp_def
+	return clamp(user_wit + damange_range - opp_def, 1, INF)
 
 func no_damage(user_wit, opp_def):
 	return 0
