@@ -108,9 +108,9 @@ func choose(choice):
 func resolve_round():
 	var init_array = determine_initiative()
 	calculate_outcome(init_array)
-	print(round_state)
-	print(opponent['stats'])
-	# update_hud(round_state)
+#	print(round_state)
+#	print(opponent['stats'])
+	hud.update_hud(round_state) 
 	adjust_cooldowns()
 	# adjust_hat_order()
 	previous_round_state = round_state
@@ -146,6 +146,8 @@ func calculate_outcome(init_array):
 		
 		var combatant = init_array[i]
 		r_state['name'] = combatant.name
+		r_state['node'] = p if combatant.name == player.name else o
+		
 		var opp = init_array[1 - i]  # Get the opp of combatant.
 		
 		r_state['choice'] = combatant['choice']

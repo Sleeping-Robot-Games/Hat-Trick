@@ -21,8 +21,15 @@ var opponent = null
 }
 
 func _ready():
-	
 	$Battle.start()
+	
+
+func update_hud(round_state):
+	for state in round_state:
+		state.node
+
+func new_round():
+	pass
 
 func start_battle(pl, op):
 	visible = true
@@ -30,6 +37,7 @@ func start_battle(pl, op):
 	player = pl
 	opponent = op
 	
+	# $Battle.start()
 	
 	var player_hcount = player.hat_array.size()
 	var opponent_hcount = opponent.hat_array.size()
@@ -49,9 +57,10 @@ func start_battle(pl, op):
 
 	await get_tree().create_timer(3).timeout
 	for option in $OptionContainer.get_children():
-		option.grab_focus()
-		await get_tree().create_timer(.5).timeout
-		option.release_focus()
+		if option.visible:
+			option.grab_focus()
+			await get_tree().create_timer(.5).timeout
+			option.release_focus()
 
 
 ## TESTING ONLY
