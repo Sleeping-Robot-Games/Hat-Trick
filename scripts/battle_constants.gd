@@ -88,7 +88,7 @@ func witch(user_wit, opp_def):
 	return damage_formula(user_wit, opp_def, rng.randi_range(3, 5))
 
 func cowboy(cha):
-	return {"wit": cha}
+	return {"wit": 2 + cha}
 	
 var HAT_ABILITIES = {
 	# EITHER DMG OR CHA NOT BOTH
@@ -96,6 +96,80 @@ var HAT_ABILITIES = {
 	"cowboy": {'cha': cowboy},
 	
 	# ... [Continue in this format for the rest of the hats]
+}
+
+
+var CHA_DIALOG_OPTIONS = {
+	"CAPTIVATE": [
+		{
+			"short": "Entranced by me?",
+			"long": "Are you finding yourself mysteriously drawn into my charm and allure?"
+		},
+		{
+			"short": "Lost in my gaze?",
+			"long": "My eyes have a unique power, don't they? Feeling lost in their depth?"
+		},
+		{
+			"short": "Feeling spellbound?",
+			"long": "I can see the fascination in your eyes. Are you feeling entirely spellbound?"
+		}
+	],
+	"INSPIRE": [
+		{
+			"short": "Aim for greatness.",
+			"long": "Always remember to aim for greatness, no matter the obstacles."
+		},
+		{
+			"short": "Rise above it.",
+			"long": "Regardless of the hardships, always rise above and inspire others."
+		},
+		{
+			"short": "Shine on.",
+			"long": "Continue shining your light and inspire those around you."
+		}
+	],
+	"INTIMIDATE": [
+		{
+			"short": "Want to back off?",
+			"long": "Perhaps it's in your best interest to reconsider your stance, don't you think?"
+		},
+		{
+			"short": "Second thoughts?",
+			"long": "I wouldn't want to be in your shoes right now. Having second thoughts?"
+		},
+		{
+			"short": "Scared yet?",
+			"long": "You might not want to push me any further. Feeling the pressure yet?"
+		}
+	],
+	"FORTIFY": [
+		{
+			"short": "Strengthen your core.",
+			"long": "Focus on your inner strength. Bolster your defenses and remain unyielding."
+		},
+		{
+			"short": "Build your walls.",
+			"long": "It's time to build those walls up. Fortify your position and stand firm."
+		},
+		{
+			"short": "Stay rooted.",
+			"long": "Like a mighty oak tree, stay rooted and unwavering in the face of adversity."
+		}
+	],
+	"OVERWHELM": [
+		{
+			"short": "Feeling swamped?",
+			"long": "Do you feel like you're drowning in my presence, unable to find your footing?"
+		},
+		{
+			"short": "Too much to handle?",
+			"long": "My aura is intense. Do you find it too overwhelming?"
+		},
+		{
+			"short": "Lost in the storm?",
+			"long": "Like a tempest, I can be quite overpowering. Can you weather my storm?"
+		}
+	]
 }
 
 

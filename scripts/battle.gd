@@ -15,6 +15,7 @@ var winner
 var loser
 
 var round_state = []
+var previous_round_state = []
 var round = 1
 
 var insult_subsets
@@ -40,7 +41,8 @@ func start():
 	
 	assign_info()
 	insult_subsets = initialize_insults()
-	load_dialog_options()
+	load_dialog_options(player)
+	load_dialog_options(opponent)
 	
 func assign_info():
 #	p = hud.player
@@ -73,31 +75,33 @@ func initialize_insults():
 	var subset_2 = insults_copy.slice(insults_copy.size() / 2, insults_copy.size())
 	return [subset_1, subset_2]
 
-func load_dialog_options():
-	var player_insult = insult_subsets[0].pick_random()
-	player['choices']['wit'] = player_insult
-	insult_subsets[0].erase(player_insult)
-	var opponent_insult = insult_subsets[1].pick_random()
-	opponent['choices']['wit'] = opponent_insult
-	insult_subsets[1].erase(opponent_insult)
+func load_dialog_options(combatant):
+	combatant['choices'] = {}
 	
-	## IF CHA is not on cooldown for each combantant
-	## TODO: CREATE DIALOG OPTIONS FOR CHA
-	var player_cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[player['active_hat']]].call(player["stats"]["cha"])
-	player['choices']['cha'] = player_cha_power
-	var opponent_cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[opponent['active_hat']]].call(opponent["stats"]["cha"])
-	opponent['choices']['cha'] = opponent_cha_power
+	var subset = 0 if combatant.name == player.name else 1
+	var insult = insult_subsets[subset].pick_random()
+	combatant['choices']['wit'] = insult
+	insult_subsets[subset].erase(insult)
 	
-	var player_hat_ability = bc.HAT_ABILITIES[player['active_hat']]
-	player['choices']['hat'] = player_hat_ability
-	var opponent_hat_ability = bc.HAT_ABILITIES[opponent['active_hat']]
-	opponent['choices']['hat'] = opponent_hat_ability
+	if previous_round_state.size() == 0:
+		# Gives them a cha option at the start of the battle
+		var cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[combatant['active_hat']]].call(combatant["stats"]["cha"])
+		combatant['choices']['cha'] = cha_power
+	else:
+		for r_state in previous_round_state:
+			if r_state.name == combatant.name:
+				if r_state.has('choice') and r_state['choice'] != 'cha':
+					var cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[combatant['active_hat']]].call(combatant["stats"]["cha"])
+					combatant['choices']['cha'] = cha_power
+	
+	var hat_ability = bc.HAT_ABILITIES[combatant['active_hat']]
+	combatant['choices']['hat'] = hat_ability
 
 func choose(choice):
 	round_state = []
 	player['choice'] = choice
 	## TESTING
-	opponent['choice'] =  ['cha', 'wit', 'hat'].pick_random()
+	opponent['choice'] = opponent.choices.keys().pick_random()
 	
 	resolve_round()
 
@@ -105,11 +109,15 @@ func resolve_round():
 	var init_array = determine_initiative()
 	calculate_outcome(init_array)
 	print(round_state)
-	# check_winner()
-	# adjust_cooldowns()
+	print(opponent['stats'])
+	# update_hud(round_state)
+	adjust_cooldowns()
 	# adjust_hat_order()
-	
-	# return round_state
+	previous_round_state = round_state
+	for c in init_array:
+		# Load options for next round
+		load_dialog_options(c)
+
 
 func determine_initiative():
 	var first_player
@@ -180,8 +188,15 @@ func calculate_outcome(init_array):
 			break
 		
 		round_state.append(r_state)
-		
-		
+
+func adjust_cooldowns():
+	for r_state in previous_round_state:
+		if r_state.choice == 'cha':
+			var combatant = player if player.name == r_state.name else opponent
+			## reverse cha buffs
+			for stat in r_state['buffs'].keys():
+				combatant['stats'][stat] = clamp(combatant['stats'][stat] + (r_state['buffs'][stat]*-1), 0, INF)
+				
 # After dialog option is chosen
 ## Determine round initiative (WIT + CHA), if tied random
 ## Calculate outcome
@@ -191,7 +206,7 @@ func calculate_outcome(init_array):
 ### Check for winner, if so end round early and conclude battle
 
 ## Resolve round
-### Set cooldowns for any HATs or CHA options used
+### Set cooldowns for any CHA options used
 ### refresh cooldowns that were already set from previous round to make available again
 ### Adjust hat order if any HAT abilities were used, send up to UI
 
