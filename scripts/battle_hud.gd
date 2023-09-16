@@ -42,7 +42,11 @@ func update_dialog():
 func update_hud(round_state):
 	for state in round_state:
 		var is_player = state.name == player.name
-		# TODO
+		if state.choice == 'hat' and state.has('dmg'):
+			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponenet
+			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
+			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
+			floater.float_text("-"+str(state['dmg']), Color.RED)
 		print('state: ', state)
 
 func new_round():

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bisldv42hj6ht"]
+
+[ext_resource type="Script" path="res://scripts/float_text_spawner.gd" id="1_eet6l"]
+
+[node name="FloatTextSpawner" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_eet6l")

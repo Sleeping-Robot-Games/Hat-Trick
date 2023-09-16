@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=20 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="7_g2x0w"]
 [ext_resource type="Texture2D" uid="uid://b5ym3jj3s5dut" path="res://assets/ui/healthbar.png" id="8_0bxmv"]
 [ext_resource type="Texture2D" uid="uid://dk73ou6hfx875" path="res://assets/ui/healthbarfill.png" id="9_c36qa"]
+[ext_resource type="PackedScene" uid="uid://bisldv42hj6ht" path="res://scenes/float_text_spawner.tscn" id="10_fkcv5"]
 [ext_resource type="Texture2D" uid="uid://c27vafgsd3l10" path="res://assets/ui/projectilebubble-f1.png" id="10_wttcd"]
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
@@ -254,6 +255,8 @@ patch_margin_top = 4
 patch_margin_right = 9
 patch_margin_bottom = 3
 
+[node name="FloatTextSpawner" parent="HealthBarPlayer" instance=ExtResource("10_fkcv5")]
+
 [node name="Def" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 117.0
@@ -365,6 +368,8 @@ patch_margin_left = 9
 patch_margin_top = 4
 patch_margin_right = 9
 patch_margin_bottom = 3
+
+[node name="FloatTextSpawner" parent="HealthBarOpponenet" instance=ExtResource("10_fkcv5")]
 
 [node name="OptionContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
