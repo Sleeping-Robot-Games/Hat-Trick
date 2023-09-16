@@ -29,6 +29,9 @@ texture = ExtResource("1_ra12u")
 2:4/0 = 0
 3:4/0 = 0
 4:4/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fp8p2"]
 texture = ExtResource("2_36obv")
@@ -382,3 +385,4 @@ label_settings = SubResource("LabelSettings_sq4ie")
 position = Vector2(201, -88)
 sprite_frames = SubResource("SpriteFrames_gpabv")
 animation = &"Hats Scrolling Sign"
+frame_progress = 0.380093

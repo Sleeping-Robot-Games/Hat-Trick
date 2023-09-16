@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsf77vh4aypjh"
-path="res://.godot/imported/neonhat002.png-e8da1d3b4cbab16c1273707bccaa5f22.ctex"
+uid="uid://cid57divpsw4v"
+path="res://.godot/imported/neonhatsign.png-b4eacb9738175c5a7d30489ce43dea84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/neonhat002.png"
-dest_files=["res://.godot/imported/neonhat002.png-e8da1d3b4cbab16c1273707bccaa5f22.ctex"]
+source_file="res://assets/neonhatsign.png"
+dest_files=["res://.godot/imported/neonhatsign.png-b4eacb9738175c5a7d30489ce43dea84.ctex"]
 
 [params]
 

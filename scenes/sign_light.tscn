@@ -7,7 +7,7 @@ colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_5n88v")
 fill = 1
 fill_from = Vector2(0.53211, 0.490826)
-fill_to = Vector2(0.889908, 0.169725)
+fill_to = Vector2(0.756881, 0.12844)
 
 [sub_resource type="Animation" id="Animation_jr530"]
 resource_name = "Light Pulse"
