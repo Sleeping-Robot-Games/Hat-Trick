@@ -22,8 +22,7 @@ var active_hat
 
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
-#@onready var text_bubble = $SpeechBubble
-#@onready var text_bubble_label = text_bubble.get_node("MarginContainer/NinePatchRect/CenterContainer/Label")
+@onready var text_bubble = $SpeechBubble
 
 @export var random = true
 
@@ -109,15 +108,14 @@ func play_idle_animation():
 			is_dancing = true
 
 	# Show the text bubble and set its text
-#	text_bubble.visible = true
-#	if is_dancing:
-#		text_bubble_label.text = dancing_text_lines.pick_random()
-#	else:
-#		text_bubble_label.text = idle_text_lines.pick_random()
+	text_bubble.visible = true
+	if is_dancing:
+		text_bubble.set_text(dancing_text_lines.pick_random())
+	else:
+		text_bubble.set_text(idle_text_lines.pick_random())
 
 func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
-#	text_bubble.visible = false
-	#print('moving to ('+str(x)+','+str(y)+')')
+	text_bubble.visible = false
 	is_moving = true
 	target_pos.x = x
 	target_pos.y = g.current_level_y_pos

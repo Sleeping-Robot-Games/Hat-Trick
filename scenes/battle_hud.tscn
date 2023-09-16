@@ -450,7 +450,7 @@ theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "+3"
 
-[node name="HealthBarOpponenet" type="TextureProgressBar" parent="."]
+[node name="HealthBarOpponent" type="TextureProgressBar" parent="."]
 layout_mode = 0
 offset_left = 770.0
 offset_top = 307.0
@@ -461,7 +461,7 @@ value = 10.0
 nine_patch_stretch = true
 texture_progress = ExtResource("9_c36qa")
 
-[node name="HealthBorderOpponent" type="NinePatchRect" parent="HealthBarOpponenet"]
+[node name="HealthBorderOpponent" type="NinePatchRect" parent="HealthBarOpponent"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -1.0
@@ -475,7 +475,7 @@ patch_margin_top = 4
 patch_margin_right = 9
 patch_margin_bottom = 3
 
-[node name="FloatTextSpawner" parent="HealthBarOpponenet" instance=ExtResource("10_fkcv5")]
+[node name="FloatTextSpawner" parent="HealthBarOpponent" instance=ExtResource("10_fkcv5")]
 
 [node name="OptionContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
