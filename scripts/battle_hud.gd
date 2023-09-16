@@ -202,11 +202,13 @@ func update_hud(round_state):
 			var hpbar = $HealthBarOpponent if is_player else $HealthBarPlayer
 			var floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
 			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
+			#hpbar.get_node('Value').text = '%s/%s' % [str(clamp(hpbar.value - state['dmg'], 0, INF)), str(state['max_hp'])]
 			floater.float_text("-"+str(state['dmg']), Color.RED)
 		if state.has('heal'):
 			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
 			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
 			hpbar.value = clamp(state['stam'], 0, INF)
+			#hpbar.get_node('Value').text = '%s/%s' % [str(clamp(state['stam'], 0, state['max_hp'])), str(state['max_hp'])]
 			floater.float_text("-"+str(state['heal']), Color.GREEN)
 
 func new_round():

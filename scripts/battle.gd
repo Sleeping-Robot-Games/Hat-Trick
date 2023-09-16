@@ -182,7 +182,8 @@ func calculate_outcome(init_array):
 			r_state['node'].hat_stack.push_back(cycled_hat)
 			r_state['node'].active_hat = r_state['node'].hat_stack[0]
 			combatant['active_hat'] = r_state['node'].active_hat
-		
+			
+		#r_state['max_hp'] = combatant.max_hp
 		r_state['stam'] = combatant['stats']['stam']
 		# Check for winner
 		if opp['stats']['stam'] == 0:
