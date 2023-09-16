@@ -69,8 +69,8 @@ func set_sprites(data):
 		if part is Sprite2D:
 			if not part.name == 'body':
 				part.texture = load(data.sprite_state[part.name])
-			if part.name == 'body' or part.name == 'hair':
-				var sprite_name = 'haircolor' if part.name == 'hair' else 'body'
+			if part.name == 'body' or part.name == 'hair' or part.name == 'outfit':
+				var sprite_name = part.name+'color' if part.name == 'hair' or part.name == 'outfit' else 'body'
 				part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
 				part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
 				g.make_shaders_unique(part)
@@ -112,8 +112,8 @@ func create_random_character():
 		set_random_color(folder)
 
 func set_sprite_texture(sprite_name: String, texture_path: String):
-	print('sprite_name: ', sprite_name)
-	print('texture_path: ', texture_path)
+#	print('sprite_name: ', sprite_name)
+#	print('texture_path: ', texture_path)
 	character_sprite[sprite_name].set_texture(load(texture_path))
 	sprite_state[sprite_name] = texture_path
 

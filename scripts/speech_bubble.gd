@@ -12,5 +12,5 @@ func _process(delta):
 
 
 func set_text(text):
-	$MarginContainer/Label.text = text
+	$MarginContainer/MarginContainer/Label.text = text
 
