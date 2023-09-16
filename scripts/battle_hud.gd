@@ -24,10 +24,9 @@ var skip_talking = false
 }
 
 func _ready():
-	$Battle.start()
-	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
 	$OptionContainer/Option2.pressed.connect(_on_option_pressed.bind('wit'))
 	$OptionContainer/Option3.pressed.connect(_on_option_pressed.bind('hat'))
+	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
 
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
@@ -65,6 +64,9 @@ func start_battle(pl, op):
 	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
+	
+	## TODO: Change this back when battle is over
+	player.get_node('HatHolder').z_as_relative = false
 	
 	# $Battle.start()
 	## show proceed button?

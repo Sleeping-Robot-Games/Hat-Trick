@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="7_g2x0w"]
 [ext_resource type="Texture2D" uid="uid://b5ym3jj3s5dut" path="res://assets/ui/healthbar.png" id="8_0bxmv"]
 [ext_resource type="Texture2D" uid="uid://dk73ou6hfx875" path="res://assets/ui/healthbarfill.png" id="9_c36qa"]
-[ext_resource type="PackedScene" uid="uid://bisldv42hj6ht" path="res://scenes/float_text_spawner.tscn" id="10_fkcv5"]
+[ext_resource type="PackedScene" path="res://scenes/float_text_spawner.tscn" id="10_fkcv5"]
 [ext_resource type="Texture2D" uid="uid://c27vafgsd3l10" path="res://assets/ui/projectilebubble-f1.png" id="10_wttcd"]
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
@@ -104,7 +104,7 @@ script = ExtResource("2_ly450")
 layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
-color = Color(0, 0, 0, 0.52549)
+color = Color(0, 0, 0, 0.219608)
 
 [node name="PlayerHatStack" type="Control" parent="."]
 clip_contents = true
@@ -434,14 +434,12 @@ position = Vector2(844, 135)
 scale = Vector2(3, 3)
 
 [node name="OpponentDialogBubble" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(800, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")
 animation = &"fill"
 
 [node name="PlayerDialogBubble" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(175, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")

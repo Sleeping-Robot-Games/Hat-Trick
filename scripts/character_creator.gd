@@ -88,7 +88,7 @@ func _process(delta):
 	},
 	'cha': {
 		'header': 'Charisma',
-		'content': 'This score is how powerful your CHA buffs are.',
+		'content': 'This score is how powerful your CHA and HAT buffs are.',
 		'node': $Cha
 	},
 	'wit': {
