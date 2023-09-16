@@ -47,8 +47,50 @@ func update_dialog():
 			option.text = '['+stat.to_upper()+'] '+label
 
 func update_hud(round_state):
+	hide_buff_values()
 	for state in round_state:
-		var is_player = state.name == player.name
+		var is_player = state.node.is_player
+		print('-----------------------------')
+		print('state: ', state)
+		if is_player:
+			print('player: ', player, ' ', player.name, ' ', player.stats)
+		else:
+			print('opponent: ', opponent, ' ', opponent.name, ' ', opponent.stats)
+		# update player's stats
+		if is_player:
+			print('base_stats: ', player.stats)
+			var hud_stats = {
+				'def': {
+					'base': player.stats['def'],
+					'cha_buff': state.cha_buffs.def if state.has('cha_buffs') and state.cha_buffs.has('def') else 0,
+					'hat_buff': state.hat_buffs.def if state.has('hat_buffs') and state.hat_buffs.has('def') else 0,
+				},
+				'cha': {
+					'base': player.stats['cha'],
+					'cha_buff': state.cha_buffs.cha if state.has('cha_buffs') and state.cha_buffs.has('cha') else 0,
+					'hat_buff': state.hat_buffs.cha if state.has('hat_buffs') and state.hat_buffs.has('cha') else 0,
+				},
+				'wit': {
+					'base': player.stats['wit'],
+					'cha_buff': state.cha_buffs.wit if state.has('cha_buffs') and state.cha_buffs.has('wit') else 0,
+					'hat_buff': state.hat_buffs.wit if state.has('hat_buffs') and state.hat_buffs.has('wit') else 0,
+				}
+			}
+			for stat in hud_stats.keys():
+				var capitalized = stat.capitalize()
+				get_node(capitalized+'/Value').text = str(clamp(hud_stats[stat]['base'] + hud_stats[stat]['cha_buff'] + hud_stats[stat]['hat_buff'],0,INF))
+				get_node(capitalized+'/Base').text = '= '+str(hud_stats[stat]['base'])
+				if hud_stats[stat]['cha_buff'] != 0:
+					var signed_buff = '+'+str(hud_stats[stat]['cha_buff']) if hud_stats[stat]['cha_buff'] > 0 else str(hud_stats[stat]['cha_buff'])
+					get_node(capitalized+'/ChaBuff').text = signed_buff
+					get_node(capitalized+'/ChaBuff').show()
+					get_node(capitalized+'/Base').show()
+				if hud_stats[stat]['hat_buff'] != 0:
+					var signed_buff = '+'+str(hud_stats[stat]['hat_buff']) if hud_stats[stat]['hat_buff'] > 0 else str(hud_stats[stat]['hat_buff'])
+					get_node(capitalized+'/HatBuff').text = signed_buff
+					get_node(capitalized+'/HatBuff').show()
+					get_node(capitalized+'/Base').show()
+		# lower hp bar and show floating dmg text
 		if state.choice == 'hat' and state.has('dmg'):
 			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponenet
 			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
@@ -75,6 +117,9 @@ func start_battle(pl, op):
 	player = pl
 	opponent = op
 	hide_buff_values()
+	$Def/Value.text = str(player.stats['def'])
+	$Cha/Value.text = str(player.stats['cha'])
+	$Wit/Value.text = str(player.stats['wit'])
 	$Battle.start()
 	
 	var player_hcount = player.hat_array.size()

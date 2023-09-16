@@ -299,9 +299,9 @@ text = "3
 
 [node name="ChaBuff" type="Label" parent="Def"]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 78.0
 offset_top = 13.0
-offset_right = 80.0
+offset_right = 94.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
@@ -310,9 +310,9 @@ text = "+3"
 
 [node name="HatBuff" type="Label" parent="Def"]
 layout_mode = 0
-offset_left = 84.0
+offset_left = 98.0
 offset_top = 13.0
-offset_right = 100.0
+offset_right = 114.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
@@ -361,9 +361,9 @@ text = "3
 
 [node name="ChaBuff" type="Label" parent="Cha"]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 78.0
 offset_top = 14.0
-offset_right = 80.0
+offset_right = 94.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
@@ -372,9 +372,9 @@ text = "+3"
 
 [node name="HatBuff" type="Label" parent="Cha"]
 layout_mode = 0
-offset_left = 84.0
+offset_left = 98.0
 offset_top = 14.0
-offset_right = 100.0
+offset_right = 114.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
@@ -423,9 +423,9 @@ text = "3
 
 [node name="ChaBuff" type="Label" parent="Wit"]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 78.0
 offset_top = 14.0
-offset_right = 80.0
+offset_right = 94.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
@@ -434,9 +434,9 @@ text = "+3"
 
 [node name="HatBuff" type="Label" parent="Wit"]
 layout_mode = 0
-offset_left = 84.0
+offset_left = 98.0
 offset_top = 14.0
-offset_right = 100.0
+offset_right = 114.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")

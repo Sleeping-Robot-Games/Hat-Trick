@@ -17,6 +17,7 @@ var last_direction = 1 # 1 for right, -1 for left
 var hat_array
 var stats
 var npc_name
+var is_player = false
 
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer

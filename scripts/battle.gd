@@ -42,10 +42,12 @@ func assign_info():
 	player['active_hat'] = p.hat_array[0]
 	player['name'] = p.player_name
 	player['choices'] = {}
+	player['is_player'] = p.is_player
 	opponent['stats'] = o.stats
 	opponent['active_hat'] = o.hat_array[0]
 	opponent['choices'] = {}
 	opponent['name'] = o.npc_name
+	opponent['is_player'] = o.is_player
 
 func initialize_insults():
 	var insults_copy = bc.WIT_INSULTS.duplicate(true)
@@ -85,7 +87,6 @@ func load_dialog_options(combatant):
 func choose(choice):
 	round_state = []
 	player['choice'] = choice
-	## TESTING
 	opponent['choice'] = opponent.choices.keys().pick_random()
 	resolve_round()
 
@@ -141,7 +142,9 @@ func calculate_outcome(init_array):
 				if stat == 'dialogue':
 					continue
 				combatant['stats'][stat] = clamp(combatant['stats'][stat] + combatant['choices']['cha'][stat], 0, INF)
-				r_state['buffs'] = {stat: combatant['choices']['cha'][stat]}
+				if not r_state.has('cha_buffs'):
+					r_state['cha_buffs'] = {}
+				r_state['cha_buffs'][stat] = combatant['choices']['cha'][stat]
 				
 		if combatant['choice'] == 'wit':
 			## apply wit damage to opp
@@ -159,7 +162,9 @@ func calculate_outcome(init_array):
 				var hat_effect = combatant['choices']['hat']['buff'].call(combatant['stats']['cha'])
 				for stat in hat_effect.keys():
 					combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, INF)
-					r_state['buffs'] = {'stat': stat, 'value': hat_effect[stat]}
+					if not r_state.has('hat_buffs'):
+						r_state['hat_buffs'] = {}
+					r_state['hat_buffs'][stat] = hat_effect[stat]
 			## apply hat dmg
 			if combatant['choices']['hat'].has('dmg'):
 				var hat_dmg = combatant['choices']['hat']['dmg'].call(combatant['stats']['wit'], opp['stats']['def'])
@@ -182,8 +187,8 @@ func adjust_cooldowns():
 		if r_state.choice == 'cha':
 			var combatant = player if player.name == r_state.name else opponent
 			## reverse cha buffs
-			for stat in r_state['buffs'].keys():
-				combatant['stats'][stat] = clamp(combatant['stats'][stat] + (r_state['buffs'][stat]*-1), 0, INF)
+			for stat in r_state['cha_buffs'].keys():
+				combatant['stats'][stat] = clamp(combatant['stats'][stat] + (r_state['cha_buffs'][stat]*-1), 0, INF)
 				
 # After dialog option is chosen
 ## Determine round initiative (WIT + CHA), if tied random

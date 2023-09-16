@@ -11,6 +11,7 @@ var battle_pos_speed = 150
 var hat_array = []
 var stats
 var player_name
+var is_player = true
 
 @onready var anim_player = $AnimationPlayer
 @onready var game = get_parent()
