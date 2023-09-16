@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cuon5m85notg7"]
+[gd_scene load_steps=50 format=3 uid="uid://cuon5m85notg7"]
 
 [ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_7bo0g"]
 [ext_resource type="Texture2D" uid="uid://bcljc1tq4wgvb" path="res://assets/level_tut.png" id="1_kaj4s"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://hh52yxsehupp" path="res://assets/hatsign.png" id="6_itkta"]
 [ext_resource type="PackedScene" uid="uid://tennnnn3fahm" path="res://scenes/sign_light.tscn" id="7_doyrk"]
 [ext_resource type="FontFile" uid="uid://0fjm3424t7sr" path="res://fonts/8bitlim.ttf" id="9_njqtp"]
+[ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="10_vgef8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_egb0s"]
 texture = ExtResource("1_kaj4s")
@@ -388,3 +389,13 @@ label_settings = SubResource("LabelSettings_sq4ie")
 position = Vector2(201, -88)
 sprite_frames = SubResource("SpriteFrames_gpabv")
 animation = &"Hats Scrolling Sign"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 111.667
+offset_top = 143.0
+offset_right = 437.667
+offset_bottom = 177.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = ExtResource("10_vgef8")
+theme_override_font_sizes/font_size = 22
+text = "Press Any Key to Enter"

@@ -91,7 +91,7 @@ func start_battle(pl, op):
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
 	
 	await get_tree().create_timer(1).timeout
-	show_speech_bubbles()
+
 	for option in $OptionContainer.get_children():
 		if option.visible:
 			option.grab_focus()
@@ -109,9 +109,8 @@ func _on_option_pressed(stat):
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
 	
-	# hide dialogue bubbles
-	$PlayerDialogBubble.hide()
-	$OpponentDialogBubble.hide()
+	# show dialogue bubbles
+	show_speech_bubbles()
 	
 	# render player text
 	is_talking = true
@@ -153,6 +152,9 @@ func _on_option_pressed(stat):
 	skip_talking = false
 	is_talking = false
 	
+	# play dialogue bubbles animation
+
+	
 	# if opponent played wit
 	# $AnimationPlayer.play('opp_shoot')
 	# if player played wit
@@ -164,13 +166,18 @@ func show_speech_bubbles():
 	$OpponentDialogBubble.show()
 	$OpponentDialogBubble.play("fill")
 
+func play_speech_bubbles_animation():
+	## TODO: Play animation of speech bubbles smacking into opponents are raises stats
+	$PlayerDialogBubble.hide()
+	$OpponentDialogBubble.hide()
+
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
 	$DialogContainer/RichTextLabel.text = ''
 	$DialogContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
-	show_speech_bubbles()
+	play_speech_bubbles_animation()
 	## TODO: move option visibility to after chat bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
