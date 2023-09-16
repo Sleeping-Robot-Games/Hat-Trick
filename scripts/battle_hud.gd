@@ -94,12 +94,11 @@ func update_hud(round_state):
 					get_node(capitalized+'/HatBuff').show()
 					get_node(capitalized+'/Base').show()
 		# lower hp bar and show floating dmg text
-		if state.choice == 'hat':
-			if state.has('dmg'):
-				var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponenet
-				var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
-				hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
-				floater.float_text("-"+str(state['dmg']), Color.RED)
+		if state.has('dmg'):
+			var hpbar = $HealthBarOpponent if is_player else $HealthBarPlayer
+			var floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
+			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
+			floater.float_text("-"+str(state['dmg']), Color.RED)
 
 func new_round():
 	pass
