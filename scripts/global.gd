@@ -115,14 +115,28 @@ func play_random_sfx(parent, fname, custom_range=5, db_override=0, ext='.ogg'):
 	parent.add_child(sfx_player)
 	sfx_player.play()
 
-func play_sfx(parent, fname, db_override=0, ext='.ogg'):
+func play_sfx(parent, fname, db_override=0, ext='.mp3'):
 	var sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = db_override
-	sfx_player.stream = load('res://assets/sfx/'+fname+ext)
+	sfx_player.stream = load('res://sfx/'+fname+ext)
 	sfx_player.finished.connect(sfx_player.queue_free)
 	parent.add_child(sfx_player)
 	sfx_player.play()
 
+func play_bgm(fname, db_override=0, ext='.mp3'):
+	var sfx_player = AudioStreamPlayer.new()
+	sfx_player.volume_db = db_override
+	sfx_player.name = fname
+	sfx_player.stream = load('res://sfx/'+fname+ext)
+	add_child(sfx_player)
+	sfx_player.play()
+	
+func stop_bgm(fname):
+	var sfx_player = get_node(fname)
+	#sfx_player.stream = load('res://sfx/'+fname+ext)
+	#add_child(sfx_player)
+	sfx_player.stop()
+	
 func focus_npc(npc):
 	if focused_npc and focused_npc != npc:
 		focused_npc.hide_interact()

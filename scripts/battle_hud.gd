@@ -85,11 +85,9 @@ func start_battle(pl, op):
 	for i in g.max_hats:
 		if i + 1 <= player_hcount:
 			await get_tree().create_timer(.3).timeout
-			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['player'][i].change_hat(player.hat_array[i])
 		if i + 1 <= opponent_hcount:
 			await get_tree().create_timer(.3).timeout
-			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
 	
 	await get_tree().create_timer(1).timeout
