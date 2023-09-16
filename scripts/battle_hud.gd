@@ -116,6 +116,7 @@ func start_battle(pl, op):
 	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
+	player.get_node('HatHolder').z_as_relative = false # TODO: reset after battle ends
 	hide_buff_values()
 	$Def/Value.text = str(player.stats['def'])
 	$Cha/Value.text = str(player.stats['cha'])
