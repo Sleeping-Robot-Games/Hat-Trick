@@ -454,4 +454,14 @@ libraries = {
 "": SubResource("AnimationLibrary_so5vo")
 }
 
+[node name="ProceedButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 443.0
+offset_top = 447.0
+offset_right = 496.0
+offset_bottom = 478.0
+text = "PROCEED"
+
 [connection signal="button_up" from="OptionContainer/Option2" to="." method="_on_option_2_button_up"]
+[connection signal="pressed" from="ProceedButton" to="." method="_on_proceed_button_pressed"]

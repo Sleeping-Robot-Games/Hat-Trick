@@ -38,12 +38,12 @@ func _process(delta):
 ### this way they don't speak the same insults to eachother
 
 func start():
-	
 	assign_info()
 	insult_subsets = initialize_insults()
 	load_dialog_options(player)
 	load_dialog_options(opponent)
-	
+	hud.update_dialog(player, opponent)
+
 func assign_info():
 #	p = hud.player
 #	o = hud.opponent
@@ -80,29 +80,35 @@ func load_dialog_options(combatant):
 	
 	var subset = 0 if combatant.name == player.name else 1
 	var insult = insult_subsets[subset].pick_random()
+	## calculated dmg
 	combatant['choices']['wit'] = insult
+	#combatant['choices']['wit']['dialogue'] = insult # so dirty papi
+	print('insult: ', insult)
 	insult_subsets[subset].erase(insult)
 	
+	var cha_key = bc.HAT_CHA_POWERS[combatant['active_hat']]
 	if previous_round_state.size() == 0:
 		# Gives them a cha option at the start of the battle
-		var cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[combatant['active_hat']]].call(combatant["stats"]["cha"])
+		var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
 		combatant['choices']['cha'] = cha_power
+		combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOG_OPTIONS[cha_key].pick_random()
 	else:
 		for r_state in previous_round_state:
 			if r_state.name == combatant.name:
 				if r_state.has('choice') and r_state['choice'] != 'cha':
-					var cha_power = bc.CHA_POWERS[bc.HAT_CHA_POWERS[combatant['active_hat']]].call(combatant["stats"]["cha"])
+					var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
 					combatant['choices']['cha'] = cha_power
-	
+					combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOG_OPTIONS[cha_key].pick_random()
+		
 	var hat_ability = bc.HAT_ABILITIES[combatant['active_hat']]
 	combatant['choices']['hat'] = hat_ability
+	combatant['choices']['hat']['dialogue'] = bc.hat_sayings[combatant['active_hat']]
 
 func choose(choice):
 	round_state = []
 	player['choice'] = choice
 	## TESTING
 	opponent['choice'] = opponent.choices.keys().pick_random()
-	
 	resolve_round()
 
 func resolve_round():
@@ -114,10 +120,12 @@ func resolve_round():
 	adjust_cooldowns()
 	# adjust_hat_order()
 	previous_round_state = round_state
-	for c in init_array:
-		# Load options for next round
-		load_dialog_options(c)
+	
 
+func new_round():
+	load_dialog_options(player)
+	load_dialog_options(opponent)
+	hud.update_dialog(player, opponent)
 
 func determine_initiative():
 	var first_player
@@ -154,6 +162,8 @@ func calculate_outcome(init_array):
 		if combatant['choice'] == 'cha':
 			## apply cha buffs
 			for stat in combatant['choices']['cha'].keys():
+				if stat == 'dialogue':
+					continue
 				combatant['stats'][stat] = clamp(combatant['stats'][stat] + combatant['choices']['cha'][stat], 0, INF)
 				r_state['buffs'] = {stat: combatant['choices']['cha'][stat]}
 				
