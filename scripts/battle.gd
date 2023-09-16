@@ -16,18 +16,9 @@ var loser
 
 var round_state = []
 var previous_round_state = []
-var round = 1
+var current_round = 1
 
 var insult_subsets
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 # Start of battle:
 ## Assign all relevant info to opponent and player dictionaries
@@ -42,7 +33,7 @@ func start():
 	insult_subsets = initialize_insults()
 	load_dialog_options(player)
 	load_dialog_options(opponent)
-	hud.update_dialog(player, opponent)
+	hud.update_dialog()
 
 func assign_info():
 #	p = hud.player
@@ -122,7 +113,7 @@ func resolve_round():
 func new_round():
 	load_dialog_options(player)
 	load_dialog_options(opponent)
-	hud.update_dialog(player, opponent)
+	hud.update_dialog()
 
 func determine_initiative():
 	var first_player

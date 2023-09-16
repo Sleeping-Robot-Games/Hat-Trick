@@ -41,23 +41,18 @@ func _ready():
 			parent.apply_stats(character_data.player_stats)
 			parent.player_name = character_data.name
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func generate_random_stats(max):
+func generate_random_stats(max_value):
 	# Randomly distribute values among the first three stats and assign the rest to the last stat
-	stats["stam"] = randi() % (max - 2) + 1
-	max -= stats["stam"]
-	stats["def"] = randi() % (max - 1) + 1
-	max -= stats["def"]
-	stats["cha"] = randi() % max + 1
-	max -= stats["cha"]
-	stats["wit"] = max
+	stats["stam"] = randi() % (max_value - 2) + 1
+	max_value -= stats["stam"]
+	stats["def"] = randi() % (max_value - 1) + 1
+	max_value -= stats["def"]
+	stats["cha"] = randi() % max_value + 1
+	max_value -= stats["cha"]
+	stats["wit"] = max_value
 	
 	stats["stam"] += 8
-	
-	
+
 func load_character():
 	var f = FileAccess.open("user://player_state.save", FileAccess.READ)
 	var json = JSON.new()
@@ -74,7 +69,7 @@ func set_sprites(data):
 			if not part.name == 'body':
 				part.texture = load(data.sprite_state[part.name])
 			if part.name == 'body' or part.name == 'hair':
-				var sprite_name = 'haircolor' if part.name == 'hair' else part.name
+				var sprite_name = 'haircolor' if part.name == 'hair' else 'body'
 				part.material.set_shader_parameter("palette_swap", load(palette_folder_path + sprite_name + "/" + sprite_name + "_" + data.pallete_sprite_state[sprite_name] + ".png"))
 				part.material.set_shader_parameter("greyscale_palette", load(palette_folder_path + sprite_name + "/" + sprite_name + "_000.png"))
 				g.make_shaders_unique(part)

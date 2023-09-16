@@ -104,22 +104,21 @@ func load_character(parent_node: Node2D):
 				part.material.set_shader_param("greyscale_palette", load("res://players/wizard/creator/palette/"+part.name+"/"+part.name+"_000.png"))
 			make_shaders_unique(part)
 	return data
-	
-func play_random_sfx(parent, name, custom_range = 5, db_override = 0):
-	var sfx_player = AudioStreamPlayer.new()
-#	sfx_player.volume_db = db_override
-#	rng.randomize()
-#	var track_num = rng.randi_range(1, custom_range)
-#	sfx_player.stream = load('res://sfx/'+name+'_'+str(track_num)+'.ogg')
-#	sfx_player.connect("finished", sfx_player, "queue_free")
-#	parent.add_child(sfx_player)
-#	sfx_player.play()
 
-
-func play_sfx(parent, name, db_override = 0):
+func play_random_sfx(parent, fname, custom_range=5, db_override=0, ext='.ogg'):
 	var sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = db_override
-	sfx_player.stream = load('res://assets/sfx/'+name+'.ogg')
+	rng.randomize()
+	var track_num = rng.randi_range(1, custom_range)
+	sfx_player.stream = load('res://sfx/'+fname+'_'+str(track_num)+ext)
+	sfx_player.finished.connect(sfx_player.queue_free)
+	parent.add_child(sfx_player)
+	sfx_player.play()
+
+func play_sfx(parent, fname, db_override=0, ext='.ogg'):
+	var sfx_player = AudioStreamPlayer.new()
+	sfx_player.volume_db = db_override
+	sfx_player.stream = load('res://assets/sfx/'+fname+ext)
 	sfx_player.finished.connect(sfx_player.queue_free)
 	parent.add_child(sfx_player)
 	sfx_player.play()

@@ -47,7 +47,7 @@ func add_hat(hat_name):
 	hat_array.append(hat_name)
 	if hat_array.size() == 1:
 		return # this is the first hat from the character creation
-	var active_hat = hat_array[0]
+	active_hat = hat_array[0]
 	var new_hat = Sprite2D.new()
 	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_name))
 	new_hat.hframes = 8
@@ -108,10 +108,10 @@ func handle_input():
 	else:
 		anim_player.play("player/idle_%s" % facing)
 
-func determine_animation_suffix(direction: Vector2) -> String:
-	if direction == Vector2(1, 0):
+func determine_animation_suffix(dir: Vector2) -> String:
+	if dir == Vector2(1, 0):
 		return "right"
-	elif direction == Vector2(-1, 0):
+	elif dir == Vector2(-1, 0):
 		return "left"
 	return ""
 

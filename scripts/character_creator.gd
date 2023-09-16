@@ -11,7 +11,7 @@ var stam = 0
 var def = 0
 var cha = 0
 var wit = 0
-var max = 5
+var cap = 5
 var current_total_stats = 0
 var stats = {
 	"stam": 2, # 8 (or 10?) is the base for STAM so 2 here would make the overall STAM 10 (or 12?)
@@ -119,7 +119,7 @@ func _on_Character_Selection_button_up(dir: int, sprite: String):
 	# If increasing a value
 	elif dir == 1:
 		# Check if this increase will make the total exceed max
-		if (current_total + dir) > max or new_value > 3:
+		if (current_total + dir) > cap or new_value > 3:
 			print("Cannot increase further!")
 			return
 
@@ -140,7 +140,7 @@ func _on_Character_Selection_button_up(dir: int, sprite: String):
 		"wit_up", "wit_down":
 			wit_label.text = str(new_value)
 
-	update_available_points_label(max - current_total)
+	update_available_points_label(cap - current_total)
 
 func update_available_points_label(total_points: int):
 	var format_available_points = "Available: %s"
@@ -190,4 +190,4 @@ func _on_continue_button_up():
 
 func _on_random_stats_button_up():
 	available_points_label.text = "Available: 0"
-	generate_random_stats(max)
+	generate_random_stats(cap)
