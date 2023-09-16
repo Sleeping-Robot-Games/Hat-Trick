@@ -25,6 +25,9 @@ var skip_talking = false
 
 func _ready():
 	$Battle.start()
+	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
+	$OptionContainer/Option2.pressed.connect(_on_option_pressed.bind('wit'))
+	$OptionContainer/Option3.pressed.connect(_on_option_pressed.bind('hat'))
 
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
@@ -41,9 +44,8 @@ func update_dialog():
 		var stat = option_stats[i]
 		option.visible = battle.player.choices.has(stat)
 		if option.visible:
-			var dialogue = battle.player.choices[stat].dialogue
-			option.text = '['+stat.to_upper()+'] '+dialogue.short
-			option.pressed.connect(_on_option_pressed.bind(stat, dialogue.long))
+			var label = battle.player.choices[stat].dialogue.short
+			option.text = '['+stat.to_upper()+'] '+label
 
 func update_hud(round_state):
 	for state in round_state:
@@ -90,12 +92,13 @@ func start_battle(pl, op):
 			await get_tree().create_timer(.25).timeout
 			option.release_focus()
 
-func _on_option_pressed(stat, long):
+func _on_option_pressed(stat):
 	for option in $OptionContainer.get_children():
 		option.visible = false
 	battle.choose(stat)
 	
-	# get opponent dialogue
+	# get dialogue
+	var long = battle.player.choices[stat].dialogue.long
 	var opponent_choice = battle.opponent.choice
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
