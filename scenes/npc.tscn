@@ -70,6 +70,7 @@ offset_top = -9.0
 offset_right = -13.0
 offset_bottom = -9.0
 scale = Vector2(0.2, 0.2)
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="SpriteHolder/IdleTimer" to="." method="_on_idle_timer_timeout"]
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
