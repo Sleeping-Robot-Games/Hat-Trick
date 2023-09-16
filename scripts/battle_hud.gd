@@ -151,7 +151,7 @@ func update_hud(round_state):
 			for stat in hud_stats.keys():
 				var capitalized = stat.capitalize()
 				get_node(capitalized+'/Value').text = str(clamp(hud_stats[stat]['base'] + hud_stats[stat]['cha_buff'] + hud_stats[stat]['hat_buff'],0,INF))
-				get_node(capitalized+'/Equals')
+				get_node(capitalized+'/Equals').hide()
 				if hud_stats[stat]['cha_buff'] != 0:
 					var signed_buff = '+'+str(hud_stats[stat]['cha_buff']) if hud_stats[stat]['cha_buff'] > 0 else str(hud_stats[stat]['cha_buff'])
 					get_node(capitalized+'/ChaBuff').text = signed_buff
@@ -176,10 +176,10 @@ func hide_buff_values():
 	$Def/Equals.hide()
 	$Def/ChaBuff.hide()
 	$Def/HatBuff.hide()
-	$Def/Equals.hide()
+	$Cha/Equals.hide()
 	$Cha/ChaBuff.hide()
 	$Cha/HatBuff.hide()
-	$Def/Equals.hide()
+	$Wit/Equals.hide()
 	$Wit/ChaBuff.hide()
 	$Wit/HatBuff.hide()
 
