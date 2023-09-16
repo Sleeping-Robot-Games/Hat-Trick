@@ -28,6 +28,23 @@ var current_tool_tip
 		5: $OpponentHatStack/HatStackItem5,
 	},
 }
+@onready var stat_tool_tip_data = {
+	'def': {
+		'header': 'Defense',
+		'content': 'This score reduces incoming damage',
+		'node': $Def
+	},
+	'cha': {
+		'header': 'Charisma',
+		'content': 'This score is how powerful your CHA and HAT buffs are.',
+		'node': $Cha
+	},
+	'wit': {
+		'header': 'Wit',
+		'content': 'This score is how damaging your insults are to your opponent.',
+		'node': $Wit
+	}
+}
 
 func _ready():
 	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
@@ -39,6 +56,14 @@ func _ready():
 	$OptionContainer/Option3.mouse_entered.connect(_on_option_three_mouse_entered)
 	$OptionContainer/Option3.mouse_exited.connect(_on_tooltip_mouse_exited)
 	
+	$Def.mouse_entered.connect(_on_stat_mouse_entered.bind('def'))
+	$Cha.mouse_entered.connect(_on_stat_mouse_entered.bind('cha'))
+	$Wit.mouse_entered.connect(_on_stat_mouse_entered.bind('wit'))
+
+	$Def.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$Cha.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$Wit.mouse_exited.connect(_on_tooltip_mouse_exited)
+	
 	for hat_stack in $PlayerHatStack.get_children():
 		hat_stack.mouse_entered.connect(_on_hat_mouse_entered.bind(hat_stack))
 		hat_stack.mouse_exited.connect(_on_tooltip_mouse_exited)
@@ -47,7 +72,16 @@ func _ready():
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
 		skip_talking = true
-
+		
+func _on_stat_mouse_entered(stat):
+	var new_tool_tip = tool_tip_scene.instantiate()
+	new_tool_tip.get_node('Header').text = stat_tool_tip_data[stat].header
+	new_tool_tip.get_node('Content').text = stat_tool_tip_data[stat].content
+	add_child(new_tool_tip)
+	new_tool_tip.global_position.y = stat_tool_tip_data[stat].node.global_position.y - 100
+	new_tool_tip.global_position.x = stat_tool_tip_data[stat].node.global_position.x + 100
+	current_tool_tip = new_tool_tip
+	
 func _on_option_one_mouse_entered():
 	var cha_explanation = bc.CHA_POWERS_EXPLAINATION[bc.HAT_CHA_POWERS[player.hat_stack[0]]]
 	var new_tool_tip = tool_tip_scene.instantiate()

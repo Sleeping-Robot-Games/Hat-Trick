@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="12_widdj"]
-[ext_resource type="Animation" path="res://assets/animations/idle.res" id="13_j77na"]
+[ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="13_j77na"]
 [ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a58gh"]
@@ -240,9 +240,9 @@ active = true
 [node name="HealthBarPlayer" type="TextureProgressBar" parent="."]
 layout_mode = 0
 offset_left = 93.0
-offset_top = 307.0
+offset_top = 399.0
 offset_right = 214.0
-offset_bottom = 323.0
+offset_bottom = 415.0
 max_value = 10.0
 value = 10.0
 nine_patch_stretch = true
@@ -266,15 +266,14 @@ patch_margin_bottom = 3
 
 [node name="Def" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 129.0
-offset_top = 313.0
-offset_right = 177.0
-offset_bottom = 353.0
+offset_left = 125.0
+offset_top = 249.0
+offset_right = 173.0
+offset_bottom = 289.0
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_saua8")
 
 [node name="Label" type="Label" parent="Def"]
-layout_mode = 0
 offset_left = -24.6667
 offset_top = 14.0
 offset_right = 4.33334
@@ -284,18 +283,16 @@ theme_override_font_sizes/font_size = 11
 text = "DEF:"
 
 [node name="Value" type="Label" parent="Def"]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 13.0
-offset_right = 29.0
-offset_bottom = 30.0
+offset_left = 20.3333
+offset_top = 12.6667
+offset_right = 30.3333
+offset_bottom = 29.6667
 theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Def"]
-layout_mode = 0
 offset_left = 45.3333
 offset_top = 12.0
 offset_right = 55.3333
@@ -305,7 +302,6 @@ theme_override_font_sizes/font_size = 11
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Def"]
-layout_mode = 0
 offset_left = 56.6667
 offset_top = 13.3333
 offset_right = 72.6667
@@ -316,7 +312,6 @@ theme_override_font_sizes/font_size = 11
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Def"]
-layout_mode = 0
 offset_left = 78.0
 offset_top = 14.0
 offset_right = 94.0
@@ -328,36 +323,33 @@ text = "+3"
 
 [node name="Cha" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 344.0
-offset_right = 176.0
-offset_bottom = 384.0
+offset_left = 125.0
+offset_top = 294.0
+offset_right = 173.0
+offset_bottom = 334.0
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_wpifh")
 
 [node name="Label" type="Label" parent="Cha"]
-layout_mode = 0
-offset_left = -25.0
-offset_top = 13.0
-offset_right = 4.0
-offset_bottom = 30.0
+offset_left = -25.3333
+offset_top = 14.0
+offset_right = 3.66667
+offset_bottom = 31.0
 theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "CHA:"
 
 [node name="Value" type="Label" parent="Cha"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 13.0
-offset_right = 28.0
-offset_bottom = 30.0
+offset_left = 19.3333
+offset_top = 12.6667
+offset_right = 29.3333
+offset_bottom = 29.6667
 theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Cha"]
-layout_mode = 0
 offset_left = 47.3333
 offset_top = 12.6667
 offset_right = 57.3333
@@ -367,7 +359,6 @@ theme_override_font_sizes/font_size = 11
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Cha"]
-layout_mode = 0
 offset_left = 57.3333
 offset_top = 13.3334
 offset_right = 73.3333
@@ -378,7 +369,6 @@ theme_override_font_sizes/font_size = 11
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Cha"]
-layout_mode = 0
 offset_left = 79.3333
 offset_top = 14.0
 offset_right = 95.3333
@@ -390,15 +380,14 @@ text = "+3"
 
 [node name="Wit" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 130.0
-offset_top = 372.0
-offset_right = 178.0
-offset_bottom = 413.0
+offset_left = 125.0
+offset_top = 339.0
+offset_right = 173.0
+offset_bottom = 380.0
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_117ng")
 
 [node name="Label" type="Label" parent="Wit"]
-layout_mode = 0
 offset_left = -25.0
 offset_top = 13.0
 offset_right = 4.0
@@ -408,18 +397,16 @@ theme_override_font_sizes/font_size = 11
 text = "WIT:"
 
 [node name="Value" type="Label" parent="Wit"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 13.0
-offset_right = 28.0
-offset_bottom = 30.0
+offset_left = 19.3333
+offset_top = 12.6667
+offset_right = 29.3333
+offset_bottom = 29.6667
 theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Wit"]
-layout_mode = 0
 offset_left = 44.6667
 offset_top = 14.0
 offset_right = 54.6667
@@ -429,7 +416,6 @@ theme_override_font_sizes/font_size = 11
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Wit"]
-layout_mode = 0
 offset_left = 56.6667
 offset_top = 15.3333
 offset_right = 72.6667
@@ -440,7 +426,6 @@ theme_override_font_sizes/font_size = 11
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Wit"]
-layout_mode = 0
 offset_left = 78.6667
 offset_top = 15.3333
 offset_right = 94.6667
@@ -453,9 +438,9 @@ text = "+3"
 [node name="HealthBarOpponent" type="TextureProgressBar" parent="."]
 layout_mode = 0
 offset_left = 746.0
-offset_top = 307.0
+offset_top = 397.0
 offset_right = 869.0
-offset_bottom = 324.0
+offset_bottom = 414.0
 max_value = 10.0
 value = 10.0
 nine_patch_stretch = true

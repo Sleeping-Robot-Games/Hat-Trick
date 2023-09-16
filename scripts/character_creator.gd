@@ -24,7 +24,7 @@ var stats = {
 var starter_hat = ""
 
 func _ready():
-	# Connect buttons
+	### Connect buttons ###
 	
 	# Character Style
 	$Hat/Left.button_up.connect(_on_Sprite_Selection_button_up.bind(-1, "hat"))
