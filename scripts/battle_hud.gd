@@ -24,9 +24,9 @@ var skip_talking = false
 }
 
 func _ready():
+	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
 	$OptionContainer/Option2.pressed.connect(_on_option_pressed.bind('wit'))
 	$OptionContainer/Option3.pressed.connect(_on_option_pressed.bind('hat'))
-	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
 
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
@@ -54,22 +54,28 @@ func update_hud(round_state):
 			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
 			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
 			floater.float_text("-"+str(state['dmg']), Color.RED)
-		print('state: ', state)
 
 func new_round():
 	pass
+
+func hide_buff_values():
+	$Def/Base.hide()
+	$Def/ChaBuff.hide()
+	$Def/HatBuff.hide()
+	$Cha/Base.hide()
+	$Cha/ChaBuff.hide()
+	$Cha/HatBuff.hide()
+	$Wit/Base.hide()
+	$Wit/ChaBuff.hide()
+	$Wit/HatBuff.hide()
 
 func start_battle(pl, op):
 	visible = true
 	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
-	
-	## TODO: Change this back when battle is over
-	player.get_node('HatHolder').z_as_relative = false
-	
-	# $Battle.start()
-	## show proceed button?
+	hide_buff_values()
+	$Battle.start()
 	
 	var player_hcount = player.hat_array.size()
 	var opponent_hcount = opponent.hat_array.size()

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="7_g2x0w"]
 [ext_resource type="Texture2D" uid="uid://b5ym3jj3s5dut" path="res://assets/ui/healthbar.png" id="8_0bxmv"]
 [ext_resource type="Texture2D" uid="uid://dk73ou6hfx875" path="res://assets/ui/healthbarfill.png" id="9_c36qa"]
-[ext_resource type="PackedScene" path="res://scenes/float_text_spawner.tscn" id="10_fkcv5"]
+[ext_resource type="PackedScene" uid="uid://bisldv42hj6ht" path="res://scenes/float_text_spawner.tscn" id="10_fkcv5"]
 [ext_resource type="Texture2D" uid="uid://c27vafgsd3l10" path="res://assets/ui/projectilebubble-f1.png" id="10_wttcd"]
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
@@ -104,7 +104,7 @@ script = ExtResource("2_ly450")
 layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
-color = Color(0, 0, 0, 0.219608)
+color = Color(0, 0, 0, 0.709804)
 
 [node name="PlayerHatStack" type="Control" parent="."]
 clip_contents = true
@@ -286,6 +286,39 @@ theme_override_font_sizes/font_size = 11
 text = "3
 "
 
+[node name="Base" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 13.0
+offset_right = 61.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="ChaBuff" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 13.0
+offset_right = 80.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
+
+[node name="HatBuff" type="Label" parent="Def"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 13.0
+offset_right = 100.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
+
 [node name="Cha" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 117.0
@@ -315,6 +348,39 @@ theme_override_font_sizes/font_size = 11
 text = "3
 "
 
+[node name="Base" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 14.0
+offset_right = 61.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="ChaBuff" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 14.0
+offset_right = 80.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
+
+[node name="HatBuff" type="Label" parent="Cha"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 14.0
+offset_right = 100.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
+
 [node name="Wit" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 117.0
@@ -343,6 +409,39 @@ theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 11
 text = "3
 "
+
+[node name="Base" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 14.0
+offset_right = 61.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "3
+"
+
+[node name="ChaBuff" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 14.0
+offset_right = 80.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
+
+[node name="HatBuff" type="Label" parent="Wit"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 14.0
+offset_right = 100.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 11
+text = "+3"
 
 [node name="HealthBarOpponenet" type="TextureProgressBar" parent="."]
 layout_mode = 0
@@ -434,12 +533,14 @@ position = Vector2(844, 135)
 scale = Vector2(3, 3)
 
 [node name="OpponentDialogBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(800, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")
 animation = &"fill"
 
 [node name="PlayerDialogBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(175, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")

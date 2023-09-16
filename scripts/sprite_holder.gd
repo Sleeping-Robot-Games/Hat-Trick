@@ -52,6 +52,7 @@ func generate_random_stats(max_value):
 	stats["wit"] = max_value
 	
 	stats["stam"] += 8
+	return stats
 
 func load_character():
 	var f = FileAccess.open("user://player_state.save", FileAccess.READ)

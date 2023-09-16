@@ -36,28 +36,16 @@ func start():
 	hud.update_dialog()
 
 func assign_info():
-#	p = hud.player
-#	o = hud.opponent
-#
-#	player['stats'] = p.stats
-#	player['active_hat'] = p.hat_array[0]
-#	player['name'] = p.player_name
-#	player['choices'] = {}
-#	opponent['stats'] = o.stats
-#	opponent['active_hat'] = o.hat_array[0]
-#	opponent['choices'] = {}
-#	opponent['name'] = o.npc_name
-	
-	## FOR TESTINGS
-	player['stats'] = {"wit": 2, "cha": 2, "def": 1, "stam": 10}
-	player['active_hat'] = 'witch'
+	p = hud.player
+	o = hud.opponent
+	player['stats'] = p.stats
+	player['active_hat'] = p.hat_array[0]
+	player['name'] = p.player_name
 	player['choices'] = {}
-	player['name'] = 'Bronsky'
-	opponent['stats'] = {"wit": 2, "cha": 2, "def": 1, "stam": 10}
-	opponent['active_hat'] = 'cowboy'
+	opponent['stats'] = o.stats
+	opponent['active_hat'] = o.hat_array[0]
 	opponent['choices'] = {}
-	opponent['name'] = 'Steve'
-
+	opponent['name'] = o.npc_name
 
 func initialize_insults():
 	var insults_copy = bc.WIT_INSULTS.duplicate(true)
