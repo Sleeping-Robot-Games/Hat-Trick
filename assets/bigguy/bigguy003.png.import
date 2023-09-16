@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2rac8xvjt17g"
-path="res://.godot/imported/bigguy001.png-06dd69605bceb88b43c0a6e3f97bb9af.ctex"
+uid="uid://cnmjae1or6mcn"
+path="res://.godot/imported/bigguy003.png-367af880ad5a1edbbe8b0b0dcca4b4d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/todo/bigguy/bigguy001.png"
-dest_files=["res://.godot/imported/bigguy001.png-06dd69605bceb88b43c0a6e3f97bb9af.ctex"]
+source_file="res://assets/bigguy/bigguy003.png"
+dest_files=["res://.godot/imported/bigguy003.png-367af880ad5a1edbbe8b0b0dcca4b4d8.ctex"]
 
 [params]
 

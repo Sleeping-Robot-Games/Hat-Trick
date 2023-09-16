@@ -129,9 +129,8 @@ func hide_interact():
 	$InteractButton.visible = false
 	$InteractButton.stop()
 
-func start_fighting(x):
-	battle_pos.x = x
-	battle_pos.y = g.current_level_y_pos
+func start_fighting(pos: Vector2):
+	battle_pos = pos
 	# in_battle_pos = false
 	is_fighting = true
 	is_moving = false

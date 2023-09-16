@@ -31,8 +31,8 @@ func hat_fight(player, opponent):
 	cam.follow_player = false
 	var player_pos = get_left_battle_pos()
 	var opponent_pos = get_right_battle_pos()
-	player.start_fighting(player_pos.x)
-	opponent.start_fighting(opponent_pos.x)
+	player.start_fighting(player_pos)
+	opponent.start_fighting(opponent_pos)
 	# TODO: trigger below once both player and opponent in battle pos?
 	$NPCSpawnTimer.stop()
 	for npc in npc_pool.get_children():

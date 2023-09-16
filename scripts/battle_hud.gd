@@ -1,8 +1,11 @@
 extends Control
+
 var player = null
 var opponent = null
 var is_talking = false
 var skip_talking = false
+var opponent_is_big = false
+
 @onready var battle = $Battle
 @onready var hat_nodes = {
 	'player': {
@@ -176,12 +179,15 @@ func _on_option_pressed(stat):
 	if not skip_talking:
 		await get_tree().create_timer(1).timeout
 	
-	# render opponent text
-	$SpriteHolder2.show()
-	$SpriteHolder2.set_sprites({
-		'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
-		'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
-	})
+	if opponent_is_big:
+		$BigGuyHolder.show()
+	else:
+		# render opponent text
+		$SpriteHolder2.show()
+		$SpriteHolder2.set_sprites({
+			'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
+			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
+		})
 	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: %s[/color] " % [opponent.npc_name, opponent_choice.to_upper()]
 	for i in opponent_long:
 		if skip_talking:

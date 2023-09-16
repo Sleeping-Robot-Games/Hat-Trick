@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-const speed = 3
+@export var speed = 3
 const type = 'Player'
 
-var facing = "left"
+var facing = "right"
 var is_dancing = false
 var is_fighting = false
 var battle_pos = Vector2.ZERO
@@ -34,9 +34,8 @@ func _ready():
 	# position.y = 435
 	pass
 
-func start_fighting(x):
-	battle_pos.x = x
-	battle_pos.y = g.current_level_y_pos
+func start_fighting(pos: Vector2):
+	battle_pos = pos
 	is_fighting = true
 	
 	var tween = get_tree().create_tween()
