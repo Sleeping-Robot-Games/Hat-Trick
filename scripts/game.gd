@@ -13,7 +13,7 @@ var battle_pos_y = g.current_level_y_pos
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	npc_enters()
-	# g.play_bgm('background', -5)
+	g.play_bgm('background', -5)
 	#$NPCSpawnTimer.start()
 
 func npc_enters():
@@ -26,8 +26,8 @@ func npc_enters():
 	$NPCPool.add_child(new_npc)
 
 func hat_fight(player, opponent):
-	# g.stop_bgm('background')
-	# g.play_bgm('Battle_Music_Main', -5)
+	g.stop_bgm('background')
+	g.play_bgm('Battle_Music_Main', -5)
 	g.unfocus_current()
 	cam.follow_player = false
 	var player_pos = get_left_battle_pos()
