@@ -105,12 +105,37 @@ func load_character(parent_node: Node2D):
 			make_shaders_unique(part)
 	return data
 
-func play_random_sfx(parent, fname, custom_range=5, db_override=0, ext='.ogg'):
+var hat_sound_map = {
+	'pirate': 'pirate',
+	'raccoon': 'hardhat',
+	'shroom': 'shroom',
+	'snapback': 'sports',
+	'sports': 'sports',
+	'straw': 'cowboy',
+	'tophat': 'crown',
+	'witch': 'witch',
+	'wizard': 'wizard',
+	'baseball': 'sports',
+	'beanie': 'shroom',
+	'cloche': 'shroom',
+	'cowboy': 'cowboy',
+	'crown': 'crown',
+	'fairy': 'fairy',
+	'fedora': 'crown',
+	'floppy': 'wizard',
+	'hardhat': 'hardhat',
+	'monster': 'sports',
+	'nurse': 'nurse',
+	'party': 'sports'
+}
+
+func play_random_hat_sfx(parent, fname, custom_range=2, db_override=0, ext='.mp3'):
 	var sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = db_override
 	rng.randomize()
 	var track_num = rng.randi_range(1, custom_range)
-	sfx_player.stream = load('res://sfx/'+fname+'_'+str(track_num)+ext)
+	print(fname+str(track_num))
+	sfx_player.stream = load('res://sfx/sounds/'+hat_sound_map[fname]+str(track_num)+ext)
 	sfx_player.finished.connect(sfx_player.queue_free)
 	parent.add_child(sfx_player)
 	sfx_player.play()
@@ -133,8 +158,6 @@ func play_bgm(fname, db_override=0, ext='.mp3'):
 	
 func stop_bgm(fname):
 	var sfx_player = get_node(fname)
-	#sfx_player.stream = load('res://sfx/'+fname+ext)
-	#add_child(sfx_player)
 	sfx_player.stop()
 	
 func focus_npc(npc):

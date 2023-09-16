@@ -39,11 +39,13 @@ func assign_info():
 	p = hud.player
 	o = hud.opponent
 	player['stats'] = p.stats
+	player['max_hp'] = p.stats.stam
 	player['active_hat'] = p.hat_stack[0]
 	player['name'] = p.player_name
 	player['choices'] = {}
 	player['is_player'] = p.is_player
 	opponent['stats'] = o.stats
+	opponent['max_hp'] = p.stats.stam
 	opponent['active_hat'] = o.hat_stack[0]
 	opponent['choices'] = {}
 	opponent['name'] = o.npc_name
@@ -161,7 +163,11 @@ func calculate_outcome(init_array):
 			if combatant['choices']['hat'].has('buff'):
 				var hat_effect = combatant['choices']['hat']['buff'].call(combatant['stats']['cha'])
 				for stat in hat_effect.keys():
-					combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, INF)
+					if stat == "stam": # Don't over heal
+						r_state['heal'] = hat_effect[stat]
+						combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, combatant.max_hp)
+					else:
+						combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, INF)
 					if not r_state.has('hat_buffs'):
 						r_state['hat_buffs'] = {}
 					r_state['hat_buffs'][stat] = hat_effect[stat]
@@ -175,6 +181,7 @@ func calculate_outcome(init_array):
 			var cycled_hat = r_state['node'].hat_stack.pop_front()
 			r_state['node'].hat_stack.push_back(cycled_hat)
 			r_state['node'].active_hat = r_state['node'].hat_stack[0]
+			combatant['active_hat'] = r_state['node'].active_hat
 		
 		r_state['stam'] = combatant['stats']['stam']
 		# Check for winner

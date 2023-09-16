@@ -203,6 +203,11 @@ func update_hud(round_state):
 			var floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
 			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
 			floater.float_text("-"+str(state['dmg']), Color.RED)
+		if state.has('heal'):
+			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
+			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
+			hpbar.value = clamp(state['stam'], 0, INF)
+			floater.float_text("-"+str(state['heal']), Color.GREEN)
 
 func new_round():
 	pass
@@ -283,6 +288,8 @@ func _on_option_pressed(stat):
 		print(opponent.global_position)
 		print($OpponentSpeechBubble)
 	
+	if stat == 'hat':
+		g.play_random_hat_sfx(self, player.hat_stack[player.hat_stack.size()-1])
 	# render player text
 	is_talking = true
 	$SpriteHolder.flip_h()
@@ -310,6 +317,9 @@ func _on_option_pressed(stat):
 			'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
 			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 		})
+	
+	if opponent_choice == 'hat':
+		g.play_random_hat_sfx(self, opponent.hat_stack[0])
 	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
 	for i in opponent_long:
 		if skip_talking:
