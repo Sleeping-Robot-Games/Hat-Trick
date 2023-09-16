@@ -72,8 +72,7 @@ func _ready():
 	starter_hat = sprite_holder.random_starter_hat
 	
 	$Hat.text = starter_hat
-	$HatDetail/Power.text = 'Power: ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
-	$HatDetail/ChaLabel.text = 'CHA option: ' + bc.HAT_CHA_POWERS[starter_hat.to_lower()].to_lower().capitalize()
+	update_hat_detail()
 	
 	$AnimationPlayer.play("player/idle_right")
 
@@ -229,8 +228,7 @@ func _on_Sprite_Selection_button_up(dir: int, sprite: String):
 	if sprite == 'hat':
 		starter_hat = files[new_index].get_slice('.', 0).capitalize()
 		$Hat.text = starter_hat
-		$HatDetail/Power.text = 'Power: ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
-		$HatDetail/ChaLabel.text = 'CHA option: ' + bc.HAT_CHA_POWERS[starter_hat.to_lower()].to_lower().capitalize()
+		update_hat_detail()
 
 func _on_Color_Selection_button_up(dir: int, palette_sprite: String):
 	var folder_path = sprite_holder.palette_folder_path + palette_sprite
@@ -248,8 +246,10 @@ func _on_random_character_button_up():
 	sprite_holder.create_random_character()
 	starter_hat = sprite_holder.random_starter_hat
 	$Hat.text = starter_hat
-	$HatDetail/Power.text = 'Power: ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
-	$HatDetail/ChaLabel.text = 'CHA option: ' + bc.HAT_CHA_POWERS[starter_hat.to_lower()].to_lower().capitalize()
+
+func update_hat_detail():
+	$HatDetail/Power.text = '[u]Hat Power:[/u] ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
+	$HatDetail/ChaLabel.text = '[u]CHA Option:[/u] ' + bc.HAT_CHA_POWERS[starter_hat.to_lower()].to_lower().capitalize()
 
 func _on_continue_button_up():
 	$Error.hide()
