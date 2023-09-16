@@ -44,6 +44,7 @@ offset_bottom = 106.0
 text = "Hat plz"
 
 [node name="BattleHUD" parent="." instance=ExtResource("5_nqbwm")]
+visible = false
 
 [connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]
 [connection signal="button_up" from="Button" to="Player" method="_on_button_button_up"]

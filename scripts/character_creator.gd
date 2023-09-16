@@ -48,7 +48,6 @@ func _ready():
 	$Wit/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "wit_up"))
 	$Wit/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "wit_down"))
 	
-	print(starter_hat)
 	update_stat_labels()
 	available_points_label.text = "Available: 0"
 	

@@ -81,9 +81,8 @@ func load_dialog_options(combatant):
 	var subset = 0 if combatant.name == player.name else 1
 	var insult = insult_subsets[subset].pick_random()
 	## calculated dmg
-	combatant['choices']['wit'] = insult
-	#combatant['choices']['wit']['dialogue'] = insult # so dirty papi
-	print('insult: ', insult)
+	combatant['choices']['wit'] = insult.duplicate(true)
+	combatant['choices']['wit']['dialogue'] = insult.duplicate(true) # you dirty dog
 	insult_subsets[subset].erase(insult)
 	
 	var cha_key = bc.HAT_CHA_POWERS[combatant['active_hat']]
@@ -114,8 +113,6 @@ func choose(choice):
 func resolve_round():
 	var init_array = determine_initiative()
 	calculate_outcome(init_array)
-#	print(round_state)
-#	print(opponent['stats'])
 	hud.update_hud(round_state) 
 	adjust_cooldowns()
 	# adjust_hat_order()

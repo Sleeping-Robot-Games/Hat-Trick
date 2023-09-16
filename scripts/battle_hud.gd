@@ -35,7 +35,7 @@ func update_dialog(player, opponent):
 		var stat = option_stats[i]
 		option.visible = player.choices.has(stat)
 		if option.visible:
-			var dialogue = player.choices[stat] if stat == 'wit' else player.choices[stat].dialogue
+			var dialogue = player.choices[stat].dialogue
 			option.text = '['+stat.to_upper()+'] '+dialogue.short
 			option.pressed.connect(_on_option_pressed.bind(stat, dialogue.long))
 
@@ -87,7 +87,7 @@ func _on_option_pressed(stat, long):
 	# get opponent dialogue
 	var opponent_choice = battle.opponent.choice
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
-	var opponent_long = opponent_choice_data.dialogue.long if opponent_choice != 'wit' else opponent_choice_data.long
+	var opponent_long = opponent_choice_data.dialogue.long
 	
 	# show proceed button
 	$ProceedButton.visible = true
@@ -132,7 +132,6 @@ func _on_option_2_button_up():
 	# SHOW LONG FORM OF DIALOGUE
 	# PROCEED BUTTON
 	return
-	
 	
 	$OptionContainer.hide()
 	
