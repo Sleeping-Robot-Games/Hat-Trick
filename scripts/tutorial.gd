@@ -42,3 +42,9 @@ func get_right_battle_pos() -> Vector2:
 	var right_pos = (screen_center + half_viewport - battle_pos_offset)/3
 	return Vector2(right_pos, battle_pos_y)
 
+
+func _on_start_button_up():
+	hat_fight($Player, $BigGuy)
+
+func _on_skip_button_up():
+	get_tree().change_scene_to_file("res://scenes/game.tscn")

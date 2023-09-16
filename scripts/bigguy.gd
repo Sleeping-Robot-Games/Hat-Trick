@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var tutorial = false
+
 var type = "NPC"
 var speed = 100
 #var start_pos = Vector2(195, g.current_level_y_pos)
@@ -51,9 +53,18 @@ func start_fighting(pos):
 
 
 func _on_interact_area_body_entered(body):
-	if body.name == 'Player' and available_for_battle and not body.is_fighting:
+	if tutorial: 
+		$SpeechBubble.show()
+		$SpeechBubble.set_text("Need some pointers?")
+		get_parent().get_node('Start').show()
+		get_parent().get_node('Skip').show()
+	elif body.name == 'Player' and available_for_battle and not body.is_fighting:
 		g.focus_npc(self)
 
 func _on_interact_area_body_exited(body):
-	if body.name == 'Player':
+	if tutorial:
+		$SpeechBubble.hide()
+		get_parent().get_node('Start').hide()
+		get_parent().get_node('Skip').hide()
+	elif body.name == 'Player':
 		g.unfocus_npc(self)

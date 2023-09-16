@@ -6,7 +6,9 @@ const type = 'Player'
 var facing = "right"
 var is_dancing = false
 var is_fighting = false
+var is_disabled = false
 var battle_pos = Vector2.ZERO
+var start_pos = Vector2(190, g.current_level_y_pos)
 var battle_pos_speed = 150
 var hat_stack = []
 var stats
@@ -33,6 +35,39 @@ func _ready():
 	#$HatTowerTimerTest.start()
 	# position.y = 435
 	pass
+	
+func enter_room():
+	is_disabled = true
+	game.get_node("Camera").follow_player = false
+	position = Vector2(190, 360)
+	anim_player.play('player/walk_right')
+	modulate = Color(1, 1, 1, 0)
+	
+	var duration = 4
+	var tween = get_tree().create_tween()
+	
+	tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "scale", Vector2(4, 4), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(self, "position", Vector2(start_pos), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	
+	tween.parallel().tween_callback(done_entering).set_delay(duration)
+	
+	var shader_tween_hack = get_tree().create_tween()
+	shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 1), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+
+
+func done_entering():
+	is_disabled = false
+	game.get_node("Camera").follow_player = true
+	
+	
+func _update_shader_modulation(current_modulation):
+	for sprite in $SpriteHolder.get_children():
+		if sprite is Sprite2D:
+			var mat = sprite.material
+			if mat:
+				mat.set_shader_parameter("parent_modulation", current_modulation)
+
 
 func start_fighting(pos: Vector2):
 	battle_pos = pos
@@ -65,7 +100,7 @@ func apply_stats(_stats):
 	stats = _stats
 
 func _physics_process(delta):
-	if not is_fighting:
+	if not is_fighting and not is_disabled:
 		move_and_collide(velocity * delta)
 		handle_input()
 		

@@ -34,5 +34,5 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_uw3sd")
 theme_override_font_sizes/font_size = 22
-text = "M'Lady! "
+text = "How tough are ya?"
 horizontal_alignment = 1

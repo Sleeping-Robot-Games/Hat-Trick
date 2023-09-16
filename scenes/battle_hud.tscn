@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="12_widdj"]
-[ext_resource type="Animation" path="res://assets/animations/idle.res" id="13_j77na"]
+[ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="13_j77na"]
 [ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a58gh"]
@@ -504,10 +504,10 @@ patch_margin_bottom = 3
 
 [node name="OptionContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 310.0
-offset_top = 339.0
-offset_right = 594.0
-offset_bottom = 434.0
+offset_left = 333.0
+offset_top = 326.0
+offset_right = 701.0
+offset_bottom = 442.0
 scale = Vector2(0.8, 0.8)
 
 [node name="Option1" type="Button" parent="OptionContainer"]
@@ -588,6 +588,7 @@ sprite_frames = SubResource("SpriteFrames_a62df")
 animation = &"fill"
 
 [node name="PlayerSpeechBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(175, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")

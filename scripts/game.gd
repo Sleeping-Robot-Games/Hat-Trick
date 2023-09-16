@@ -10,10 +10,16 @@ var battle_pos_y = g.current_level_y_pos
 @onready var npc_pool = $NPCPool
 @onready var cam = $Camera
 
+var debug = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	npc_enters()
-	#$NPCSpawnTimer.start()
+	if debug:
+		return
+	
+	# Entrance animation for player
+	$Player.enter_room()
+	
+	$NPCSpawnTimer.start()
 
 func npc_enters():
 	var new_npc = npc_scene.instantiate()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dep7866ey2ofj"]
+[gd_scene load_steps=12 format=3 uid="uid://dep7866ey2ofj"]
 
 [ext_resource type="Script" path="res://scripts/bigguy.gd" id="1_4ytkk"]
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="1_pqmxv"]
-[ext_resource type="Animation" path="res://assets/animations/idle.res" id="3_8fh3e"]
+[ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="3_8fh3e"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="3_nprr4"]
 [ext_resource type="Texture2D" uid="uid://7sdsudutiwut" path="res://assets/ui/epressed.png" id="4_nh5yk"]
+[ext_resource type="PackedScene" uid="uid://isjrhd0bud2e" path="res://scenes/speech_bubble.tscn" id="6_rtv8n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_58h04"]
 radius = 6.0
@@ -52,6 +53,7 @@ animations = [{
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_4ytkk")
+tutorial = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -80,6 +82,15 @@ position = Vector2(0, -15)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_2fiu7")
 speed_scale = 0.5
+
+[node name="SpeechBubble" parent="." instance=ExtResource("6_rtv8n")]
+visible = false
+offset_left = -26.0
+offset_top = -17.0
+offset_right = -26.0
+offset_bottom = -17.0
+scale = Vector2(0.2, 0.2)
+size_flags_vertical = 3
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

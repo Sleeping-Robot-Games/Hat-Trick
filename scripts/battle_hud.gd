@@ -291,10 +291,10 @@ func _on_option_pressed(stat):
 		'sprite_state': player.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': player.get_node("SpriteHolder").pallete_sprite_state
 	})
-	$DialogueContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
+	$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
 	for i in long:
 		if skip_talking:
-			$DialogueContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
+			$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
 			break
 		$DialogueContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
@@ -310,10 +310,10 @@ func _on_option_pressed(stat):
 			'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
 			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 		})
-	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
+	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
 	for i in opponent_long:
 		if skip_talking:
-			$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
+			$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
 			break
 		$DialogueContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout

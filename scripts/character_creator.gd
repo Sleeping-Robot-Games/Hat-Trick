@@ -258,7 +258,7 @@ func _on_continue_button_up():
 		$Error.show()
 		return
 	await store_player_state()
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
 
 func _on_random_stats_button_up():
 	available_points_label.text = "Available: 0"

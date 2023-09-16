@@ -86,7 +86,7 @@ const HAT_CHA_POWERS = {
 }
 
 func damage_formula(user_wit, opp_def, damange_range):
-	return clamp(user_wit + damange_range - opp_def, 1, INF)
+	return clamp((user_wit + damange_range) - opp_def, 1, INF)
 
 # 
 func hat_damage(user_wit, opp_def):

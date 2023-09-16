@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2f1i3al4pwa7"]
+[gd_scene load_steps=5 format=3 uid="uid://d2f1i3al4pwa7"]
 
 [ext_resource type="Texture2D" uid="uid://bg3gsx7bfpk1h" path="res://assets/elevator.png" id="1_d1qle"]
+[ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_o0xej"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1k1i3"]
 texture = ExtResource("1_d1qle")
@@ -212,3 +213,6 @@ layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array(196614, 0, 12, 262150, 0, 13, 327686, 0, 14, 393222, 0, 15, 196615, 65536, 12, 262151, 65536, 13, 327687, 65536, 14, 393223, 65536, 15, 196616, 131072, 12, 262152, 131072, 13, 327688, 131072, 14, 393224, 131072, 15, 196617, 196608, 12, 262153, 196608, 13, 327689, 196608, 14, 393225, 196608, 15)
+
+[node name="Player" parent="." instance=ExtResource("2_o0xej")]
+position = Vector2(555, 409)

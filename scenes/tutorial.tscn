@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cygfon0h3l20j"]
+[gd_scene load_steps=9 format=3 uid="uid://cygfon0h3l20j"]
 
 [ext_resource type="PackedScene" uid="uid://b58ty53ksowmq" path="res://scenes/outside.tscn" id="1_jbb1h"]
 [ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_qsx2a"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_tben5"]
 [ext_resource type="PackedScene" uid="uid://dep7866ey2ofj" path="res://scenes/bigguy.tscn" id="3_moyf8"]
 [ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="4_j0wuq"]
+[ext_resource type="Texture2D" uid="uid://cid57divpsw4v" path="res://assets/neonhatsign.png" id="6_k21yg"]
+[ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="7_6nhj2"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_kwvj2"]
 b = Vector2(0, 179)
@@ -14,6 +16,16 @@ scale = Vector2(3, 3)
 script = ExtResource("1_qsx2a")
 
 [node name="Outside" parent="." instance=ExtResource("1_jbb1h")]
+
+[node name="Neonhatsign" type="Sprite2D" parent="."]
+position = Vector2(34.3333, 93)
+texture = ExtResource("6_k21yg")
+offset = Vector2(-5, -16.6667)
+
+[node name="Neonhatsign2" type="Sprite2D" parent="."]
+position = Vector2(297.666, 93)
+texture = ExtResource("6_k21yg")
+offset = Vector2(-5, -16.6667)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -43,3 +55,46 @@ offset_top = 0.0
 offset_right = 960.0
 offset_bottom = 540.0
 scale = Vector2(0.333, 0.333)
+
+[node name="TutorialLabels" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_top = -1.0
+offset_bottom = -1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutorialLabels"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialLabels"]
+layout_mode = 0
+offset_left = 85.6667
+offset_top = 34.6667
+offset_right = 125.667
+offset_bottom = 74.6667
+theme_override_fonts/normal_font = ExtResource("7_6nhj2")
+theme_override_font_sizes/normal_font_size = 22
+
+[node name="Start" type="Button" parent="."]
+visible = false
+offset_left = 126.667
+offset_top = 138.333
+offset_right = 345.667
+offset_bottom = 174.333
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("7_6nhj2")
+theme_override_font_sizes/font_size = 22
+text = "Start Tutorial"
+
+[node name="Skip" type="Button" parent="."]
+visible = false
+offset_left = 127.0
+offset_top = 158.667
+offset_right = 346.0
+offset_bottom = 194.667
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("7_6nhj2")
+theme_override_font_sizes/font_size = 22
+text = "Skip Tutorial"
+
+[connection signal="button_up" from="Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="Skip" to="." method="_on_skip_button_up"]
