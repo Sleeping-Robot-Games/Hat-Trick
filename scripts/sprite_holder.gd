@@ -112,6 +112,8 @@ func create_random_character():
 		set_random_color(folder)
 
 func set_sprite_texture(sprite_name: String, texture_path: String):
+	print('sprite_name: ', sprite_name)
+	print('texture_path: ', texture_path)
 	character_sprite[sprite_name].set_texture(load(texture_path))
 	sprite_state[sprite_name] = texture_path
 

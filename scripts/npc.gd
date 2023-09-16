@@ -14,10 +14,11 @@ var available_for_battle = true
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
-var hat_array
+var hat_stack = []
 var stats
 var npc_name
 var is_player = false
+var active_hat
 
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
@@ -58,7 +59,7 @@ func set_moving(move):
 	available_for_battle = move # Only set in the tween callback when they're out the door
 
 func init_stats(hats, _stats):
-	hat_array = hats
+	hat_stack = hats
 	stats = _stats
 
 func _physics_process(delta):

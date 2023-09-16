@@ -10,7 +10,7 @@ func _ready():
 	else:
 		$Border.texture = load("res://assets/ui/border1.png")
 
-func change_hat(hat_name):
+func change_hat(hat_name, play_sfx=true):
 	show()
 	has_hat = true
 	var atlas_tex = AtlasTexture.new()

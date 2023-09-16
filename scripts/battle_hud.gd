@@ -94,11 +94,12 @@ func update_hud(round_state):
 					get_node(capitalized+'/HatBuff').show()
 					get_node(capitalized+'/Base').show()
 		# lower hp bar and show floating dmg text
-		if state.choice == 'hat' and state.has('dmg'):
-			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponenet
-			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
-			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
-			floater.float_text("-"+str(state['dmg']), Color.RED)
+		if state.choice == 'hat':
+			if state.has('dmg'):
+				var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponenet
+				var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponenet/FloatTextSpawner
+				hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
+				floater.float_text("-"+str(state['dmg']), Color.RED)
 
 func new_round():
 	pass
@@ -125,27 +126,39 @@ func start_battle(pl, op):
 	$Cha/Value.text = str(player.stats['cha'])
 	$Wit/Value.text = str(player.stats['wit'])
 	$Battle.start()
-	
-	var player_hcount = player.hat_array.size()
-	var opponent_hcount = opponent.hat_array.size()
-	for i in g.max_hats:
-		hat_nodes['player'][i].no_hat()
-		hat_nodes['opponent'][i].no_hat()
-	for i in g.max_hats:
-		if i + 1 <= player_hcount:
-			await get_tree().create_timer(.3).timeout
-			hat_nodes['player'][i].change_hat(player.hat_array[i])
-		if i + 1 <= opponent_hcount:
-			await get_tree().create_timer(.3).timeout
-			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
-	
+	draw_hats()
+	# cycle through button focus so spacebar guy doesn't get confused B)
 	await get_tree().create_timer(1).timeout
-
 	for option in $OptionContainer.get_children():
 		if option.visible:
 			option.grab_focus()
 			await get_tree().create_timer(.25).timeout
 			option.release_focus()
+
+func cycle_hats(is_player):
+	var hcount = player.hat_stack.size() if is_player else opponent.hat_stack.size()
+	var node_name = 'player' if is_player else 'opponent'
+	var node = player if is_player else opponent
+	for i in g.max_hats:
+		if i + 1 <= hcount:
+			hat_nodes[node_name][i].change_hat(node.hat_stack[i], false)
+			if i == 0:
+				var hat_path = 'res://assets/sprites/hat/'+node.hat_stack[0]+'.png'
+				node.get_node('SpriteHolder').set_sprite_texture('hat', hat_path)
+
+func draw_hats(delay=0.3, play_sfx=true):
+	var player_hcount = player.hat_stack.size()
+	var opponent_hcount = opponent.hat_stack.size()
+	for i in g.max_hats:
+		hat_nodes['player'][i].no_hat()
+		hat_nodes['opponent'][i].no_hat()
+	for i in g.max_hats:
+		if i + 1 <= player_hcount:
+			await get_tree().create_timer(delay).timeout
+			hat_nodes['player'][i].change_hat(player.hat_stack[i], play_sfx)
+		if i + 1 <= opponent_hcount:
+			await get_tree().create_timer(delay).timeout
+			hat_nodes['opponent'][i].change_hat(opponent.hat_stack[i], play_sfx)
 
 func _on_option_pressed(stat):
 	for option in $OptionContainer.get_children():
@@ -230,6 +243,8 @@ func _on_proceed_button_pressed():
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
 	play_speech_bubbles_animation()
+	cycle_hats(true)
+	cycle_hats(false)
 	## TODO: move option visibility to after chat bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false

@@ -8,7 +8,7 @@ var is_dancing = false
 var is_fighting = false
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
-var hat_array = []
+var hat_stack = []
 var stats
 var player_name
 var is_player = true
@@ -44,10 +44,10 @@ func start_fighting(pos: Vector2):
 	anim_player.play("player/idle_right")
 
 func add_hat(hat_name):
-	hat_array.append(hat_name)
-	if hat_array.size() == 1:
+	hat_stack.append(hat_name)
+	if hat_stack.size() == 1:
 		return # this is the first hat from the character creation
-	active_hat = hat_array[0]
+	active_hat = hat_stack[0]
 	var new_hat = Sprite2D.new()
 	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_name))
 	new_hat.hframes = 8
@@ -55,8 +55,8 @@ func add_hat(hat_name):
 	new_hat.frame = 0
 	
 	var cumulative_y_decrement = 0
-	for i in range(hat_array.size()-1):
-		cumulative_y_decrement += g.hat_index[hat_array[i]] / 1.5
+	for i in range(hat_stack.size()-1):
+		cumulative_y_decrement += g.hat_index[hat_stack[i]] / 1.5
 	new_hat.position.y = new_hat.position.y - cumulative_y_decrement
 	
 	$HatHolder.add_child(new_hat)

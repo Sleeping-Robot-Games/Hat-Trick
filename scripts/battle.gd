@@ -39,12 +39,12 @@ func assign_info():
 	p = hud.player
 	o = hud.opponent
 	player['stats'] = p.stats
-	player['active_hat'] = p.hat_array[0]
+	player['active_hat'] = p.hat_stack[0]
 	player['name'] = p.player_name
 	player['choices'] = {}
 	player['is_player'] = p.is_player
 	opponent['stats'] = o.stats
-	opponent['active_hat'] = o.hat_array[0]
+	opponent['active_hat'] = o.hat_stack[0]
 	opponent['choices'] = {}
 	opponent['name'] = o.npc_name
 	opponent['is_player'] = o.is_player
@@ -170,6 +170,11 @@ func calculate_outcome(init_array):
 				var hat_dmg = combatant['choices']['hat']['dmg'].call(combatant['stats']['wit'], opp['stats']['def'])
 				opp['stats']["stam"] = clamp(opp['stats']["stam"] - hat_dmg, 0, INF)
 				r_state['dmg'] = hat_dmg
+			## cycle hat to top of stack
+			print('combatant: ', combatant)
+			var cycled_hat = r_state['node'].hat_stack.pop_front()
+			r_state['node'].hat_stack.push_back(cycled_hat)
+			r_state['node'].active_hat = r_state['node'].hat_stack[0]
 		
 		r_state['stam'] = combatant['stats']['stam']
 		# Check for winner
