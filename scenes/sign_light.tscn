@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://tennnnn3fahm"]
+
+[sub_resource type="Gradient" id="Gradient_5n88v"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i55p"]
+gradient = SubResource("Gradient_5n88v")
+fill = 1
+fill_from = Vector2(0.53211, 0.490826)
+fill_to = Vector2(0.889908, 0.169725)
+
+[sub_resource type="Animation" id="Animation_jr530"]
+resource_name = "Light Pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(0.329876, 1, 0.038217),
+"update": 0,
+"values": [3.0, 3.0, 0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4kouj"]
+_data = {
+"Light Pulse": SubResource("Animation_jr530")
+}
+
+[node name="sign_light" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 3.0
+texture = SubResource("GradientTexture2D_0i55p")
+texture_scale = 0.6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4kouj")
+}
