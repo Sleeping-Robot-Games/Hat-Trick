@@ -264,6 +264,16 @@ patch_margin_bottom = 3
 
 [node name="FloatTextSpawner" parent="HealthBarPlayer" instance=ExtResource("10_fkcv5")]
 
+[node name="Value" type="Label" parent="HealthBarPlayer"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 22
+text = "10/10"
+horizontal_alignment = 1
+
 [node name="Def" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 125.0
@@ -274,51 +284,61 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_saua8")
 
 [node name="Label" type="Label" parent="Def"]
+layout_mode = 0
 offset_left = -24.6667
 offset_top = 14.0
 offset_right = 4.33334
 offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "DEF:"
 
 [node name="Value" type="Label" parent="Def"]
+layout_mode = 0
 offset_left = 20.3333
 offset_top = 12.6667
 offset_right = 30.3333
 offset_bottom = 29.6667
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Def"]
+layout_mode = 0
 offset_left = 45.3333
 offset_top = 12.0
 offset_right = 55.3333
 offset_bottom = 29.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Def"]
+layout_mode = 0
 offset_left = 56.6667
 offset_top = 13.3333
 offset_right = 72.6667
 offset_bottom = 30.3333
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Def"]
+layout_mode = 0
 offset_left = 78.0
 offset_top = 14.0
 offset_right = 94.0
 offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="Cha" type="TextureRect" parent="."]
@@ -331,51 +351,61 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_wpifh")
 
 [node name="Label" type="Label" parent="Cha"]
+layout_mode = 0
 offset_left = -25.3333
 offset_top = 14.0
 offset_right = 3.66667
 offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "CHA:"
 
 [node name="Value" type="Label" parent="Cha"]
+layout_mode = 0
 offset_left = 19.3333
 offset_top = 12.6667
 offset_right = 29.3333
 offset_bottom = 29.6667
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Cha"]
+layout_mode = 0
 offset_left = 47.3333
 offset_top = 12.6667
 offset_right = 57.3333
 offset_bottom = 29.6667
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Cha"]
+layout_mode = 0
 offset_left = 57.3333
 offset_top = 13.3334
 offset_right = 73.3333
 offset_bottom = 30.3334
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Cha"]
+layout_mode = 0
 offset_left = 79.3333
 offset_top = 14.0
 offset_right = 95.3333
 offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="Wit" type="TextureRect" parent="."]
@@ -388,51 +418,61 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_117ng")
 
 [node name="Label" type="Label" parent="Wit"]
+layout_mode = 0
 offset_left = -25.0
 offset_top = 13.0
 offset_right = 4.0
 offset_bottom = 30.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "WIT:"
 
 [node name="Value" type="Label" parent="Wit"]
+layout_mode = 0
 offset_left = 19.3333
 offset_top = 12.6667
 offset_right = 29.3333
 offset_bottom = 29.6667
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "3
 "
 
 [node name="Equals" type="Label" parent="Wit"]
+layout_mode = 0
 offset_left = 44.6667
 offset_top = 14.0
 offset_right = 54.6667
 offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "="
 
 [node name="ChaBuff" type="Label" parent="Wit"]
+layout_mode = 0
 offset_left = 56.6667
 offset_top = 15.3333
 offset_right = 72.6667
 offset_bottom = 32.3333
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="HatBuff" type="Label" parent="Wit"]
+layout_mode = 0
 offset_left = 78.6667
 offset_top = 15.3333
 offset_right = 94.6667
 offset_bottom = 32.3333
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 22
 text = "+3"
 
 [node name="HealthBarOpponent" type="TextureProgressBar" parent="."]
@@ -468,11 +508,13 @@ offset_left = 310.0
 offset_top = 339.0
 offset_right = 594.0
 offset_bottom = 434.0
+scale = Vector2(0.8, 0.8)
 
 [node name="Option1" type="Button" parent="OptionContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 22
 text = "[CHA] This is a test option"
 flat = true
 alignment = 0
@@ -481,6 +523,7 @@ alignment = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.498039, 0.65098, 0.745098, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 22
 text = "[WIT] This is a test option"
 flat = true
 alignment = 0
@@ -489,6 +532,7 @@ alignment = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 22
 text = "[HAT] This is a test option"
 flat = true
 alignment = 0
