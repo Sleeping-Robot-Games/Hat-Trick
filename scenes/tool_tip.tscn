@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bql6svl5owti"]
+
+[ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="1_6coc1"]
+
+[node name="ToolTip" type="Control"]
+layout_mode = 3
+anchor_right = 0.219
+anchor_bottom = 0.361
+offset_right = 66.76
+offset_bottom = -47.94
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 277.0
+offset_bottom = 147.0
+color = Color(0, 0, 0, 0.776471)
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 276.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("1_6coc1")
+theme_override_font_sizes/font_size = 24
+text = "HEADER"
+horizontal_alignment = 1
+
+[node name="Content" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 36.0
+offset_right = 267.0
+offset_bottom = 140.0
+theme_override_fonts/font = ExtResource("1_6coc1")
+text = "Here is some content, deal with it please"
+autowrap_mode = 2

@@ -1,5 +1,7 @@
 extends Control
 
+var tool_tip_scene = load("res://scenes/tool_tip.tscn")
+
 @onready var sprite_holder = $SpriteHolder
 @onready var stam_label = $Stam/Label
 @onready var def_label = $Def/Label
@@ -48,6 +50,16 @@ func _ready():
 	$Wit/Up.button_up.connect(_on_Character_Selection_button_up.bind(1, "wit_up"))
 	$Wit/Down.button_up.connect(_on_Character_Selection_button_up.bind(-1, "wit_down"))
 	
+	$Stam.mouse_entered.connect(_on_stat_mouse_entered.bind('stam'))
+	$Def.mouse_entered.connect(_on_stat_mouse_entered.bind('def'))
+	$Cha.mouse_entered.connect(_on_stat_mouse_entered.bind('cha'))
+	$Wit.mouse_entered.connect(_on_stat_mouse_entered.bind('wit'))
+
+	$Stam.mouse_exited.connect(_on_stat_mouse_exited.bind('stam'))
+	$Def.mouse_exited.connect(_on_stat_mouse_exited.bind('def'))
+	$Cha.mouse_exited.connect(_on_stat_mouse_exited.bind('cha'))
+	$Wit.mouse_exited.connect(_on_stat_mouse_exited.bind('wit'))
+	
 	update_stat_labels()
 	available_points_label.text = "Available: 0"
 	
@@ -61,6 +73,44 @@ func _ready():
 
 func _process(delta):
 	pass
+
+
+@onready var tool_tip_data = {
+	'stam': {
+		'header': 'Stamina',
+		'content': 'This score increases your Health',
+		'node': $Stam
+	},
+	'def': {
+		'header': 'Defense',
+		'content': 'This score reduces incoming damage',
+		'node': $Def
+	},
+	'cha': {
+		'header': 'Charisma',
+		'content': 'This score is how powerful your CHA buffs are.',
+		'node': $Cha
+	},
+	'wit': {
+		'header': 'Wit',
+		'content': 'This score is how damaging your insults are to your opponent.',
+		'node': $Wit
+	}
+}
+var current_tool_tip
+
+func _on_stat_mouse_entered(stat):
+	var new_tool_tip = tool_tip_scene.instantiate()
+	new_tool_tip.get_node('Header').text = tool_tip_data[stat].header
+	new_tool_tip.get_node('Content').text = tool_tip_data[stat].content
+	add_child(new_tool_tip)
+	new_tool_tip.global_position.y = tool_tip_data[stat].node.global_position.y - 150
+	new_tool_tip.global_position.x = tool_tip_data[stat].node.global_position.x - 200
+	current_tool_tip = new_tool_tip
+	
+func _on_stat_mouse_exited(stat):
+	current_tool_tip.queue_free()
+	current_tool_tip = null
 
 func store_player_state():
 	stats['stam'] += 8
