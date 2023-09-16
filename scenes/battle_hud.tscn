@@ -434,12 +434,14 @@ position = Vector2(844, 135)
 scale = Vector2(3, 3)
 
 [node name="OpponentDialogBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(800, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")
 animation = &"fill"
 
 [node name="PlayerDialogBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(175, 435)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_a62df")

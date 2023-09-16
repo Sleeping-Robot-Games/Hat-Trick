@@ -82,12 +82,12 @@ func start_battle(pl, op):
 			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
 	
-
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(1).timeout
+	show_speech_bubbles()
 	for option in $OptionContainer.get_children():
 		if option.visible:
 			option.grab_focus()
-			await get_tree().create_timer(.5).timeout
+			await get_tree().create_timer(.25).timeout
 			option.release_focus()
 
 func _on_option_pressed(stat, long):
@@ -100,11 +100,9 @@ func _on_option_pressed(stat, long):
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
 	
-	# TODO
-	#$PlayerDialogBubble.show()
-	#$PlayerDialogBubble.play("fill")
-	#$OpponentDialogBubble.show()
-	#$OpponentDialogBubble.play("fill")
+	# hide dialogue bubbles
+	$PlayerDialogBubble.hide()
+	$OpponentDialogBubble.hide()
 	
 	# render player text
 	is_talking = true
@@ -123,7 +121,6 @@ func _on_option_pressed(stat, long):
 		await get_tree().create_timer(.03).timeout
 	if not skip_talking:
 		await get_tree().create_timer(1).timeout
-	$SpriteHolder.hide()
 	
 	# render opponent text
 	$SpriteHolder2.show()
@@ -140,7 +137,7 @@ func _on_option_pressed(stat, long):
 		await get_tree().create_timer(.03).timeout
 	if not skip_talking:
 		await get_tree().create_timer(1).timeout
-	$SpriteHolder2.hide()
+	
 	
 	# show proceed button
 	$ProceedButton.visible = true
@@ -152,10 +149,19 @@ func _on_option_pressed(stat, long):
 	# if player played wit
 	# $AnimationPlayer.play('player_shoot')
 
+func show_speech_bubbles():
+	$PlayerDialogBubble.show()
+	$PlayerDialogBubble.play("fill")
+	$OpponentDialogBubble.show()
+	$OpponentDialogBubble.play("fill")
+
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
 	$DialogContainer/RichTextLabel.text = ''
 	$DialogContainer/RichTextLabel2.text = ''
+	$SpriteHolder.hide()
+	$SpriteHolder2.hide()
+	show_speech_bubbles()
 	## TODO: move option visibility to after chat bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
