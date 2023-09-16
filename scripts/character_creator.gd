@@ -93,12 +93,12 @@ func _process(delta):
 	},
 	'cha': {
 		'header': 'Charisma',
-		'content': 'This score is how powerful your CHA and HAT buffs are.',
+		'content': 'This score is how powerful your CHA and HAT buffs are.  \n Increases speed.',
 		'node': $Cha
 	},
 	'wit': {
 		'header': 'Wit',
-		'content': 'This score is how damaging your insults are to your opponent.',
+		'content': 'This score is how damaging your insults are to your opponent. \n Increases speed.',
 		'node': $Wit
 	}
 }
@@ -246,9 +246,10 @@ func _on_random_character_button_up():
 	sprite_holder.create_random_character()
 	starter_hat = sprite_holder.random_starter_hat
 	$Hat.text = starter_hat
+	update_hat_detail()
 
 func update_hat_detail():
-	$HatDetail/Power.text = '[u]Hat Power:[/u] ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
+	$HatDetail/Power.text = '[u]HAT Power:[/u] ' + bc.HAT_ABILITY_EXPLAINATION[starter_hat.to_lower()] 
 	$HatDetail/ChaLabel.text = '[u]CHA Option:[/u] ' + bc.HAT_CHA_POWERS[starter_hat.to_lower()].to_lower().capitalize()
 
 func _on_continue_button_up():

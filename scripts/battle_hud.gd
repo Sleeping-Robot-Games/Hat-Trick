@@ -36,12 +36,12 @@ var current_tool_tip
 	},
 	'cha': {
 		'header': 'Charisma',
-		'content': 'This score is how powerful your CHA and HAT buffs are.',
+		'content': 'This score is how powerful your CHA and HAT buffs are.  \n Increases speed.',
 		'node': $Cha
 	},
 	'wit': {
 		'header': 'Wit',
-		'content': 'This score is how damaging your insults are to your opponent.',
+		'content': 'This score is how damaging your insults are to your opponent. \n Increases speed.',
 		'node': $Wit
 	}
 }
