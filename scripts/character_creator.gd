@@ -55,14 +55,14 @@ func _ready():
 	$Cha.mouse_entered.connect(_on_stat_mouse_entered.bind('cha'))
 	$Wit.mouse_entered.connect(_on_stat_mouse_entered.bind('wit'))
 
-	$Stam.mouse_exited.connect(_on_stat_mouse_exited.bind('stam'))
-	$Def.mouse_exited.connect(_on_stat_mouse_exited.bind('def'))
-	$Cha.mouse_exited.connect(_on_stat_mouse_exited.bind('cha'))
-	$Wit.mouse_exited.connect(_on_stat_mouse_exited.bind('wit'))
+	$Stam.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$Def.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$Cha.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$Wit.mouse_exited.connect(_on_tooltip_mouse_exited)
 	
 	
 	$HatDetail/ChaLabel.mouse_entered.connect(_on_cha_label_mouse_entered)
-	$HatDetail/ChaLabel.mouse_exited.connect(_on_cha_label_mouse_exited)
+	$HatDetail/ChaLabel.mouse_exited.connect(_on_tooltip_mouse_exited)
 	
 	update_stat_labels()
 	available_points_label.text = "Available: 0"
@@ -114,7 +114,7 @@ func _on_stat_mouse_entered(stat):
 	new_tool_tip.global_position.x = tool_tip_data[stat].node.global_position.x - 200
 	current_tool_tip = new_tool_tip
 	
-func _on_stat_mouse_exited(stat):
+func _on_tooltip_mouse_exited():
 	current_tool_tip.queue_free()
 	current_tool_tip = null
 
@@ -128,9 +128,6 @@ func _on_cha_label_mouse_entered():
 	new_tool_tip.global_position.x = $HatDetail/ChaLabel.global_position.x + 50
 	current_tool_tip = new_tool_tip
 
-func _on_cha_label_mouse_exited():
-	current_tool_tip.queue_free()
-	current_tool_tip = null
 
 func store_player_state():
 	stats['stam'] += 8

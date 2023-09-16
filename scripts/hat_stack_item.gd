@@ -2,6 +2,7 @@ extends Control
 
 @export var active = false
 var has_hat = false
+var hat_name = ""
 
 func _ready():
 	if active:
@@ -10,9 +11,10 @@ func _ready():
 	else:
 		$Border.texture = load("res://assets/ui/border1.png")
 
-func change_hat(hat_name, play_sfx=true):
+func change_hat(_hat_name, play_sfx=true):
 	show()
 	has_hat = true
+	hat_name = _hat_name
 	var atlas_tex = AtlasTexture.new()
 	atlas_tex.atlas = load("res://assets/sprites/hat/"+hat_name+".png")
 	atlas_tex.region = Rect2(0, 0, 32, 32)
@@ -20,4 +22,5 @@ func change_hat(hat_name, play_sfx=true):
 
 func no_hat():
 	hide()
+	hat_name = ""
 	$Border/Hat.texture = null

@@ -6,6 +6,9 @@ var is_talking = false
 var skip_talking = false
 var opponent_is_big = false
 
+var tool_tip_scene = load("res://scenes/tool_tip.tscn")
+var current_tool_tip
+
 @onready var battle = $Battle
 @onready var hat_nodes = {
 	'player': {
@@ -30,10 +33,56 @@ func _ready():
 	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
 	$OptionContainer/Option2.pressed.connect(_on_option_pressed.bind('wit'))
 	$OptionContainer/Option3.pressed.connect(_on_option_pressed.bind('hat'))
+	
+	$OptionContainer/Option1.mouse_entered.connect(_on_option_one_mouse_entered)
+	$OptionContainer/Option1.mouse_exited.connect(_on_tooltip_mouse_exited)
+	$OptionContainer/Option3.mouse_entered.connect(_on_option_three_mouse_entered)
+	$OptionContainer/Option3.mouse_exited.connect(_on_tooltip_mouse_exited)
+	
+	for hat_stack in $PlayerHatStack.get_children():
+		hat_stack.mouse_entered.connect(_on_hat_mouse_entered.bind(hat_stack))
+		hat_stack.mouse_exited.connect(_on_tooltip_mouse_exited)
+	
 
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
 		skip_talking = true
+
+func _on_option_one_mouse_entered():
+	var cha_explanation = bc.CHA_POWERS_EXPLAINATION[bc.HAT_CHA_POWERS[player.hat_stack[0]]]
+	var new_tool_tip = tool_tip_scene.instantiate()
+	new_tool_tip.get_node('Header').text = bc.HAT_CHA_POWERS[player.hat_stack[0]]
+	new_tool_tip.get_node('Content').text = cha_explanation
+	add_child(new_tool_tip)
+	new_tool_tip.global_position.y = $OptionContainer/Option1.global_position.y - 150  #=  $HatDetail/ChaLabel.global_position.y - 150
+	new_tool_tip.global_position.x = $OptionContainer/Option1.global_position.x #= $HatDetail/ChaLabel.global_position.x + 50
+	current_tool_tip = new_tool_tip
+
+func _on_option_three_mouse_entered():
+	var hat_explanation = bc.HAT_ABILITY_EXPLAINATION[player.hat_stack[0]] 
+	var new_tool_tip = tool_tip_scene.instantiate()
+	new_tool_tip.get_node('Header').text = player.hat_stack[0].to_upper()
+	new_tool_tip.get_node('Content').text = "HAT POWER: " + hat_explanation
+	add_child(new_tool_tip)
+	new_tool_tip.global_position.y = $OptionContainer/Option1.global_position.y - 150  #=  $HatDetail/ChaLabel.global_position.y - 150
+	new_tool_tip.global_position.x = $OptionContainer/Option1.global_position.x #= $HatDetail/ChaLabel.global_position.x + 50
+	current_tool_tip = new_tool_tip
+	
+func _on_tooltip_mouse_exited():
+	current_tool_tip.queue_free()
+	current_tool_tip = null
+
+func _on_hat_mouse_entered(hat_stack):
+	var hat = hat_stack.hat_name
+	var power = 'Power: ' + bc.HAT_ABILITY_EXPLAINATION[hat] 
+	var cha_option = 'CHA option: ' + bc.HAT_CHA_POWERS[hat].to_lower().capitalize()
+	var new_tool_tip = tool_tip_scene.instantiate()
+	new_tool_tip.get_node('Header').text = hat.capitalize()
+	new_tool_tip.get_node('Content').text = power + '\n\n' + cha_option 
+	add_child(new_tool_tip)
+	new_tool_tip.global_position.y = hat_stack.position.y #=  $HatDetail/ChaLabel.global_position.y - 150
+	new_tool_tip.global_position.x = hat_stack.position.x + 100 #= $HatDetail/ChaLabel.global_position.x + 50
+	current_tool_tip = new_tool_tip
 
 func update_dialog():
 	var option_stats = {
@@ -47,7 +96,27 @@ func update_dialog():
 		option.visible = battle.player.choices.has(stat)
 		if option.visible:
 			var label = battle.player.choices[stat].dialogue.short
-			option.text = '['+stat.to_upper()+'] '+label
+			option.text = '[%s] ' % get_stat_type(stat).to_upper() + label
+
+func get_stat_type(stat):
+	var stat_type = ""
+	if stat == 'cha':
+		stat_type = bc.HAT_CHA_POWERS[player.hat_stack[0]]
+	if stat == 'wit':
+		stat_type = 'DAMAGE'
+	if stat == 'hat':
+		stat_type = 'HAT POWER'
+	return stat_type
+
+func get_stat_color(stat):
+	var stat_color = ""
+	if stat == 'cha':
+		stat_color = 'ad8ec2'
+	if stat == 'wit':
+		stat_color = '7fa6be'
+	if stat == 'hat':
+		stat_color = 'caba71'
+	return stat_color
 
 func update_hud(round_state):
 	hide_buff_values()
@@ -82,17 +151,17 @@ func update_hud(round_state):
 			for stat in hud_stats.keys():
 				var capitalized = stat.capitalize()
 				get_node(capitalized+'/Value').text = str(clamp(hud_stats[stat]['base'] + hud_stats[stat]['cha_buff'] + hud_stats[stat]['hat_buff'],0,INF))
-				get_node(capitalized+'/Base').text = '= '+str(hud_stats[stat]['base'])
+				get_node(capitalized+'/Equals')
 				if hud_stats[stat]['cha_buff'] != 0:
 					var signed_buff = '+'+str(hud_stats[stat]['cha_buff']) if hud_stats[stat]['cha_buff'] > 0 else str(hud_stats[stat]['cha_buff'])
 					get_node(capitalized+'/ChaBuff').text = signed_buff
 					get_node(capitalized+'/ChaBuff').show()
-					get_node(capitalized+'/Base').show()
+					get_node(capitalized+'/Equals').show()
 				if hud_stats[stat]['hat_buff'] != 0:
 					var signed_buff = '+'+str(hud_stats[stat]['hat_buff']) if hud_stats[stat]['hat_buff'] > 0 else str(hud_stats[stat]['hat_buff'])
 					get_node(capitalized+'/HatBuff').text = signed_buff
 					get_node(capitalized+'/HatBuff').show()
-					get_node(capitalized+'/Base').show()
+					get_node(capitalized+'/Equals').show()
 		# lower hp bar and show floating dmg text
 		if state.has('dmg'):
 			var hpbar = $HealthBarOpponent if is_player else $HealthBarPlayer
@@ -104,13 +173,13 @@ func new_round():
 	pass
 
 func hide_buff_values():
-	$Def/Base.hide()
+	$Def/Equals.hide()
 	$Def/ChaBuff.hide()
 	$Def/HatBuff.hide()
-	$Cha/Base.hide()
+	$Def/Equals.hide()
 	$Cha/ChaBuff.hide()
 	$Cha/HatBuff.hide()
-	$Wit/Base.hide()
+	$Def/Equals.hide()
 	$Wit/ChaBuff.hide()
 	$Wit/HatBuff.hide()
 
@@ -163,6 +232,7 @@ func _on_option_pressed(stat):
 	for option in $OptionContainer.get_children():
 		option.visible = false
 	battle.choose(stat)
+	_on_tooltip_mouse_exited()
 	
 	# get dialogue
 	var long = battle.player.choices[stat].dialogue.long
@@ -181,10 +251,10 @@ func _on_option_pressed(stat):
 		'sprite_state': player.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': player.get_node("SpriteHolder").pallete_sprite_state
 	})
-	$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=7fa6be]: %s[/color] " % [player.player_name, stat.to_upper()]
+	$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
 	for i in long:
 		if skip_talking:
-			$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=7fa6be]: %s[/color] %s" % [player.player_name, stat.to_upper(), long]
+			$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
 			break
 		$DialogContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
@@ -200,10 +270,10 @@ func _on_option_pressed(stat):
 			'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
 			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 		})
-	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: %s[/color] " % [opponent.npc_name, opponent_choice.to_upper()]
+	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
 	for i in opponent_long:
 		if skip_talking:
-			$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: %s[/color] %s" % [opponent.npc_name, opponent_choice.to_upper(), opponent_long]
+			$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
 			break
 		$DialogContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout
