@@ -15,7 +15,7 @@ var winner
 var loser
 
 var round_state = []
-var previous_round_state = []
+var round_history = [] # array of prev round_states
 var current_round = 1
 
 var insult_subsets
@@ -29,27 +29,35 @@ var insult_subsets
 ### this way they don't speak the same insults to eachother
 
 func start():
-	assign_info()
+	initialize_combatant_state()
 	insult_subsets = initialize_insults()
-	load_dialogue_options(player)
-	load_dialogue_options(opponent)
-	hud.update_dialogue()
+	new_round()
 
-func assign_info():
+func initialize_combatant_state():
 	p = hud.player
 	o = hud.opponent
 	player['stats'] = p.stats
-	player['max_hp'] = p.stats.stam
+	player['cur_hp'] = p.stats['stam']
+	player['max_hp'] = p.stats['stam']
+	player['hat_stack'] = p.hat_stack.duplicate(true)
 	player['active_hat'] = p.hat_stack[0]
 	player['name'] = p.player_name
 	player['choices'] = {}
 	player['is_player'] = p.is_player
+	player['is_winner'] = false
+	player['cha_buffs'] = {}
+	player['hat_buffs'] = {}
 	opponent['stats'] = o.stats
-	opponent['max_hp'] = p.stats.stam
+	opponent['cur_hp'] = o.stats['stam']
+	opponent['max_hp'] = o.stats['stam']
+	opponent['hat_stack'] = o.hat_stack.duplicate(true)
 	opponent['active_hat'] = o.hat_stack[0]
 	opponent['choices'] = {}
 	opponent['name'] = o.npc_name
 	opponent['is_player'] = o.is_player
+	opponent['is_winner'] = false
+	opponent['cha_buffs'] = {}
+	opponent['hat_buffs'] = {}
 
 func initialize_insults():
 	var insults_copy = bc.WIT_INSULTS.duplicate(true)
@@ -64,54 +72,58 @@ func load_dialogue_options(combatant):
 	var subset = 0 if combatant.name == player.name else 1
 	var insult = insult_subsets[subset].pick_random()
 	## calculated dmg
-	combatant['choices']['wit'] = insult.duplicate(true)
+	combatant['choices']['wit'] = {}
 	combatant['choices']['wit']['dialogue'] = insult.duplicate(true) # you dirty dog
 	insult_subsets[subset].erase(insult)
-	
+	# determine if cha and hat options are available
 	var cha_key = bc.HAT_CHA_POWERS[combatant['active_hat']]
-	if previous_round_state.size() == 0:
-		# Gives them a cha option at the start of the battle
-		var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
+	var hat_choice = 'hat_'+combatant['active_hat']
+	var give_hat_choice = true
+	var give_cha_choice = true
+	for i in range(round_history.size()):
+		for prev_combatant_state in round_history[i]:
+			if prev_combatant_state.is_player != combatant.is_player:
+				continue
+			if prev_combatant_state['choice'] == 'cha' and i <= bc.cha_cooldown-1:
+				give_cha_choice = false
+			if prev_combatant_state['choice'] == hat_choice and i <= bc.hat_cooldown-1:
+				give_hat_choice = false
+	if give_cha_choice:
+		var cha_power = bc.CHA_POWERS[cha_key].call(bc.stat_calc(combatant, 'cha'))
 		combatant['choices']['cha'] = cha_power
 		combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOGUE_OPTIONS[cha_key].pick_random()
-	else:
-		for r_state in previous_round_state:
-			if r_state.name == combatant.name:
-				if r_state.has('choice') and r_state['choice'] != 'cha':
-					var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
-					combatant['choices']['cha'] = cha_power
-					combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOGUE_OPTIONS[cha_key].pick_random()
-		
-	var hat_ability = bc.HAT_ABILITIES[combatant['active_hat']]
-	combatant['choices']['hat'] = hat_ability
-	combatant['choices']['hat']['dialogue'] = bc.hat_sayings[combatant['active_hat']]
+	if give_hat_choice:
+		var hat_ability = bc.HAT_ABILITIES[combatant['active_hat']]
+		combatant['choices'][hat_choice] = hat_ability
+		combatant['choices'][hat_choice]['dialogue'] = bc.hat_sayings[combatant['active_hat']]
 
 func choose(choice):
-	round_state = []
-	player['choice'] = choice
+	player['choice'] = 'hat_'+player['active_hat'] if choice == 'hat' else choice
 	opponent['choice'] = opponent.choices.keys().pick_random()
 	resolve_round()
 
 func resolve_round():
 	var init_array = determine_initiative()
 	calculate_outcome(init_array)
-	hud.update_hud(round_state) 
+	hud.update_hud(round_state.duplicate(true)) 
 	adjust_cooldowns()
 	# adjust_hat_order()
-	previous_round_state = round_state
-	
+	round_history.push_front(round_state.duplicate(true))
+	if round_history.size() > bc.hat_cooldown:
+		round_history.resize(bc.hat_cooldown)
 
 func new_round():
 	load_dialogue_options(player)
 	load_dialogue_options(opponent)
-	hud.update_dialogue()
+	hud.render_options()
+	hud.update_hud(round_state.duplicate(true))
 
 func determine_initiative():
 	var first_player
 	var second_player
 	
-	var p_init = player['stats']['wit'] + player['stats']['cha']
-	var o_init = opponent['stats']['wit'] + opponent['stats']['cha']
+	var p_init = bc.stat_calc(player, 'wit') + bc.stat_calc(player, 'cha')
+	var o_init = bc.stat_calc(opponent, 'wit') + bc.stat_calc(opponent, 'cha')
 	
 	if p_init > o_init:
 		first_player = player
@@ -128,81 +140,75 @@ func determine_initiative():
 
 
 func calculate_outcome(init_array):
+	round_state = []
+	# first pass: update player and opponent state accordingly
 	for i in range(init_array.size()):
-		var r_state = {} # TODO: Add what the UI needs from the outcome
-		
-		var combatant = init_array[i]
-		r_state['name'] = combatant.name
-		r_state['node'] = p if combatant.name == player.name else o
-		
-		var opp = init_array[1 - i]  # Get the opp of combatant.
-		
-		r_state['choice'] = combatant['choice']
+		var combatant = init_array[i] # combatant battle state
+		var opp = init_array[1 - i]  # oponent of combatant battle state		
 		if combatant['choice'] == 'cha':
 			## apply cha buffs
 			for stat in combatant['choices']['cha'].keys():
 				if stat == 'dialogue':
 					continue
-				combatant['stats'][stat] = clamp(combatant['stats'][stat] + combatant['choices']['cha'][stat], 0, INF)
-				if not r_state.has('cha_buffs'):
-					r_state['cha_buffs'] = {}
-				r_state['cha_buffs'][stat] = combatant['choices']['cha'][stat]
-				
+				combatant['cha_buffs'][stat] = combatant['choices']['cha'][stat]
+		combatant['dmg'] = 0
+		combatant['crit'] = false
 		if combatant['choice'] == 'wit':
 			## apply wit damage to opp
 			rng.randomize()
 			var base_dmg = rng.randi_range(1, 3) 
-			## TODO: declare "crits"
+			if base_dmg == 3:
+				combatant['crit'] = true
 			# Deal damange to opp
-			var damage = bc.damage_formula(combatant['stats']['wit'], opp['stats']['def'], base_dmg)
-			opp['stats']["stam"] = clamp(opp['stats']["stam"] - damage, 0, INF)
-			r_state['dmg'] = damage
-		
-		if combatant['choice'] == 'hat':
+			var damage = bc.damage_formula(bc.stat_calc(combatant, 'wit'), bc.stat_calc(opp, 'def'), base_dmg)
+			opp['cur_hp'] = clamp(opp['cur_hp'] - damage, 0, opp['max_hp'])
+			combatant['dmg'] = damage
+		var hat_choice = 'hat_'+combatant['active_hat']
+		if combatant['choice'] == hat_choice:
 			## apply hat effects
-			if combatant['choices']['hat'].has('buff'):
-				var hat_effect = combatant['choices']['hat']['buff'].call(combatant['stats']['cha'])
+			if combatant['choices'][hat_choice].has('buff'):
+				var hat_effect = combatant['choices'][hat_choice]['buff'].call(bc.stat_calc(combatant, 'cha'))
 				for stat in hat_effect.keys():
-					if stat == "stam": # Don't over heal
-						r_state['heal'] = hat_effect[stat]
-						combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, combatant.max_hp)
-					else:
-						combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, INF)
-					if not r_state.has('hat_buffs'):
-						r_state['hat_buffs'] = {}
-					r_state['hat_buffs'][stat] = hat_effect[stat]
+					if not combatant['hat_buffs'].has(hat_choice):
+						combatant['hat_buffs'][hat_choice] = {}
+					combatant['hat_buffs'][hat_choice][stat] = hat_effect[stat]
 			## apply hat dmg
-			if combatant['choices']['hat'].has('dmg'):
-				var hat_dmg = combatant['choices']['hat']['dmg'].call(combatant['stats']['wit'], opp['stats']['def'])
-				opp['stats']["stam"] = clamp(opp['stats']["stam"] - hat_dmg, 0, INF)
-				r_state['dmg'] = hat_dmg
+			if combatant['choices'][hat_choice].has('dmg'):
+				var hat_dmg = combatant['choices'][hat_choice]['dmg'].call(bc.stat_calc(combatant, 'wit'), bc.stat_calc(opp, 'def'))
+				opp['cur_hp'] = clamp(opp['cur_hp'] - hat_dmg, 0, INF)
+				combatant['dmg'] = hat_dmg
 			## cycle hat to top of stack
-			print('combatant: ', combatant)
-			var cycled_hat = r_state['node'].hat_stack.pop_front()
-			r_state['node'].hat_stack.push_back(cycled_hat)
-			r_state['node'].active_hat = r_state['node'].hat_stack[0]
-			combatant['active_hat'] = r_state['node'].active_hat
-			
-		#r_state['max_hp'] = combatant.max_hp
-		r_state['stam'] = combatant['stats']['stam']
+			var cycled_hat = combatant.hat_stack.pop_front()
+			combatant.hat_stack.push_back(cycled_hat)
+			combatant.active_hat = combatant.hat_stack[0]
 		# Check for winner
-		if opp['stats']['stam'] == 0:
-			winner = combatant
-			loser = opp
-			r_state['won'] = winner == combatant
-			round_state.append(r_state)
+		if opp['cur_hp'] == 0:
+			combatant['is_winner'] = true
+			opp['is_winner'] = false
 			break
-		
-		round_state.append(r_state)
+	
+	# second pass: update round state with battle state
+	for i in range(init_array.size()):
+		var combatant = init_array[i].duplicate(true) # combatant battle state
+		round_state.append(combatant)
+	
+	# return round state for HUD updates
+	return round_state
+	
 
 func adjust_cooldowns():
-	for r_state in previous_round_state:
-		if r_state.choice == 'cha':
-			var combatant = player if player.name == r_state.name else opponent
-			## reverse cha buffs
-			for stat in r_state['cha_buffs'].keys():
-				combatant['stats'][stat] = clamp(combatant['stats'][stat] + (r_state['cha_buffs'][stat]*-1), 0, INF)
-				
+	for i in range(round_history.size()):
+		for prev_combatant_state in round_history[i]:
+			var combatant = player if prev_combatant_state.is_player else opponent
+			# cha
+			if i >= bc.cha_cooldown-1 \
+			and prev_combatant_state['choice'] == 'cha':
+				combatant['cha_buffs'] = {}
+			# hats
+			if i >= bc.hat_cooldown-1 \
+			and combatant['hat_buffs'].has(prev_combatant_state['choice']):
+				combatant['hat_buffs'].erase(prev_combatant_state['choice'])
+
 # After dialogue option is chosen
 ## Determine round initiative (WIT + CHA), if tied random
 ## Calculate outcome

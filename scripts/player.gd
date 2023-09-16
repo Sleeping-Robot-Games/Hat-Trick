@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 3
 const type = 'Player'
+const is_player = true
 
 var facing = "right"
 var is_dancing = false
@@ -13,7 +14,7 @@ var battle_pos_speed = 150
 var hat_stack = []
 var stats
 var player_name
-var is_player = true
+
 
 @onready var anim_player = $AnimationPlayer
 @onready var game = get_parent()

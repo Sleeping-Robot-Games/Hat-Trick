@@ -1,6 +1,24 @@
 extends Node
 
 var rng = RandomNumberGenerator.new()
+
+const cha_cooldown = 1
+const hat_cooldown = 3
+
+func stat_calc(combatant, stat, incl_base=true, incl_cha=true, incl_hat=true):
+	var val = combatant['stats'][stat] if incl_base else 0
+	if incl_cha and combatant.has('cha_buffs') and combatant['cha_buffs'].has(stat):
+		val += combatant['cha_buffs'][stat]
+	for hat in combatant['hat_buffs'].keys():
+		if incl_hat and combatant['hat_buffs'][hat].has(stat):
+			val += combatant['hat_buffs'][hat][stat]
+	
+	# if getting stat total (base + cha buffs + hat buffs) clamp to >= 0
+	if incl_base and incl_cha and incl_hat:
+		return clamp(val, 0, INF)
+	else:
+		return val
+
 # Create dictionaries and arrays of dialogue for insult, charisma and hat pools. 
 ## Each dialogue option needs a short form and a long form
 

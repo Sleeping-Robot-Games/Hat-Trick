@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-var type = "NPC"
+const type = "NPC"
+const is_player = false
 var speed = 100
 var start_pos = Vector2(195, g.current_level_y_pos)
 var end_pos = Vector2(1875, g.current_level_y_pos)
@@ -17,7 +18,6 @@ var last_direction = 1 # 1 for right, -1 for left
 var hat_stack = []
 var stats
 var npc_name
-var is_player = false
 var active_hat
 
 @onready var anim_npc = $AnimationPlayer

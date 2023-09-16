@@ -119,11 +119,11 @@ func _on_hat_mouse_entered(hat_stack):
 	new_tool_tip.global_position.x = hat_stack.position.x + 100 #= $HatDetail/ChaLabel.global_position.x + 50
 	current_tool_tip = new_tool_tip
 
-func update_dialogue():
+func render_options():
 	var option_stats = {
 		1: 'cha',
 		2: 'wit',
-		3: 'hat',
+		3: 'hat_'+battle.player['active_hat'],
 	}
 	for i in range(1, 4):
 		var option = get_node('OptionContainer/Option'+str(i))
@@ -139,7 +139,7 @@ func get_stat_type(stat):
 		stat_type = bc.HAT_CHA_POWERS[player.hat_stack[0]]
 	if stat == 'wit':
 		stat_type = 'DAMAGE'
-	if stat == 'hat':
+	if stat.begins_with('hat_'):
 		stat_type = 'HAT POWER'
 	return stat_type
 
@@ -153,66 +153,46 @@ func get_stat_color(stat):
 		stat_color = 'caba71'
 	return stat_color
 
+func signed_buff(num: int) -> String:
+	if num >= 0:
+		return '+'+str(num)
+	else:
+		return str(num)
+
 func update_hud(round_state):
 	hide_buff_values()
 	for state in round_state:
-		var is_player = state.node.is_player
-		print('-----------------------------')
-		print('state: ', state)
+		var is_player = state.is_player
+		#print('-----------------------------')
+		#print('state: ', state)
 		if is_player:
-			print('player: ', player, ' ', player.name, ' ', player.stats)
-		else:
-			print('opponent: ', opponent, ' ', opponent.name, ' ', opponent.stats)
-		# update player's stats
-		if is_player:
-			print('base_stats: ', player.stats)
-			var hud_stats = {
-				'def': {
-					'base': player.stats['def'],
-					'cha_buff': state.cha_buffs.def if state.has('cha_buffs') and state.cha_buffs.has('def') else 0,
-					'hat_buff': state.hat_buffs.def if state.has('hat_buffs') and state.hat_buffs.has('def') else 0,
-				},
-				'cha': {
-					'base': player.stats['cha'],
-					'cha_buff': state.cha_buffs.cha if state.has('cha_buffs') and state.cha_buffs.has('cha') else 0,
-					'hat_buff': state.hat_buffs.cha if state.has('hat_buffs') and state.hat_buffs.has('cha') else 0,
-				},
-				'wit': {
-					'base': player.stats['wit'],
-					'cha_buff': state.cha_buffs.wit if state.has('cha_buffs') and state.cha_buffs.has('wit') else 0,
-					'hat_buff': state.hat_buffs.wit if state.has('hat_buffs') and state.hat_buffs.has('wit') else 0,
+			$HealthBarPlayer/Value.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
+			var hud_stats = {}
+			for stat in ['def', 'cha', 'wit']:
+				hud_stats[stat] = {
+					'total': bc.stat_calc(state, stat, true, true, true),
+					'base': bc.stat_calc(state, stat, true, false, false),
+					'cha_buff': bc.stat_calc(state, stat, false, true, false),
+					'hat_buff': bc.stat_calc(state, stat, false, false, true),
 				}
-			}
 			for stat in hud_stats.keys():
 				var capitalized = stat.capitalize()
-				get_node(capitalized+'/Value').text = str(clamp(hud_stats[stat]['base'] + hud_stats[stat]['cha_buff'] + hud_stats[stat]['hat_buff'],0,INF))
-				get_node(capitalized+'/Equals').hide()
+				get_node(capitalized+'/Value').text = str(hud_stats[stat]['total'])
 				if hud_stats[stat]['cha_buff'] != 0:
-					var signed_buff = '+'+str(hud_stats[stat]['cha_buff']) if hud_stats[stat]['cha_buff'] > 0 else str(hud_stats[stat]['cha_buff'])
-					get_node(capitalized+'/ChaBuff').text = signed_buff
+					get_node(capitalized+'/ChaBuff').text = signed_buff(hud_stats[stat]['cha_buff'])
 					get_node(capitalized+'/ChaBuff').show()
 					get_node(capitalized+'/Equals').show()
 				if hud_stats[stat]['hat_buff'] != 0:
-					var signed_buff = '+'+str(hud_stats[stat]['hat_buff']) if hud_stats[stat]['hat_buff'] > 0 else str(hud_stats[stat]['hat_buff'])
-					get_node(capitalized+'/HatBuff').text = signed_buff
+					get_node(capitalized+'/HatBuff').text = signed_buff(hud_stats[stat]['hat_buff'])
 					get_node(capitalized+'/HatBuff').show()
 					get_node(capitalized+'/Equals').show()
-		# lower hp bar and show floating dmg text
+		# ensure hp bars are updated
+		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
+		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
+		# if dmg was done show floater dmg text over opponent's hp bar
 		if state.has('dmg'):
-			var hpbar = $HealthBarOpponent if is_player else $HealthBarPlayer
-			var floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
-			hpbar.value = clamp(hpbar.value - state['dmg'], 0, INF)
-			#hpbar.get_node('Value').text = '%s/%s' % [str(clamp(hpbar.value - state['dmg'], 0, INF)), str(state['max_hp'])]
-			floater.float_text("-"+str(state['dmg']), Color.RED)
-		if state.has('heal'):
-			var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
-			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
-			hpbar.value = clamp(state['stam'], 0, INF)
-			#hpbar.get_node('Value').text = '%s/%s' % [str(clamp(state['stam'], 0, state['max_hp'])), str(state['max_hp'])]
-			floater.float_text("-"+str(state['heal']), Color.GREEN)
-
-func new_round():
-	pass
+			var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
+			opp_floater.float_text("-"+str(state['dmg']), Color.RED)
 
 func hide_buff_values():
 	$Def/Equals.hide()
@@ -232,9 +212,12 @@ func start_battle(pl, op):
 	opponent = op
 	player.get_node('HatHolder').z_as_relative = false # TODO: reset after battle ends
 	hide_buff_values()
+	# ensure correct initial stat values in HUD
 	$Def/Value.text = str(player.stats['def'])
 	$Cha/Value.text = str(player.stats['cha'])
 	$Wit/Value.text = str(player.stats['wit'])
+	$HealthBarPlayer/Value.text = str(player.stats['stam'])+'/'+str(player.stats['stam'])
+	# kick off battle script and draw hats
 	$Battle.start()
 	draw_hats()
 	# cycle through button focus so spacebar guy doesn't get confused B)
@@ -271,13 +254,14 @@ func draw_hats(delay=0.3, play_sfx=true):
 			hat_nodes['opponent'][i].change_hat(opponent.hat_stack[i], play_sfx)
 
 func _on_option_pressed(stat):
+	var selected = 'hat_'+battle.player['active_hat'] if stat == 'hat' else stat
 	for option in $OptionContainer.get_children():
 		option.visible = false
-	battle.choose(stat)
+	battle.choose(selected)
 	_on_tooltip_mouse_exited()
 	
 	# get dialogue
-	var long = battle.player.choices[stat].dialogue.long
+	var long = battle.player.choices[selected].dialogue.long
 	var opponent_choice = battle.opponent.choice
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
@@ -364,8 +348,9 @@ func _on_proceed_button_pressed():
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
 	play_speech_bubbles_animation()
-	cycle_hats(true)
-	cycle_hats(false)
+	# TODO hat cycling
+	#cycle_hats(true)
+	#cycle_hats(false)
 	## TODO: move option visibility to after speech bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
