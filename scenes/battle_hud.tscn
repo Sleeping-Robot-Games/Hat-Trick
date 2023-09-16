@@ -104,7 +104,7 @@ script = ExtResource("2_ly450")
 layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
-color = Color(0, 0, 0, 0.219608)
+color = Color(0, 0, 0, 0.52549)
 
 [node name="PlayerHatStack" type="Control" parent="."]
 clip_contents = true
