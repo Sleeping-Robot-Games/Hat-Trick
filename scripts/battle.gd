@@ -167,8 +167,8 @@ func calculate_outcome(init_array):
 		
 		if combatant['choice'] == 'hat':
 			## apply hat effects
-			if combatant['choices']['hat'].has('cha'):
-				var hat_effect = combatant['choices']['hat']['cha'].call(combatant['stats']['cha'])
+			if combatant['choices']['hat'].has('buff'):
+				var hat_effect = combatant['choices']['hat']['buff'].call(combatant['stats']['cha'])
 				for stat in hat_effect.keys():
 					combatant['stats'][stat] = clamp(combatant['stats'][stat] + hat_effect[stat], 0, INF)
 					r_state['buffs'] = {'stat': stat, 'value': hat_effect[stat]}

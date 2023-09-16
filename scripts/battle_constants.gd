@@ -35,13 +35,13 @@ func overwhelm(cha):
 	return {"wit": cha}
 	
 func inspire(cha):
-	return  {'wit': ceil(cha / 2), 'cha': ceil(cha / 2)}
+	return  {'wit': ceil(cha / 2), 'cha': cha}
 	
 func intimidate(cha):
-	return {"def": -1, "wit": cha}
+	return {"def": -2, "wit": cha}
 
 func fortify(cha):
-	return {"def": cha + 2, "wit": -2}
+	return {"def": cha , "wit": -1}
 	
 	
 ## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
@@ -80,22 +80,57 @@ const HAT_CHA_POWERS = {
 func damage_formula(user_wit, opp_def, damange_range):
 	return clamp(user_wit + damange_range - opp_def, 1, INF)
 
-func no_damage(_user_wit, _opp_def):
-	return 0
-
-func witch(user_wit, opp_def):
+func hat_damage(user_wit, opp_def):
 	rng.randomize()
 	return damage_formula(user_wit, opp_def, rng.randi_range(3, 5))
 
-func cowboy(cha):
-	return {"wit": 2 + cha}
+func hat_wit_buff(cha):
+	rng.randomize()
+	return {"wit": rng.randi_range(1, 3) + cha}
+
+func hat_heal(cha):
+	rng.randomize()
+	return {"stam": rng.randi_range(3, 5) + cha}
+	
+func hat_cha_buff(cha):
+	rng.randomize()
+	return {"cha": rng.randi_range(1, 3) + cha}
+
+func hat_cha_wit_buff(cha):
+	rng.randomize()
+	return {"cha": rng.randi_range(1, 3) + ceil(cha / 2), "wit": rng.randi_range(1, 3) + ceil(cha / 2)}
+
+func hat_large_wit_buff(cha):
+	rng.randomize()
+	return {"def": rng.randi_range(-1, -3), "wit": rng.randi_range(2, 4)}
+
+func hat_def_buff(cha):
+	rng.randomize()
+	return {"def":rng.randi_range(1, 3) + cha , "wit": -1}
 	
 var HAT_ABILITIES = {
 	# EITHER DMG OR CHA NOT BOTH
-	"witch": {'dmg': witch},
-	"cowboy": {'cha': cowboy},
-	
-	# ... [Continue in this format for the rest of the hats]
+	"witch": {'dmg': hat_damage},
+	"cowboy": {'buff': hat_cha_wit_buff},
+	"nurse": {'buff': hat_heal},
+	"snapback": {'buff': hat_wit_buff},
+	"shroom": {'buff': hat_heal},
+	"hardhat": {'buff': hat_def_buff},
+	"fedora": {'buff': hat_large_wit_buff},
+	"crown": {'buff': hat_wit_buff},
+	"baseball": {'buff': hat_cha_buff},
+	"cloche": {'buff': hat_cha_wit_buff},
+	'floppy': {'buff': hat_cha_wit_buff},
+	'pirate': {'dmg': hat_damage},
+	'straw': {'buff': hat_cha_wit_buff},
+	'beanie': {'buff': hat_wit_buff},
+	'fairy': {'buff': hat_cha_buff},
+	'monster': {'dmg': hat_damage },
+	'sport': {'buff': hat_cha_buff},
+	'tophat': {'buff': hat_large_wit_buff},
+	'raccoon': {'buff': hat_large_wit_buff},
+	'party': {'buff': hat_cha_buff},
+	'wizard': {'dmg': hat_damage}
 }
 
 
@@ -112,6 +147,18 @@ var CHA_DIALOG_OPTIONS = {
 		{
 			"short": "Feeling spellbound?",
 			"long": "I can see the fascination in your eyes. Are you feeling entirely spellbound?"
+		},
+		{
+			"short": "Caught in my charm?",
+			"long": "It's hard to resist, isn't it? My allure has this captivating effect on many."
+		},
+		{
+			"short": "Mesmerized?",
+			"long": "I've been told my presence is enchanting. Are you another who's fallen under its spell?"
+		},
+		{
+			"short": "Drowning in allure?",
+			"long": "People often find themselves submerged in the allure of my charm. Are you one of them?"
 		}
 	],
 	"INSPIRE": [
@@ -126,6 +173,18 @@ var CHA_DIALOG_OPTIONS = {
 		{
 			"short": "Shine on.",
 			"long": "Continue shining your light and inspire those around you."
+		}, 
+		{
+			"short": "Be the beacon.",
+			"long": "In the darkest times, be the beacon that guides others to hope and inspiration."
+		},
+		{
+			"short": "Lift others up.",
+			"long": "By lifting others, you rise. Always strive to inspire and elevate."
+		},
+		{
+			"short": "Dream and act.",
+			"long": "Dream big and inspire others to act on their dreams too."
 		}
 	],
 	"INTIMIDATE": [
@@ -140,6 +199,18 @@ var CHA_DIALOG_OPTIONS = {
 		{
 			"short": "Scared yet?",
 			"long": "You might not want to push me any further. Feeling the pressure yet?"
+		},
+		{
+			"short": "Reconsidering yet?",
+			"long": "You may want to rethink your actions. Not many fare well against me."
+		},
+		{
+			"short": "Care to continue?",
+			"long": "You might be treading on thin ice. Care to continue or will wisdom prevail?"
+		},
+		{
+			"short": "Tempting fate?",
+			"long": "Every step you take closer might just be a step closer to your doom. Still want to tempt fate?"
 		}
 	],
 	"FORTIFY": [
@@ -154,6 +225,18 @@ var CHA_DIALOG_OPTIONS = {
 		{
 			"short": "Stay rooted.",
 			"long": "Like a mighty oak tree, stay rooted and unwavering in the face of adversity."
+		},
+		{
+			"short": "Guard your spirit.",
+			"long": "Always guard your spirit. It's the core of your strength and resilience."
+		},
+		{
+			"short": "Be your own anchor.",
+			"long": "In turbulent times, be your own anchor. Fortify your mind and spirit."
+		},
+		{
+			"short": "Stand unbroken.",
+			"long": "No matter how fierce the storm, stand unbroken and fortified."
 		}
 	],
 	"OVERWHELM": [
@@ -168,6 +251,18 @@ var CHA_DIALOG_OPTIONS = {
 		{
 			"short": "Lost in the storm?",
 			"long": "Like a tempest, I can be quite overpowering. Can you weather my storm?"
+		},
+		{
+			"short": "Feeling the weight?",
+			"long": "My presence can be weighty and vast. Do you feel crushed under its magnitude?"
+		},
+		{
+			"short": "Can't breathe?",
+			"long": "Like the deepest ocean, I can be suffocating. Struggling for air?"
+		},
+		{
+			"short": "Overpowered?",
+			"long": "Facing me can be like facing a tidal wave. Do you feel overpowered and outmatched?"
 		}
 	]
 }

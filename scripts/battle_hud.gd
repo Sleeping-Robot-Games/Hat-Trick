@@ -1,6 +1,8 @@
 extends Control
 var player = null
 var opponent = null
+var is_talking = false
+var skip_talking = false
 @onready var battle = $Battle
 @onready var hat_nodes = {
 	'player': {
@@ -22,7 +24,13 @@ var opponent = null
 }
 
 func _ready():
-	$Battle.start()
+	$OptionContainer/Option2.pressed.connect(_on_option_pressed.bind('wit'))
+	$OptionContainer/Option3.pressed.connect(_on_option_pressed.bind('hat'))
+	$OptionContainer/Option1.pressed.connect(_on_option_pressed.bind('cha'))
+
+func _input(event):
+	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
+		skip_talking = true
 
 func update_dialog():
 	var option_stats = {
@@ -35,9 +43,8 @@ func update_dialog():
 		var stat = option_stats[i]
 		option.visible = battle.player.choices.has(stat)
 		if option.visible:
-			var dialogue = battle.player.choices[stat].dialogue
-			option.text = '['+stat.to_upper()+'] '+dialogue.short
-			option.pressed.connect(_on_option_pressed.bind(stat, dialogue.long))
+			var label = battle.player.choices[stat].dialogue.short
+			option.text = '['+stat.to_upper()+'] '+label
 
 func update_hud(round_state):
 	for state in round_state:
@@ -58,6 +65,9 @@ func start_battle(pl, op):
 	player = pl
 	opponent = op
 	
+	## TODO: Change this back when battle is over
+	player.get_node('HatHolder').z_as_relative = false
+	
 	# $Battle.start()
 	## show proceed button?
 	
@@ -76,34 +86,31 @@ func start_battle(pl, op):
 			g.play_sfx(get_parent(), 'pop')
 			hat_nodes['opponent'][i].change_hat(opponent.hat_array[i])
 	
-
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(1).timeout
+	show_speech_bubbles()
 	for option in $OptionContainer.get_children():
 		if option.visible:
 			option.grab_focus()
-			await get_tree().create_timer(.5).timeout
+			await get_tree().create_timer(.25).timeout
 			option.release_focus()
 
-func _on_option_pressed(stat, long):
+func _on_option_pressed(stat):
 	for option in $OptionContainer.get_children():
 		option.visible = false
 	battle.choose(stat)
 	
-	# get opponent dialogue
+	# get dialogue
+	var long = battle.player.choices[stat].dialogue.long
 	var opponent_choice = battle.opponent.choice
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
 	
-	# TODO
-	#$PlayerDialogBubble.show()
-	#$PlayerDialogBubble.play("fill")
-	#$OpponentDialogBubble.show()
-	#$OpponentDialogBubble.play("fill")
-	
-	# show proceed button
-	$ProceedButton.visible = true
+	# hide dialogue bubbles
+	$PlayerDialogBubble.hide()
+	$OpponentDialogBubble.hide()
 	
 	# render player text
+	is_talking = true
 	$SpriteHolder.flip_h()
 	$SpriteHolder.show()
 	$SpriteHolder.set_sprites({
@@ -112,10 +119,13 @@ func _on_option_pressed(stat, long):
 	})
 	$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=7fa6be]: %s[/color] " % [player.player_name, stat.to_upper()]
 	for i in long:
+		if skip_talking:
+			$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=7fa6be]: %s[/color] %s" % [player.player_name, stat.to_upper(), long]
+			break
 		$DialogContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
-	await get_tree().create_timer(1).timeout
-	$SpriteHolder.hide()
+	if not skip_talking:
+		await get_tree().create_timer(1).timeout
 	
 	# render opponent text
 	$SpriteHolder2.show()
@@ -125,18 +135,38 @@ func _on_option_pressed(stat, long):
 	})
 	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: %s[/color] " % [opponent.npc_name, opponent_choice.to_upper()]
 	for i in opponent_long:
+		if skip_talking:
+			$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=7fa6be]: %s[/color] %s" % [opponent.npc_name, opponent_choice.to_upper(), opponent_long]
+			break
 		$DialogContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout
-	await get_tree().create_timer(1).timeout
-	$SpriteHolder2.hide()
+	if not skip_talking:
+		await get_tree().create_timer(1).timeout
+	
+	
+	# show proceed button
+	$ProceedButton.visible = true
+	skip_talking = false
+	is_talking = false
 	
 	# if opponent played wit
 	# $AnimationPlayer.play('opp_shoot')
 	# if player played wit
 	# $AnimationPlayer.play('player_shoot')
 
+func show_speech_bubbles():
+	$PlayerDialogBubble.show()
+	$PlayerDialogBubble.play("fill")
+	$OpponentDialogBubble.show()
+	$OpponentDialogBubble.play("fill")
+
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
+	$DialogContainer/RichTextLabel.text = ''
+	$DialogContainer/RichTextLabel2.text = ''
+	$SpriteHolder.hide()
+	$SpriteHolder2.hide()
+	show_speech_bubbles()
 	## TODO: move option visibility to after chat bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false

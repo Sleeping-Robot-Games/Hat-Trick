@@ -26,7 +26,6 @@ libraries = {
 }
 
 [node name="HatHolder" type="Node2D" parent="."]
-z_as_relative = false
 
 [node name="HatTowerTimerTest" type="Timer" parent="."]
 
