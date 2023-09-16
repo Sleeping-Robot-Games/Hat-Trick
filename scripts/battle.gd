@@ -174,7 +174,7 @@ func calculate_outcome(init_array):
 					r_state['buffs'] = {'stat': stat, 'value': hat_effect[stat]}
 			## apply hat dmg
 			if combatant['choices']['hat'].has('dmg'):
-				var hat_dmg = combatant['choices']['hat'].call(combatant['stats']['wit'], opp['stats']['def'])
+				var hat_dmg = combatant['choices']['hat']['dmg'].call(combatant['stats']['wit'], opp['stats']['def'])
 				opp['stats']["stam"] = clamp(opp['stats']["stam"] - hat_dmg, 0, INF)
 				r_state['dmg'] = hat_dmg
 		

@@ -30,20 +30,20 @@ func update_dialog():
 		2: 'wit',
 		3: 'hat',
 	}
-	for i in range(1, 3):
+	for i in range(1, 4):
 		var option = get_node('OptionContainer/Option'+str(i))
 		var stat = option_stats[i]
 		option.visible = battle.player.choices.has(stat)
 		if option.visible:
 			var dialogue = battle.player.choices[stat].dialogue
 			option.text = '['+stat.to_upper()+'] '+dialogue.short
-			#option.pressed.disconnect()
 			option.pressed.connect(_on_option_pressed.bind(stat, dialogue.long))
 
 func update_hud(round_state):
 	for state in round_state:
+		var is_player = state.name == player.name
 		# TODO
-		print('node: ', state.node)
+		print('state: ', state)
 
 func new_round():
 	pass
