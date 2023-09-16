@@ -103,7 +103,8 @@ func _on_option_three_mouse_entered():
 	current_tool_tip = new_tool_tip
 	
 func _on_tooltip_mouse_exited():
-	current_tool_tip.queue_free()
+	if current_tool_tip:
+		current_tool_tip.queue_free()
 	current_tool_tip = null
 
 func _on_hat_mouse_entered(hat_stack):
