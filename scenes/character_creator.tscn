@@ -86,10 +86,18 @@ color = Color(0.14902, 0.0705882, 0.027451, 0.501961)
 
 [node name="ColorRect3" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 16.0
+offset_left = 319.0
 offset_top = 438.0
 offset_right = 945.0
 offset_bottom = 472.0
+color = Color(0.14902, 0.0705882, 0.027451, 0.501961)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 416.0
+offset_right = 319.0
+offset_bottom = 493.0
 color = Color(0.14902, 0.0705882, 0.027451, 0.501961)
 
 [node name="Hat" type="Label" parent="."]
@@ -519,15 +527,29 @@ theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 19
 text = "HAT:"
 
-[node name="Label" type="Label" parent="HatDetail"]
+[node name="ChaLabel" type="Label" parent="HatDetail"]
 layout_mode = 0
-offset_left = 54.0
-offset_top = 3.0
-offset_right = 298.0
-offset_bottom = 24.0
+offset_left = 57.0
+offset_top = -24.0
+offset_right = 303.0
+offset_bottom = 5.0
+mouse_filter = 1
 theme_override_fonts/font = ExtResource("5_0so8r")
 theme_override_font_sizes/font_size = 14
-text = "Raises CHA and DEF"
+text = "CHA option: Overwhelm"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Power" type="Label" parent="HatDetail"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 8.0
+offset_right = 302.0
+offset_bottom = 37.0
+theme_override_fonts/font = ExtResource("5_0so8r")
+theme_override_font_sizes/font_size = 14
+text = "Power: Greatly increase WIT and decrease DEF"
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Continue" type="Button" parent="."]

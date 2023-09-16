@@ -65,6 +65,7 @@ frame_progress = 0.90656
 speed_scale = 0.5
 
 [node name="SpeechBubble" parent="." instance=ExtResource("6_3xv0n")]
+visible = false
 offset_left = -13.0
 offset_top = -9.0
 offset_right = -13.0

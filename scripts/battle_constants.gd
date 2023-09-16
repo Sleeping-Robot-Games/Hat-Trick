@@ -53,6 +53,14 @@ var CHA_POWERS = {
 	"OVERWHELM": overwhelm
 }
 
+var CHA_POWERS_EXPLAINATION = {
+	"CAPTIVATE": 'Raises your DEF, reducing incoming damage',
+	"INSPIRE": 'Slight raise to your WIT and CHA',
+	"INTIMIDATE": 'Increases your WIT, but lowers DEF',
+	"FORTIFY": 'Increases DEF, but lower WIT',
+	"OVERWHELM": 'Increases WIT'
+}
+
 const HAT_CHA_POWERS = {
 	"wizard": "INSPIRE",        # Wizards are known for their inspiration and wisdom
 	"witch": "CAPTIVATE",       # Witches often captivate with their mystique
@@ -80,6 +88,7 @@ const HAT_CHA_POWERS = {
 func damage_formula(user_wit, opp_def, damange_range):
 	return clamp(user_wit + damange_range - opp_def, 1, INF)
 
+# 
 func hat_damage(user_wit, opp_def):
 	rng.randomize()
 	return damage_formula(user_wit, opp_def, rng.randi_range(3, 5))
@@ -107,6 +116,30 @@ func hat_large_wit_buff(cha):
 func hat_def_buff(cha):
 	rng.randomize()
 	return {"def":rng.randi_range(1, 3) + cha , "wit": -1}
+	
+var HAT_ABILITY_EXPLAINATION = {
+	"witch": 'Damages Opponent',
+	"cowboy": 'Increase CHA & WIT',
+	"nurse": 'Heals',
+	"snapback": 'Increase WIT',
+	"shroom": 'Heals',
+	"hardhat": 'Increase DEF',
+	"fedora": 'Greatly increase WIT and decrease DEF',
+	"crown": 'Increase WIT',
+	"baseball": 'Increase CHA',
+	"cloche": 'Increase CHA & WIT',
+	'floppy': 'Increase CHA & WIT',
+	'pirate': 'Damages Opponent',
+	'straw': 'Increase CHA & WIT',
+	'beanie': 'Increase WIT',
+	'fairy': 'Increase CHA',
+	'monster': 'Damages Opponent',
+	'sport': 'Increase CHA',
+	'tophat': 'Greatly increase WIT and decrease DEF',
+	'raccoon': 'Greatly increase WIT and decrease DEF',
+	'party': 'Increase CHA',
+	'wizard': 'Damages Opponent'
+}
 	
 var HAT_ABILITIES = {
 	# EITHER DMG OR CHA NOT BOTH

@@ -108,11 +108,11 @@ func play_idle_animation():
 			is_dancing = true
 
 	# Show the text bubble and set its text
-	text_bubble.visible = true
-	if is_dancing:
-		text_bubble.set_text(dancing_text_lines.pick_random())
-	else:
-		text_bubble.set_text(idle_text_lines.pick_random())
+#	text_bubble.visible = true
+#	if is_dancing:
+#		text_bubble.set_text(dancing_text_lines.pick_random())
+#	else:
+#		text_bubble.set_text(idle_text_lines.pick_random())
 
 func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
 	text_bubble.visible = false
