@@ -379,6 +379,7 @@ theme_override_colors/font_color = Color(0.678431, 0.556863, 0.760784, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
 text = "[CHA] This is a test option"
 flat = true
+alignment = 0
 
 [node name="Option2" type="Button" parent="OptionContainer"]
 layout_mode = 2
@@ -386,6 +387,7 @@ theme_override_colors/font_color = Color(0.498039, 0.65098, 0.745098, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
 text = "[WIT] This is a test option"
 flat = true
+alignment = 0
 
 [node name="Option3" type="Button" parent="OptionContainer"]
 layout_mode = 2
@@ -393,6 +395,7 @@ theme_override_colors/font_color = Color(0.792157, 0.729412, 0.443137, 1)
 theme_override_fonts/font = ExtResource("4_7f5ua")
 text = "[HAT] This is a test option"
 flat = true
+alignment = 0
 
 [node name="DialogContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
