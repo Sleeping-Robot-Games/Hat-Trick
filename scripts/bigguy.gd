@@ -16,8 +16,8 @@ var npc_name = 'Bouncer'
 var is_player = false
 
 @onready var anim_npc = $AnimationPlayer
-#@onready var text_bubble = $SpeechBubble
-#@onready var text_bubble_label = text_bubble.get_node("MarginContainer/NinePatchRect/CenterContainer/Label")
+#@onready var speech_bubble = $SpeechBubble
+#@onready var speech_bubble_label = speech_bubble.get_node("MarginContainer/NinePatchRect/CenterContainer/Label")
 
 func _ready():
 	anim_npc.play('idle')

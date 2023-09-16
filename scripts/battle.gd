@@ -23,17 +23,17 @@ var insult_subsets
 # Start of battle:
 ## Assign all relevant info to opponent and player dictionaries
 ### Stats, Name, Hats, Health, 
-## Load dialog options for player (called choices in playtest)
-### These dialog options come from the singleton bc (battle_constants.gd)
-### In this script we will dyanmically create two pools of each dialog option from bc for each combatant
+## Load dialogue options for player (called choices in playtest)
+### These dialogue options come from the singleton bc (battle_constants.gd)
+### In this script we will dyanmically create two pools of each dialogue option from bc for each combatant
 ### this way they don't speak the same insults to eachother
 
 func start():
 	assign_info()
 	insult_subsets = initialize_insults()
-	load_dialog_options(player)
-	load_dialog_options(opponent)
-	hud.update_dialog()
+	load_dialogue_options(player)
+	load_dialogue_options(opponent)
+	hud.update_dialogue()
 
 func assign_info():
 	p = hud.player
@@ -56,7 +56,7 @@ func initialize_insults():
 	var subset_2 = insults_copy.slice(insults_copy.size() / 2, insults_copy.size())
 	return [subset_1, subset_2]
 
-func load_dialog_options(combatant):
+func load_dialogue_options(combatant):
 	combatant['choices'] = {}
 	
 	var subset = 0 if combatant.name == player.name else 1
@@ -71,14 +71,14 @@ func load_dialog_options(combatant):
 		# Gives them a cha option at the start of the battle
 		var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
 		combatant['choices']['cha'] = cha_power
-		combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOG_OPTIONS[cha_key].pick_random()
+		combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOGUE_OPTIONS[cha_key].pick_random()
 	else:
 		for r_state in previous_round_state:
 			if r_state.name == combatant.name:
 				if r_state.has('choice') and r_state['choice'] != 'cha':
 					var cha_power = bc.CHA_POWERS[cha_key].call(combatant["stats"]["cha"])
 					combatant['choices']['cha'] = cha_power
-					combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOG_OPTIONS[cha_key].pick_random()
+					combatant['choices']['cha']['dialogue'] = bc.CHA_DIALOGUE_OPTIONS[cha_key].pick_random()
 		
 	var hat_ability = bc.HAT_ABILITIES[combatant['active_hat']]
 	combatant['choices']['hat'] = hat_ability
@@ -100,9 +100,9 @@ func resolve_round():
 	
 
 func new_round():
-	load_dialog_options(player)
-	load_dialog_options(opponent)
-	hud.update_dialog()
+	load_dialogue_options(player)
+	load_dialogue_options(opponent)
+	hud.update_dialogue()
 
 func determine_initiative():
 	var first_player
@@ -195,10 +195,10 @@ func adjust_cooldowns():
 			for stat in r_state['cha_buffs'].keys():
 				combatant['stats'][stat] = clamp(combatant['stats'][stat] + (r_state['cha_buffs'][stat]*-1), 0, INF)
 				
-# After dialog option is chosen
+# After dialogue option is chosen
 ## Determine round initiative (WIT + CHA), if tied random
 ## Calculate outcome
-### In initiative order resolve the dialogs
+### In initiative order resolve the dialogues
 #### Apply damage or buffs 
 #### maybe into a state object then send up to UI in a function that will play it out in an animation similar to the test animtaion set now
 ### Check for winner, if so end round early and conclude battle

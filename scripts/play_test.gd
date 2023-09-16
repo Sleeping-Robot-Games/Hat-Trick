@@ -189,7 +189,7 @@ func add_choices_to_player(player):
 			'stats': {'DEF': player['CHA']},
 			'damage': func(): return 0,
 			'rounds': 1,
-			'dialog': captivate_options.pick_random(),
+			'dialogue': captivate_options.pick_random(),
 		},
 		{
 			'type': 'CHA',
@@ -198,7 +198,7 @@ func add_choices_to_player(player):
 			'stats': {'CHA': player['CHA'], 'WIT': player['CHA']},
 			'damage': func(): return 0,
 			'rounds': 1,
-			'dialog': empower_self_options.pick_random()
+			'dialogue': empower_self_options.pick_random()
 		}]
 	var wit_choices = [{
 			'type': 'WIT',
@@ -207,7 +207,7 @@ func add_choices_to_player(player):
 			'stats': {},
 			'damage': func(): return player['WIT'] + player['base_dmg'],
 			'rounds': 0,
-			'dialog': insult_options.pick_random()
+			'dialogue': insult_options.pick_random()
 		}]
 	var hat_choices = [
 		{
@@ -218,7 +218,7 @@ func add_choices_to_player(player):
 			'stats': {"WIT": 3, "DEF": -2},
 			'damage': func(): return 0,
 			'rounds': -1,
-			'dialog': fedora_options.pick_random()
+			'dialogue': fedora_options.pick_random()
 		},
 		{
 			'type': 'HAT',
@@ -228,7 +228,7 @@ func add_choices_to_player(player):
 			'stats': {"CHA": 2, "DEF": 1},
 			'damage': func(): return 0,
 			'rounds': -1,
-			'dialog': cowboy_options.pick_random()
+			'dialogue': cowboy_options.pick_random()
 		},
 		{
 			'type': 'HAT',
@@ -238,7 +238,7 @@ func add_choices_to_player(player):
 			'stats': {},
 			'damage': func(): return player['WIT'] + player['base_dmg'] * 2,
 			'rounds': -1,
-			'dialog': witch_options.pick_random()
+			'dialogue': witch_options.pick_random()
 		},
 		{
 			'type': 'HAT',
@@ -248,7 +248,7 @@ func add_choices_to_player(player):
 			'stats': {"DEF": 3},
 			'damage': func(): return 0,
 			'rounds': -1,
-			'dialog': hard_hat_options.pick_random()
+			'dialogue': hard_hat_options.pick_random()
 		},
 		{
 			'type': 'HAT',
@@ -258,7 +258,7 @@ func add_choices_to_player(player):
 			'stats': {"STAM": 3},
 			'damage': func(): return 0,
 			'rounds': -1,
-			'dialog': nurse_hat_options.pick_random()
+			'dialogue': nurse_hat_options.pick_random()
 		},
 	]
 	
@@ -274,7 +274,7 @@ func add_choices_to_player(player):
 func add_choices_to_scene(parent, choices):
 	for choice in choices:
 		var button = Button.new()
-		button.text = choice.label + " - " + choice.dialog
+		button.text = choice.label + " - " + choice.dialogue
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		button.button_up.connect(on_choice_button_up.bind(choice))
 		parent.add_child(button)
@@ -355,7 +355,7 @@ func calculate_outcome():
 		var player = players[i]
 		add_outcome("[u]"+player.display_name)
 		add_outcome(player.current_choice.label)
-		add_outcome("[i][b]"+player.current_choice.dialog)
+		add_outcome("[i][b]"+player.current_choice.dialogue)
 		if player.current_choice.self:
 			apply_changes(player, player.current_choice)
 		else:

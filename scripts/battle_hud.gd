@@ -119,7 +119,7 @@ func _on_hat_mouse_entered(hat_stack):
 	new_tool_tip.global_position.x = hat_stack.position.x + 100 #= $HatDetail/ChaLabel.global_position.x + 50
 	current_tool_tip = new_tool_tip
 
-func update_dialog():
+func update_dialogue():
 	var option_stats = {
 		1: 'cha',
 		2: 'wit',
@@ -275,8 +275,13 @@ func _on_option_pressed(stat):
 	var opponent_choice_data = battle.opponent.choices[opponent_choice]
 	var opponent_long = opponent_choice_data.dialogue.long
 	
-	# show dialogue bubbles
+	# show speech bubbles
 	show_speech_bubbles()
+	
+	if stat == 'wit':
+		## fling speech bubble at enemey
+		print(opponent.global_position)
+		print($OpponentSpeechBubble)
 	
 	# render player text
 	is_talking = true
@@ -286,12 +291,12 @@ func _on_option_pressed(stat):
 		'sprite_state': player.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': player.get_node("SpriteHolder").pallete_sprite_state
 	})
-	$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
+	$DialogueContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
 	for i in long:
 		if skip_talking:
-			$DialogContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
+			$DialogueContainer/RichTextLabel.text = "[u]%s[/u][color=%s]: %s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
 			break
-		$DialogContainer/RichTextLabel.text += i
+		$DialogueContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
 	if not skip_talking:
 		await get_tree().create_timer(1).timeout
@@ -305,12 +310,12 @@ func _on_option_pressed(stat):
 			'sprite_state': opponent.get_node("SpriteHolder").sprite_state,
 			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 		})
-	$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
+	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
 	for i in opponent_long:
 		if skip_talking:
-			$DialogContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
+			$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u][color=%s]: %s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
 			break
-		$DialogContainer/RichTextLabel2.text += i
+		$DialogueContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout
 	if not skip_talking:
 		await get_tree().create_timer(1).timeout
@@ -321,7 +326,7 @@ func _on_option_pressed(stat):
 	skip_talking = false
 	is_talking = false
 	
-	# play dialogue bubbles animation
+	# play speech bubbles animation
 
 	
 	# if opponent played wit
@@ -330,26 +335,26 @@ func _on_option_pressed(stat):
 	# $AnimationPlayer.play('player_shoot')
 
 func show_speech_bubbles():
-	$PlayerDialogBubble.show()
-	$PlayerDialogBubble.play("fill")
-	$OpponentDialogBubble.show()
-	$OpponentDialogBubble.play("fill")
+	$PlayerSpeechBubble.show()
+	$PlayerSpeechBubble.play("fill")
+	$OpponentSpeechBubble.show()
+	$OpponentSpeechBubble.play("fill")
 
 func play_speech_bubbles_animation():
 	## TODO: Play animation of speech bubbles smacking into opponents are raises stats
-	$PlayerDialogBubble.hide()
-	$OpponentDialogBubble.hide()
+	$PlayerSpeechBubble.hide()
+	$OpponentSpeechBubble.hide()
 
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
-	$DialogContainer/RichTextLabel.text = ''
-	$DialogContainer/RichTextLabel2.text = ''
+	$DialogueContainer/RichTextLabel.text = ''
+	$DialogueContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
 	play_speech_bubbles_animation()
 	cycle_hats(true)
 	cycle_hats(false)
-	## TODO: move option visibility to after chat bubble animation
+	## TODO: move option visibility to after speech bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
 	battle.new_round()

@@ -1,8 +1,8 @@
 extends Node
 
 var rng = RandomNumberGenerator.new()
-# Create dictionaries and arrays of dialog for insult, charisma and hat pools. 
-## Each dialog option needs a short form and a long form
+# Create dictionaries and arrays of dialogue for insult, charisma and hat pools. 
+## Each dialogue option needs a short form and a long form
 
 const hat_sayings = {
 	"wizard": {"short": "Magic in the air", "long": "By the ancient arts, I summon a powerful spell."},
@@ -167,7 +167,7 @@ var HAT_ABILITIES = {
 }
 
 
-var CHA_DIALOG_OPTIONS = {
+var CHA_DIALOGUE_OPTIONS = {
 	"CAPTIVATE": [
 		{
 			"short": "Entranced by me?",
