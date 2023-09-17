@@ -239,6 +239,8 @@ func end_battle():
 	## TODO: give player control again
 	player.stop_fighting()
 	opponent.stop_fighting(battle_over == 'defeat')
+	var cam = get_parent().get_node('Camera')
+	cam.follow_player = true
 	hide()
 
 func cycle_hats(is_player):

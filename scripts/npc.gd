@@ -142,10 +142,8 @@ func stop_fighting(is_victor=false):
 	is_fighting = false
 	## TODO: speech bubble?
 	var tween = get_tree().create_tween()
-	var offscreen_pos = battle_pos
-	## calc edge of screen rather than arbitrary big number?
-	offscreen_pos.x + 1000
-	tween.tween_property(self, "position", offscreen_pos, 1)
+	var offscreen_pos =  Vector2(battle_pos.x + 250, battle_pos.y)
+	tween.tween_property(self, "position",offscreen_pos, 1)
 	tween.tween_callback(queue_free)
 
 func fade_out():
