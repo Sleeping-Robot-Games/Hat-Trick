@@ -135,7 +135,7 @@ func store_player_state():
 		'pallete_sprite_state': sprite_holder.pallete_sprite_state,
 		'player_stats': stats,
 		'starter_hat': starter_hat,
-		'hat_stack': [starter_hat],
+		'hat_stack': [],
 		'name': $TextEdit.text
 	}
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
