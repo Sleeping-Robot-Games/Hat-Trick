@@ -175,6 +175,8 @@ func start_fighting(pos: Vector2):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", battle_pos, 1)
 	anim_npc.play("player/idle_left")
+	for hat in $HatHolder.get_children():
+		hat.flip_h = false
 
 func stop_fighting(is_victor=false):
 	is_fighting = false
@@ -197,6 +199,16 @@ func fade_out():
 	
 	var shader_tween_hack = get_tree().create_tween()
 	shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 0), duration)
+	
+func fade_in():
+	is_paused = false
+	var duration = 1.5
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, duration)
+	
+	var shader_tween_hack = get_tree().create_tween()
+	shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 1), duration)
 
 func _on_idle_timer_timeout():
 	set_new_target()

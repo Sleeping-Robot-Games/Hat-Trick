@@ -86,6 +86,8 @@ func start_fighting(pos: Vector2):
 	tween.tween_property(self, "position", battle_pos, 1)
 	
 	anim_player.play("player/idle_right")
+	for hat in $HatHolder.get_children():
+		hat.flip_h = true
 
 func stop_fighting():
 	is_fighting = false

@@ -37,6 +37,10 @@ y_sort_enabled = true
 position = Vector2(1732, 430)
 scale = Vector2(4, 4)
 
+[node name="NPC" parent="NPCPool" instance=ExtResource("3_2uk3j")]
+position = Vector2(316, 428)
+scale = Vector2(4, 4)
+
 [node name="Player" parent="." instance=ExtResource("2_ivu6y")]
 position = Vector2(117, 435)
 

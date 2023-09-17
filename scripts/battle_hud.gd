@@ -227,6 +227,7 @@ func start_battle(pl, op):
 	player = pl
 	opponent = op
 	player.get_node('HatHolder').z_as_relative = false
+	opponent.get_node('HatHolder').z_as_relative = false
 	hide_buff_values()
 	# ensure correct initial stat values in HUD
 	$Def/Value.text = str(player.stats['def'])
@@ -250,13 +251,13 @@ func end_battle():
 	## TODO: opponent walk away
 	## TODO: give player control again
 	player.get_node('HatHolder').z_as_relative = true
+	opponent.get_node('HatHolder').z_as_relative = false
 	player.stop_fighting()
 	opponent.stop_fighting(battle_over == 'defeat')
 	var cam = get_parent().get_node('Camera')
 	cam.follow_player = true
 	hide()
-	if game.name == 'Tutorial':
-		game.battle_over()
+	game.battle_over()
 
 func cycle_hats(is_player):
 	var hcount = player.hat_stack.size() if is_player else opponent.hat_stack.size()
@@ -371,37 +372,44 @@ func show_speech_bubbles():
 	$OpponentSpeechBubble.show()
 	$OpponentSpeechBubble.play("fill")
 
-func launch_bubble(bubble, target_pos, launch_dur, shake_dur, shake_mag):
+func launch_bubble(bubble, target, launch_dur, shake_dur, shake_mag):
+	var target_pos = Vector2(target.position.x, target.position.y+50) 
+	
 	bubble.show()
-	var starting_pos = bubble.global_position / 4
-	print('starting_pos ', starting_pos)
-	print('target_pos ', target_pos)
-	var tween = get_tree().create_tween()
+	bubble.z_index = 2
+	var starting_pos = bubble.position
 	## shake
 	bubble.shake(shake_dur, shake_mag)
 	await get_tree().create_timer(shake_dur).timeout
+	
 	## launch
-	#tween.tween_property(bubble, 'position', target_pos, launch_dur)
-	bubble.launch(launch_dur, target_pos)
-	await get_tree().create_timer(shake_dur).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property(bubble, 'position', target_pos, launch_dur)
+	
+	await get_tree().create_timer(launch_dur).timeout
+	game.get_node('Camera').shake_camera(.5, 4)
+	
+	target.modulate = Color(1, 0, 0, 1)
+	await get_tree().create_timer(.1).timeout
+	target.modulate = Color(1, 1, 1, 1)
+	
 	bubble.hide()
-	bubble.global_position = starting_pos
+	bubble.position = starting_pos
+	bubble.z_index = 0
 
 func play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag):
 	## TODO: Play animation of speech bubbles smacking into opponents are raises stats
 	$PlayerSpeechBubble.hide()
 	$OpponentSpeechBubble.hide()
-	
-	var op_pos = opponent.global_position / 4
-	var pl_pos = player.global_position / 4
+
 	if round_order.first == 'player':
-		launch_bubble($PlayerSpeechBubble, op_pos, launch_dur, shake_dur, shake_mag)
+		launch_bubble($PlayerSpeechBubble, opponent, launch_dur, shake_dur, shake_mag)
 		await get_tree().create_timer(launch_dur + shake_dur).timeout
-		launch_bubble($OpponentSpeechBubble, pl_pos, launch_dur, shake_dur, shake_mag)
+		launch_bubble($OpponentSpeechBubble, player, launch_dur, shake_dur, shake_mag)
 	else:
-		launch_bubble($OpponentSpeechBubble, pl_pos, launch_dur, shake_dur, shake_mag)
+		launch_bubble($OpponentSpeechBubble, player, launch_dur, shake_dur, shake_mag)
 		await get_tree().create_timer(launch_dur + shake_dur).timeout
-		launch_bubble($PlayerSpeechBubble, op_pos, launch_dur, shake_dur, shake_mag)
+		launch_bubble($PlayerSpeechBubble, opponent, launch_dur, shake_dur, shake_mag)
 
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
@@ -409,14 +417,13 @@ func _on_proceed_button_pressed():
 	$DialogueContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
-	var launch_dur = 1
-	var shake_dur = 2
-	var shake_mag = 2
+	var launch_dur = .3
+	var shake_dur = .5
+	var shake_mag = 1
 	play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag)
 	await get_tree().create_timer((launch_dur + shake_dur) *2).timeout
 	if opponent_is_big:
 		$BigGuyHolder.hide()
-	play_speech_bubbles_animation()
 	# TODO hat cycling
 	#cycle_hats(true)
 	#cycle_hats(false)

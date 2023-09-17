@@ -62,6 +62,9 @@ func hat_fight(player, opponent):
 	# TODO: zoom in - I tried doing a zoom with a tween on the player script and the drag/level bounds is making it a PAIN, lets shelf it for now -bronsky
 	$BattleHUD.start_battle(player, opponent)
 
+func battle_over():
+	$NPCSpawnTimer.start()
+	
 func get_left_battle_pos():
 	var half_viewport = cam.get_viewport_rect().size.x / 2
 	var cam_center = cam.get_screen_center_position().x
