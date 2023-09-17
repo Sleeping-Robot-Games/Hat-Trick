@@ -11,6 +11,11 @@ var current_tool_tip
 var battle_over = null
 var can_exit_battle = false
 
+var round_order = {
+	'first': 'player',
+	'second': 'opponent'
+}
+
 @onready var game = get_parent()
 @onready var battle = $Battle
 @onready var hat_nodes = {
@@ -366,10 +371,37 @@ func show_speech_bubbles():
 	$OpponentSpeechBubble.show()
 	$OpponentSpeechBubble.play("fill")
 
-func play_speech_bubbles_animation():
+func launch_bubble(bubble, target_pos, launch_dur, shake_dur, shake_mag):
+	bubble.show()
+	var starting_pos = bubble.global_position / 4
+	print('starting_pos ', starting_pos)
+	print('target_pos ', target_pos)
+	var tween = get_tree().create_tween()
+	## shake
+	bubble.shake(shake_dur, shake_mag)
+	await get_tree().create_timer(shake_dur).timeout
+	## launch
+	#tween.tween_property(bubble, 'position', target_pos, launch_dur)
+	bubble.launch(launch_dur, target_pos)
+	await get_tree().create_timer(shake_dur).timeout
+	bubble.hide()
+	bubble.global_position = starting_pos
+
+func play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag):
 	## TODO: Play animation of speech bubbles smacking into opponents are raises stats
 	$PlayerSpeechBubble.hide()
 	$OpponentSpeechBubble.hide()
+	
+	var op_pos = opponent.global_position / 4
+	var pl_pos = player.global_position / 4
+	if round_order.first == 'player':
+		launch_bubble($PlayerSpeechBubble, op_pos, launch_dur, shake_dur, shake_mag)
+		await get_tree().create_timer(launch_dur + shake_dur).timeout
+		launch_bubble($OpponentSpeechBubble, pl_pos, launch_dur, shake_dur, shake_mag)
+	else:
+		launch_bubble($OpponentSpeechBubble, pl_pos, launch_dur, shake_dur, shake_mag)
+		await get_tree().create_timer(launch_dur + shake_dur).timeout
+		launch_bubble($PlayerSpeechBubble, op_pos, launch_dur, shake_dur, shake_mag)
 
 func _on_proceed_button_pressed():
 	$ProceedButton.visible = false
@@ -377,6 +409,11 @@ func _on_proceed_button_pressed():
 	$DialogueContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
+	var launch_dur = 1
+	var shake_dur = 2
+	var shake_mag = 2
+	play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag)
+	await get_tree().create_timer((launch_dur + shake_dur) *2).timeout
 	if opponent_is_big:
 		$BigGuyHolder.hide()
 	play_speech_bubbles_animation()

@@ -144,12 +144,18 @@ func determine_initiative():
 	if p_init > o_init:
 		first_player = player
 		second_player = opponent
+		hud.round_order.first = 'player'
+		hud.round_order.second = 'opponent'
 	if o_init > p_init: 
 		first_player = opponent
 		second_player = player
+		hud.round_order.first = 'opponent'
+		hud.round_order.second = 'player'
 	if p_init == o_init:
 		var players = [player, opponent]
 		players.shuffle()
+		hud.round_order.first = 'player' if players[0].is_player else 'opponent'
+		hud.round_order.second = 'opponent' if players[0].is_player else 'player'
 		return players
 	
 	return [first_player, second_player]
