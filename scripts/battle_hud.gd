@@ -157,7 +157,6 @@ func update_hud(round_state):
 		#print('-----------------------------')
 		#print('state: ', state)
 		if is_player:
-			$HealthBarPlayer/Value.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
 			var hud_stats = {}
 			for stat in ['def', 'cha', 'wit']:
 				hud_stats[stat] = {
@@ -179,6 +178,8 @@ func update_hud(round_state):
 					get_node(capitalized+'/Equals').show()
 		# ensure hp bars are updated
 		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
+		var hptext = $HealthBarPlayer/Value if is_player else $HealthBarOpponent/Value
+		hptext.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
 		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
 		# if dmg was done show floater dmg text over opponent's hp bar
 		if state.dmg > 0:
@@ -265,8 +266,9 @@ func _on_option_pressed(stat):
 	
 	if stat == 'wit':
 		## fling speech bubble at enemey
-		print(opponent.global_position)
-		print($OpponentSpeechBubble)
+		#print(opponent.global_position)
+		#print($OpponentSpeechBubble)
+		pass
 	
 	if stat == 'hat':
 		g.play_random_hat_sfx(self, player.hat_stack[player.hat_stack.size()-1])

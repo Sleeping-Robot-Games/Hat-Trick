@@ -108,10 +108,14 @@ func choose(choice):
 	opponent['choice'] = opponent.choices.keys().pick_random()
 	resolve_round()
 
+func reset_stale_state(combatant):
+	combatant.dmg = 0
+	combatant.crit = false
+
 func new_round():
-	for state in round_state:
-		state['dmg'] = 0
-		state['crit'] = false
+	round_state = []
+	reset_stale_state(player)
+	reset_stale_state(opponent)
 	adjust_cooldowns()
 	load_dialogue_options(player)
 	load_dialogue_options(opponent)
@@ -152,7 +156,6 @@ func determine_initiative():
 
 
 func calculate_outcome(init_array):
-	round_state = []
 	# first pass: update player and opponent state accordingly
 	for i in range(init_array.size()):
 		var combatant = init_array[i] # combatant battle state
@@ -212,13 +215,16 @@ func adjust_cooldowns():
 		for prev_combatant_state in round_history[i]:
 			var combatant = player if prev_combatant_state.is_player else opponent
 			# cha
-			if i == bc.cha_cooldown-1 \
+			if i == bc.cha_cooldown \
 			and prev_combatant_state['choice'] == 'cha':
 				combatant['cha_buffs'] = {}
 			# hats
-			if i == bc.hat_cooldown-1 \
+			if i == bc.hat_cooldown \
 			and combatant['hat_buffs'].has(prev_combatant_state['choice']):
 				combatant['hat_buffs'].erase(prev_combatant_state['choice'])
+	# update hud buffs
+	var temp_state = [player.duplicate(true), opponent.duplicate(true)]
+	hud.update_hud(temp_state)
 
 # After dialogue option is chosen
 ## Determine round initiative (WIT + CHA), if tied random
