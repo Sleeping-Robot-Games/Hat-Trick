@@ -31,7 +31,9 @@ var insult_subsets
 func start():
 	initialize_combatant_state()
 	insult_subsets = initialize_insults()
-	new_round()
+	load_dialogue_options(player)
+	load_dialogue_options(opponent)
+	hud.render_options()
 
 func initialize_combatant_state():
 	p = hud.player
@@ -47,6 +49,8 @@ func initialize_combatant_state():
 	player['is_winner'] = false
 	player['cha_buffs'] = {}
 	player['hat_buffs'] = {}
+	player['dmg'] = 0
+	player['crit'] = false
 	opponent['stats'] = o.stats
 	opponent['cur_hp'] = o.stats['stam']
 	opponent['max_hp'] = o.stats['stam']
@@ -58,6 +62,8 @@ func initialize_combatant_state():
 	opponent['is_winner'] = false
 	opponent['cha_buffs'] = {}
 	opponent['hat_buffs'] = {}
+	opponent['dmg'] = 0
+	opponent['crit'] = false
 
 func initialize_insults():
 	var insults_copy = bc.WIT_INSULTS.duplicate(true)
@@ -102,21 +108,27 @@ func choose(choice):
 	opponent['choice'] = opponent.choices.keys().pick_random()
 	resolve_round()
 
+func new_round():
+	for state in round_state:
+		state['dmg'] = 0
+		state['crit'] = false
+	adjust_cooldowns()
+	load_dialogue_options(player)
+	load_dialogue_options(opponent)
+	hud.render_options()
+	## Show Buffs / Dmg for current round
+	## Hide Buffs from prev round
+	#hud.update_hud(round_state.duplicate(true))
+
 func resolve_round():
 	var init_array = determine_initiative()
 	calculate_outcome(init_array)
-	hud.update_hud(round_state.duplicate(true)) 
-	adjust_cooldowns()
+	hud.update_hud(round_state.duplicate(true))
+	
 	# adjust_hat_order()
 	round_history.push_front(round_state.duplicate(true))
 	if round_history.size() > bc.hat_cooldown:
 		round_history.resize(bc.hat_cooldown)
-
-func new_round():
-	load_dialogue_options(player)
-	load_dialogue_options(opponent)
-	hud.render_options()
-	hud.update_hud(round_state.duplicate(true))
 
 func determine_initiative():
 	var first_player
@@ -194,18 +206,17 @@ func calculate_outcome(init_array):
 	
 	# return round state for HUD updates
 	return round_state
-	
 
 func adjust_cooldowns():
 	for i in range(round_history.size()):
 		for prev_combatant_state in round_history[i]:
 			var combatant = player if prev_combatant_state.is_player else opponent
 			# cha
-			if i >= bc.cha_cooldown-1 \
+			if i == bc.cha_cooldown-1 \
 			and prev_combatant_state['choice'] == 'cha':
 				combatant['cha_buffs'] = {}
 			# hats
-			if i >= bc.hat_cooldown-1 \
+			if i == bc.hat_cooldown-1 \
 			and combatant['hat_buffs'].has(prev_combatant_state['choice']):
 				combatant['hat_buffs'].erase(prev_combatant_state['choice'])
 

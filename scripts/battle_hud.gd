@@ -181,7 +181,7 @@ func update_hud(round_state):
 		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
 		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
 		# if dmg was done show floater dmg text over opponent's hp bar
-		if state.has('dmg'):
+		if state.dmg > 0:
 			var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
 			opp_floater.float_text("-"+str(state['dmg']), Color.RED)
 
