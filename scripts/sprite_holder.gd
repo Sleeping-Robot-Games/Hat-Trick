@@ -32,7 +32,7 @@ func _ready():
 		if 'NPC' == parent.type and parent.random:
 			create_random_character()
 			if parent.name != 'BOSS':
-				parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
+				parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(5))
 				parent.npc_name = g.names_by_hat[random_starter_hat.to_lower()].pick_random()
 			else:
 				parent.npc_name = 'Hat Boss'

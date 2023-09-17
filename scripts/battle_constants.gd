@@ -55,19 +55,19 @@ const hat_sayings = {
 }
 
 func captivate(cha):
-	return { "def": cha }
+	return { "def": clamp(cha, 1, INF) }
 
 func overwhelm(cha):
-	return {"wit": cha}
+	return {"wit": clamp(cha, 1, INF)}
 	
 func inspire(cha):
-	return  {'wit': ceil(cha / 2), 'cha': cha}
+	return  {'wit': ceil(cha / 2), 'cha': clamp(cha, 1, INF)}
 	
 func intimidate(cha):
-	return {"def": -2, "wit": cha}
+	return {"def": -2, "wit": clamp(cha, 1, INF)}
 
 func fortify(cha):
-	return {"def": cha , "wit": -1}
+	return {"def": clamp(cha, 1, INF) , "wit": -1}
 	
 	
 ## NEEDS BALANCE THESE ARE JUST FOR IDEAS AND FORMATTING
@@ -137,7 +137,7 @@ func hat_cha_wit_buff(cha):
 
 func hat_large_wit_buff(cha):
 	rng.randomize()
-	return {"def": rng.randi_range(-1, -3), "wit": rng.randi_range(2, 4)}
+	return {"def": rng.randi_range(-1, -3), "wit": rng.randi_range(2, 4) + cha}
 
 func hat_def_buff(cha):
 	rng.randomize()
