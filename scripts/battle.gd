@@ -50,6 +50,7 @@ func initialize_combatant_state():
 	player['cha_buffs'] = {}
 	player['hat_buffs'] = {}
 	player['dmg'] = 0
+	player['heal'] = 0
 	player['crit'] = false
 	opponent['stats'] = o.stats
 	opponent['cur_hp'] = o.stats['stam']
@@ -63,6 +64,7 @@ func initialize_combatant_state():
 	opponent['cha_buffs'] = {}
 	opponent['hat_buffs'] = {}
 	opponent['dmg'] = 0
+	opponent['heal'] = 0
 	opponent['crit'] = false
 
 func initialize_insults():
@@ -111,6 +113,7 @@ func choose(choice):
 func reset_stale_state(combatant):
 	combatant.dmg = 0
 	combatant.crit = false
+	combatant.heal = 0
 
 func new_round():
 	round_state = []
@@ -164,6 +167,7 @@ func calculate_outcome(init_array):
 					continue
 				combatant['cha_buffs'][stat] = combatant['choices']['cha'][stat]
 		combatant['dmg'] = 0
+		combatant['heal'] = 0
 		combatant['crit'] = false
 		if combatant['choice'] == 'wit':
 			## apply wit damage to opp
@@ -181,6 +185,9 @@ func calculate_outcome(init_array):
 			if combatant['choices'][hat_choice].has('buff'):
 				var hat_effect = combatant['choices'][hat_choice]['buff'].call(bc.stat_calc(combatant, 'cha'))
 				for stat in hat_effect.keys():
+					if stat == 'stam': # don't over heal
+						combatant['heal'] = hat_effect['stam']
+						combatant['cur_hp'] = clamp(combatant['cur_hp'] + hat_effect['stam'], 0, combatant['max_hp'])
 					if not combatant['hat_buffs'].has(hat_choice):
 						combatant['hat_buffs'][hat_choice] = {}
 					combatant['hat_buffs'][hat_choice][stat] = hat_effect[stat]

@@ -188,6 +188,9 @@ func update_hud(round_state):
 		if state.dmg > 0:
 			var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
 			opp_floater.float_text("-"+str(state['dmg']), Color.RED)
+		if state.heal > 0:
+			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
+			floater.float_text("+"+str(state['heal']), Color.GREEN)
 		if state.is_winner:
 			if is_player:
 				battle_over = 'victory'
