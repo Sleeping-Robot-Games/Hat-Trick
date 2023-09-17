@@ -64,7 +64,7 @@ func inspire(cha):
 	return  {'wit': ceil(cha / 2), 'cha': clamp(cha, 1, INF)}
 	
 func intimidate(cha):
-	return {"def": -2, "wit": clamp(cha, 1, INF)}
+	return {"def": -1, "wit": clamp(cha, 1, INF)}
 
 func fortify(cha):
 	return {"def": clamp(cha, 1, INF) , "wit": -1}
@@ -133,7 +133,7 @@ func hat_cha_buff(cha):
 
 func hat_cha_wit_buff(cha):
 	rng.randomize()
-	return {"cha": rng.randi_range(1, 3) + ceil(cha / 2), "wit": rng.randi_range(1, 3) + ceil(cha / 2)}
+	return {"cha": rng.randi_range(1, 2) + floor(cha / 2), "wit": rng.randi_range(1, 2) + floor(cha / 2)}
 
 func hat_large_wit_buff(cha):
 	rng.randomize()
