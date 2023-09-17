@@ -21,7 +21,7 @@ var hat_stack = []
 func _ready():
 	anim_npc.play('idle')
 	hat_stack = ['snapback']
-	stats = {'stam': 10, 'def': 2, 'cha': 1, 'wit': 1}
+	stats = {'stam': 8, 'def': 0, 'cha': 0, 'wit': 0}
 	if g.level == 1:
 		$Sprite2D.texture = load("res://assets/bigguy/bigguy003.png")
 		

@@ -63,6 +63,8 @@ func hat_fight(player, opponent):
 	$BattleHUD.start_battle(player, opponent)
 
 func battle_over():
+	for npc in npc_pool.get_children():
+		npc.fade_in()
 	$NPCSpawnTimer.start()
 	
 func get_left_battle_pos():

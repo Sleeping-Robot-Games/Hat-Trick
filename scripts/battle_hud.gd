@@ -87,6 +87,8 @@ func _input(event):
 		skip_talking = true
 	if can_exit_battle and Input.is_action_just_pressed("interact"):
 		end_battle()
+		can_exit_battle = false
+		battle_over = null
 
 func _on_stat_mouse_entered(stat):
 	var new_tool_tip = tool_tip_scene.instantiate()
@@ -167,48 +169,49 @@ func signed_buff(num: int) -> String:
 func update_hud(round_state):
 	current_round_state = round_state.duplicate(true)
 
-func resolve_battle():
+
+func resolve_battle(state):
 	hide_buff_values()
 	battle_over = null
-	for state in current_round_state:
-		var is_player = state.is_player
+	var is_player = state.is_player
+	if is_player:
+		var hud_stats = {}
+		for stat in ['def', 'cha', 'wit']:
+			hud_stats[stat] = {
+				'total': bc.stat_calc(state, stat, true, true, true),
+				'base': bc.stat_calc(state, stat, true, false, false),
+				'cha_buff': bc.stat_calc(state, stat, false, true, false),
+				'hat_buff': bc.stat_calc(state, stat, false, false, true),
+			}
+		for stat in hud_stats.keys():
+			var capitalized = stat.capitalize()
+			get_node(capitalized+'/Value').text = str(hud_stats[stat]['total'])
+			if hud_stats[stat]['cha_buff'] != 0:
+				get_node(capitalized+'/HBox/ChaBuff').text = signed_buff(hud_stats[stat]['cha_buff'])
+				get_node(capitalized+'/HBox/ChaBuff').show()
+				get_node(capitalized+'/Equals').show()
+			if hud_stats[stat]['hat_buff'] != 0:
+				get_node(capitalized+'/HBox/HatBuff').text = signed_buff(hud_stats[stat]['hat_buff'])
+				get_node(capitalized+'/HBox/HatBuff').show()
+				get_node(capitalized+'/Equals').show()
+	# ensure hp bars are updated
+	var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
+	var hptext = $HealthBarPlayer/Value if is_player else $HealthBarOpponent/Value
+	hptext.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
+	hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
+	# if dmg was done show floater dmg text over opponent's hp bar
+	if state.dmg > 0:
+		var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
+		opp_floater.float_text("-"+str(state['dmg']), Color.RED)
+	if state.heal > 0:
+		var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
+		floater.float_text("+"+str(state['heal']), Color.GREEN)
+		
+	if state.is_winner:
 		if is_player:
-			var hud_stats = {}
-			for stat in ['def', 'cha', 'wit']:
-				hud_stats[stat] = {
-					'total': bc.stat_calc(state, stat, true, true, true),
-					'base': bc.stat_calc(state, stat, true, false, false),
-					'cha_buff': bc.stat_calc(state, stat, false, true, false),
-					'hat_buff': bc.stat_calc(state, stat, false, false, true),
-				}
-			for stat in hud_stats.keys():
-				var capitalized = stat.capitalize()
-				get_node(capitalized+'/Value').text = str(hud_stats[stat]['total'])
-				if hud_stats[stat]['cha_buff'] != 0:
-					get_node(capitalized+'/HBox/ChaBuff').text = signed_buff(hud_stats[stat]['cha_buff'])
-					get_node(capitalized+'/HBox/ChaBuff').show()
-					get_node(capitalized+'/Equals').show()
-				if hud_stats[stat]['hat_buff'] != 0:
-					get_node(capitalized+'/HBox/HatBuff').text = signed_buff(hud_stats[stat]['hat_buff'])
-					get_node(capitalized+'/HBox/HatBuff').show()
-					get_node(capitalized+'/Equals').show()
-		# ensure hp bars are updated
-		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
-		var hptext = $HealthBarPlayer/Value if is_player else $HealthBarOpponent/Value
-		hptext.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
-		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
-		# if dmg was done show floater dmg text over opponent's hp bar
-		if state.dmg > 0:
-			var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
-			opp_floater.float_text("-"+str(state['dmg']), Color.RED)
-		if state.heal > 0:
-			var floater = $HealthBarPlayer/FloatTextSpawner if is_player else $HealthBarOpponent/FloatTextSpawner
-			floater.float_text("+"+str(state['heal']), Color.GREEN)
-		if state.is_winner:
-			if is_player:
-				battle_over = 'victory'
-			else:
-				battle_over = 'defeat'
+			battle_over = 'victory'
+		else:
+			battle_over = 'defeat'
 	current_round_state = {}
 
 func hide_buff_values():
@@ -377,49 +380,72 @@ func _on_option_pressed(stat):
 func show_speech_bubbles():
 	$PlayerSpeechBubble.show()
 	$PlayerSpeechBubble.play("fill")
+	$PlayerSpeechBubble.modulate = Color(1,1,1,1)
 	$OpponentSpeechBubble.show()
 	$OpponentSpeechBubble.play("fill")
+	$OpponentSpeechBubble.modulate = Color(1,1,1,1)
 
-func launch_bubble(bubble, target, launch_dur, shake_dur, shake_mag):
-	var target_pos = Vector2(target.position.x, target.position.y+50) 
+func launch_bubble(bubble, round_state, opp_round_state, target, launch_dur, shake_dur, shake_mag):
+	var dealing_dmg = round_state.dmg > 0
+	var target_pos
+	if dealing_dmg:
+		target_pos = Vector2(target.position.x, target.position.y+50)
+	else:
+		target_pos = Vector2(bubble.position.x, bubble.position.y-100)
 	
-	bubble.show()
+	# bubble.show()
 	bubble.z_index = 2
 	var starting_pos = bubble.position
-	## shake
-	bubble.shake(shake_dur, shake_mag)
-	await get_tree().create_timer(shake_dur).timeout
+	if dealing_dmg:
+		## shake
+		bubble.shake(shake_dur, shake_mag)
+		await get_tree().create_timer(shake_dur).timeout
+		
+		## launch
+		var tween = get_tree().create_tween()
+		tween.tween_property(bubble, 'position', target_pos, launch_dur)
+		
+		await get_tree().create_timer(launch_dur).timeout
+		game.get_node('Camera').shake_camera(.5, 4)
+		
+		target.modulate = Color(1, 0, 0, 1)
+		await get_tree().create_timer(.1).timeout
+		target.modulate = Color(1, 1, 1, 1)
+	else:
+		var tween = get_tree().create_tween()
+		tween.tween_property(bubble, 'position', target_pos, launch_dur)
+		tween.tween_property(bubble, 'modulate', Color(1,1,1,0), launch_dur)
+		await get_tree().create_timer(launch_dur*2).timeout
+		
 	
-	## launch
-	var tween = get_tree().create_tween()
-	tween.tween_property(bubble, 'position', target_pos, launch_dur)
+	resolve_battle(opp_round_state)
 	
-	await get_tree().create_timer(launch_dur).timeout
-	game.get_node('Camera').shake_camera(.5, 4)
-	
-	target.modulate = Color(1, 0, 0, 1)
-	await get_tree().create_timer(.1).timeout
-	target.modulate = Color(1, 1, 1, 1)
-	print(current_round_state)
-	resolve_battle()
-	
+	bubble.modulate = Color(1,1,1,1)
 	bubble.hide()
 	bubble.position = starting_pos
 	bubble.z_index = 0
 
 func play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag):
 	## TODO: Play animation of speech bubbles smacking into opponents are raises stats
-	$PlayerSpeechBubble.hide()
-	$OpponentSpeechBubble.hide()
-
+#	$PlayerSpeechBubble.hide()
+#	$OpponentSpeechBubble.hide()
+	
+	var player_round_state
+	var opp_round_state
+	for state in current_round_state:
+		if state.is_player:
+			player_round_state = state
+		else:
+			opp_round_state = state
+			
 	if round_order.first == 'player':
-		launch_bubble($PlayerSpeechBubble, opponent, launch_dur, shake_dur, shake_mag)
+		launch_bubble($PlayerSpeechBubble, player_round_state, opp_round_state, opponent, launch_dur, shake_dur, shake_mag)
 		await get_tree().create_timer(launch_dur + shake_dur).timeout
-		launch_bubble($OpponentSpeechBubble, player, launch_dur, shake_dur, shake_mag)
+		launch_bubble($OpponentSpeechBubble, opp_round_state, player_round_state, player, launch_dur, shake_dur, shake_mag)
 	else:
-		launch_bubble($OpponentSpeechBubble, player, launch_dur, shake_dur, shake_mag)
+		launch_bubble($OpponentSpeechBubble, opp_round_state, player_round_state, player, launch_dur, shake_dur, shake_mag)
 		await get_tree().create_timer(launch_dur + shake_dur).timeout
-		launch_bubble($PlayerSpeechBubble, opponent, launch_dur, shake_dur, shake_mag)
+		launch_bubble($PlayerSpeechBubble, player_round_state, opp_round_state, opponent, launch_dur, shake_dur, shake_mag)
 	
 	
 
