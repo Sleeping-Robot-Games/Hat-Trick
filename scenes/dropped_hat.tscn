@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://csr5buard8tn5"]
+
+[ext_resource type="Script" path="res://scripts/dropped_hat.gd" id="1_6jxe3"]
+[ext_resource type="Texture2D" uid="uid://dcrgeuqw2qtkl" path="res://assets/sprites/hat/baseball.png" id="1_bnaeu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f002v"]
+atlas = ExtResource("1_bnaeu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4djqg"]
+size = Vector2(32, 32)
+
+[node name="DroppedHat" type="Node2D"]
+script = ExtResource("1_6jxe3")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_f002v")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_4djqg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

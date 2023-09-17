@@ -257,8 +257,6 @@ func start_battle(pl, op):
 
 func end_battle():
 	## TODO: if victory opponent drop hat
-	## TODO: opponent walk away
-	## TODO: give player control again
 	player.get_node('HatHolder').z_as_relative = true
 	opponent.get_node('HatHolder').z_as_relative = false
 	player.stop_fighting()

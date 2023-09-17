@@ -184,11 +184,27 @@ func stop_fighting(is_victor=false):
 		$SpeechBubble.set_text(bc.victory_quips.pick_random())
 	else:
 		$SpeechBubble.set_text(bc.defeat_quips.pick_random())
+		drop_hat(0)
 	await get_tree().create_timer(1).timeout
 	var tween = get_tree().create_tween()
 	var offscreen_pos =  Vector2(battle_pos.x + 250, battle_pos.y)
 	tween.tween_property(self, "position",offscreen_pos, 1)
 	tween.tween_callback(queue_free)
+
+func drop_hat(hat_index):
+	var hat = hat_stack.pop_at(hat_index)
+	var dropped_hat_scene = load("res://scenes/dropped_hat.tscn")
+	var dropped_hat_instance = dropped_hat_scene.instantiate()
+	var spawn_pos = $SpriteHolder/hat.global_position
+	var body_pos = $SpriteHolder/body.global_position
+	var y_offset = 32
+	var floor_pos = Vector2(spawn_pos.x, body_pos.y + y_offset)
+	dropped_hat_instance.global_position = spawn_pos
+	dropped_hat_instance.set_hat(hat)
+	$SpriteHolder/hat.hide()
+	get_parent().get_parent().add_child(dropped_hat_instance)
+	var tween = get_tree().create_tween()
+	tween.tween_property(dropped_hat_instance, "global_position", floor_pos, 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 
 func fade_out():
 	is_paused = true
