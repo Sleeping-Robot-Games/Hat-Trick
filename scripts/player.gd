@@ -14,7 +14,7 @@ var battle_pos_speed = 150
 var hat_stack = []
 var stats
 var player_name
-
+var character_data
 
 @onready var anim_player = $AnimationPlayer
 @onready var game = get_parent()
@@ -33,10 +33,17 @@ var inputs = {
 }
 
 func _ready():
-	#$HatTowerTimerTest.start()
-	# position.y = 435
-	pass
-	
+	for hat in character_data.hat_stack:
+		add_hat(hat)
+
+func save_hats():
+	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
+	var json = JSON.new()
+	character_data['hat_stack'] = hat_stack
+	f.store_string(json.stringify(character_data, "  "))
+	f.close()
+
+
 func enter_room():
 	is_disabled = true
 	game.get_node("Camera").follow_player = false

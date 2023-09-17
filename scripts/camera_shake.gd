@@ -4,10 +4,29 @@ extends Camera2D
 var shake_duration = 0.0
 var shake_magnitude = 0.0
 var shake_speed = 50.0
+var stopped = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.shake_camera(10, 1)
+	get_parent().get_node("ControlPanel").play()
+	g.play_sfx(self, 'elevator_sfx')
+	g.play_bgm('elevator')
+	self.shake_camera(8, 1)
+	await get_tree().create_timer(6).timeout
+	get_parent().get_node('Elevator Background').slow()
+	await get_tree().create_timer(2).timeout
+	get_parent().get_node('Elevator Background').stop()
+	get_parent().get_node("Door").play()
+	
+	get_parent().get_node("InteractButton").show()
+	stopped = true
+
+func _input(event):
+	if stopped and Input.is_action_just_pressed("interact"):
+		g.level = 2
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
+		g.stop_bgm('elevator')
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 

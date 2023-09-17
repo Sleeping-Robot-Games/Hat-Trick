@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt6v7wgiewnn2"]
+[gd_scene load_steps=11 format=3 uid="uid://dt6v7wgiewnn2"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_13ukk"]
 [ext_resource type="PackedScene" uid="uid://dn0jnues5o1h2" path="res://scenes/level_one.tscn" id="1_x2dao"]
@@ -6,6 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://bdrfler07o685" path="res://scenes/npc.tscn" id="3_2uk3j"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="5_m3toh"]
 [ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="5_nqbwm"]
+[ext_resource type="PackedScene" uid="uid://dep7866ey2ofj" path="res://scenes/bigguy.tscn" id="7_gw64b"]
+[ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="8_58okd"]
+[ext_resource type="Texture2D" uid="uid://7sdsudutiwut" path="res://assets/ui/epressed.png" id="9_lwmjb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dqrb2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_58okd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lwmjb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_13ukk")
@@ -45,6 +62,19 @@ text = "Hat plz"
 
 [node name="BattleHUD" parent="." instance=ExtResource("5_nqbwm")]
 visible = false
+
+[node name="BigGuy" parent="." instance=ExtResource("7_gw64b")]
+position = Vector2(1728, 425)
+scale = Vector2(4, 4)
+tutorial = false
+
+[node name="InteractButton" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(1726, 337)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dqrb2")
+autoplay = "default"
+speed_scale = 0.5
 
 [connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]
 [connection signal="button_up" from="Button" to="Player" method="_on_button_button_up"]

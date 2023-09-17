@@ -35,6 +35,7 @@ func _ready():
 			parent.npc_name = g.names_by_hat[random_starter_hat.to_lower()].pick_random()
 		elif 'Player' == parent.type:
 			var character_data = load_character()
+			parent.character_data = character_data
 			sprite_state = character_data.sprite_state
 			pallete_sprite_state = character_data.pallete_sprite_state
 			parent.add_hat(character_data.starter_hat.to_lower())

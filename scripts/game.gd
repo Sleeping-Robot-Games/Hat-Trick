@@ -5,6 +5,7 @@ var npc_scene = load("res://scenes/npc.tscn")
 
 var active_npcs = []
 
+var good_to_go_up = false
 var battle_pos_offset = 80
 var battle_pos_y = g.current_level_y_pos
 @onready var npc_pool = $NPCPool
@@ -13,13 +14,24 @@ var battle_pos_y = g.current_level_y_pos
 var debug = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if g.level == 1:
+		get_node('Level/Floor1').show()
+		get_node('Level/Floor2').hide()
+	if g.level == 2:
+		get_node('Level/Floor2').show()
+		get_node('Level/Floor1').hide()
+		
 	if debug:
 		return
-	
 	# Entrance animation for player
 	$Player.enter_room()
 	
 	$NPCSpawnTimer.start()
+
+func _input(event):
+	if good_to_go_up and Input.is_action_just_pressed("interact"):
+		$Player.save_hats()
+		get_tree().change_scene_to_file("res://scenes/elevator.tscn")
 
 func npc_enters():
 	var new_npc = npc_scene.instantiate()

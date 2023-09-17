@@ -5,6 +5,7 @@ var focused_npc = null
 var current_level_y_pos = 435
 
 const max_hats = 6
+var level = 1
 
 ## indexs all hats and their height in pixels
 const hat_index = {
@@ -143,7 +144,7 @@ func play_random_hat_sfx(parent, fname, custom_range=2, db_override=0, ext='.mp3
 func play_sfx(parent, fname, db_override=0, ext='.mp3'):
 	var sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = db_override
-	sfx_player.stream = load('res://sfx/'+fname+ext)
+	sfx_player.stream = load('res://sfx/sounds/'+fname+ext)
 	sfx_player.finished.connect(sfx_player.queue_free)
 	parent.add_child(sfx_player)
 	sfx_player.play()
@@ -152,7 +153,7 @@ func play_bgm(fname, db_override=0, ext='.mp3'):
 	var sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = db_override
 	sfx_player.name = fname
-	sfx_player.stream = load('res://sfx/'+fname+ext)
+	sfx_player.stream = load('res://sfx/bgm/'+fname+ext)
 	add_child(sfx_player)
 	sfx_player.play()
 	

@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2f1i3al4pwa7"]
+[gd_scene load_steps=25 format=3 uid="uid://d2f1i3al4pwa7"]
 
 [ext_resource type="Script" path="res://scripts/camera_shake.gd" id="1_6uly4"]
 [ext_resource type="Texture2D" uid="uid://bg3gsx7bfpk1h" path="res://assets/elevator.png" id="1_d1qle"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_o0xej"]
-[ext_resource type="PackedScene" uid="uid://b48tggrk80imm" path="res://scenes/elevator_background.tscn" id="2_quh68"]
+[ext_resource type="PackedScene" path="res://scenes/elevator_background.tscn" id="2_quh68"]
+[ext_resource type="Texture2D" uid="uid://c5uw2ph4qvhj3" path="res://assets/elevatorpanel.png" id="5_keims"]
+[ext_resource type="Texture2D" uid="uid://co4m6138lptaa" path="res://assets/elevatordoor.png" id="6_ldbie"]
+[ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="7_nms5r"]
+[ext_resource type="Texture2D" uid="uid://7sdsudutiwut" path="res://assets/ui/epressed.png" id="8_v3xiy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1k1i3"]
 texture = ExtResource("1_d1qle")
@@ -186,6 +190,110 @@ texture = ExtResource("1_d1qle")
 [sub_resource type="TileSet" id="TileSet_sq1d6"]
 sources/0 = SubResource("TileSetAtlasSource_1k1i3")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hdfh5"]
+a = Vector2(285, 499)
+b = Vector2(283, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oikch"]
+atlas = ExtResource("5_keims")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2q0w"]
+atlas = ExtResource("5_keims")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0km4q"]
+atlas = ExtResource("5_keims")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh48a"]
+atlas = ExtResource("5_keims")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa7hx"]
+atlas = ExtResource("5_keims")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7wa73"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oikch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2q0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0km4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh48a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa7hx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33v86"]
+atlas = ExtResource("6_ldbie")
+region = Rect2(0, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6tvu"]
+atlas = ExtResource("6_ldbie")
+region = Rect2(64, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rfbs"]
+atlas = ExtResource("6_ldbie")
+region = Rect2(128, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwykc"]
+atlas = ExtResource("6_ldbie")
+region = Rect2(192, 0, 64, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi00k"]
+atlas = ExtResource("6_ldbie")
+region = Rect2(0, 80, 64, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b13lh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33v86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6tvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rfbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwykc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi00k")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_npsof"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nms5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v3xiy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Elevator" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -193,7 +301,7 @@ position = Vector2(480, 269)
 script = ExtResource("1_6uly4")
 
 [node name="Player" parent="." instance=ExtResource("2_o0xej")]
-position = Vector2(555, 409)
+position = Vector2(558, 409)
 
 [node name="Elevator Background" parent="." instance=ExtResource("2_quh68")]
 position = Vector2(-101, -1407)
@@ -218,7 +326,7 @@ layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(6, 131072, 0, 65542, 131072, 1, 131078, 196608, 3, 196614, 131072, 3, 262150, 131072, 4, 327686, 131072, 5, 393222, 131072, 6, 7, 262144, 0, 65543, 262144, 1, 131079, 196608, 3, 196615, 196608, 3, 262151, 196608, 4, 327687, 196608, 5, 393223, 262144, 6, 8, 327680, 0, 65544, 327680, 1, 131080, 262144, 3, 196616, 262144, 3, 262152, 262144, 4, 327688, 262144, 5, 393224, 327680, 6, 9, 327680, 0, 65545, 327680, 1, 131081, 327680, 2, 196617, 327680, 3, 262153, 327680, 4, 327689, 327680, 5, 393225, 327680, 6)
+layer_2/tile_data = PackedInt32Array(6, 131072, 0, 65542, 131072, 1, 131078, 196608, 3, 196614, 131072, 3, 262150, 131072, 4, 327686, 131072, 5, 393222, 131072, 6, 7, 262144, 0, 65543, 262144, 1, 131079, 196608, 2, 196615, 196608, 3, 262151, 196608, 4, 327687, 196608, 5, 393223, 262144, 6, 8, 327680, 0, 65544, 327680, 1, 131080, 262144, 2, 196616, 262144, 3, 262152, 262144, 4, 327688, 262144, 5, 393224, 327680, 6, 9, 327680, 0, 65545, 327680, 1, 131081, 327680, 2, 196617, 327680, 3, 262153, 327680, 4, 327689, 327680, 5, 393225, 327680, 6)
 layer_3/name = "Door"
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
@@ -226,3 +334,32 @@ layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array(196614, 0, 12, 262150, 0, 13, 327686, 0, 14, 393222, 0, 15, 196615, 65536, 12, 262151, 65536, 13, 327687, 65536, 14, 393223, 65536, 15, 196616, 131072, 12, 262152, 131072, 13, 327688, 131072, 14, 393224, 131072, 15, 196617, 196608, 12, 262153, 196608, 13, 327689, 196608, 14, 393225, 196608, 15)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("SegmentShape2D_hdfh5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(387, 0)
+shape = SubResource("SegmentShape2D_hdfh5")
+
+[node name="ControlPanel" type="AnimatedSprite2D" parent="."]
+position = Vector2(617, 367)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_7wa73")
+autoplay = "default"
+
+[node name="Door" type="AnimatedSprite2D" parent="."]
+position = Vector2(478, 289)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_b13lh")
+frame_progress = 0.364768
+
+[node name="InteractButton" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(476, 312)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_npsof")
+autoplay = "default"
+speed_scale = 0.5
