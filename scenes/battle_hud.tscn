@@ -503,6 +503,7 @@ patch_margin_bottom = 3
 [node name="FloatTextSpawner" parent="HealthBarOpponent" instance=ExtResource("10_fkcv5")]
 
 [node name="Value" type="Label" parent="HealthBarOpponent"]
+layout_mode = 0
 offset_right = 240.0
 offset_bottom = 31.0
 scale = Vector2(0.5, 0.5)

@@ -12,10 +12,10 @@ var available_for_battle = true
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
-var hat_array
 var stats
 var npc_name = 'Bouncer'
 var is_player = false
+var hat_stack = []
 
 @onready var anim_npc = $AnimationPlayer
 #@onready var speech_bubble = $SpeechBubble
@@ -23,7 +23,7 @@ var is_player = false
 
 func _ready():
 	anim_npc.play('idle')
-	hat_array = ['snapback']
+	hat_stack = ['snapback']
 	stats = {'stam': 10, 'def': 2, 'cha': 1, 'wit': 1}
 		
 func _update_shader_modulation(current_modulation):

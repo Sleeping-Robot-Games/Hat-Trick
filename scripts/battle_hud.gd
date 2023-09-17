@@ -9,6 +9,7 @@ var opponent_is_big = false
 var tool_tip_scene = load("res://scenes/tool_tip.tscn")
 var current_tool_tip
 
+@onready var game = get_parent()
 @onready var battle = $Battle
 @onready var hat_nodes = {
 	'player': {
@@ -139,19 +140,9 @@ func get_stat_type(stat):
 		stat_type = bc.HAT_CHA_POWERS[player.hat_stack[0]]
 	if stat == 'wit':
 		stat_type = 'DAMAGE'
-	if stat.begins_with('hat_'):
+	if 'hat' in stat:
 		stat_type = 'HAT POWER'
 	return stat_type
-
-func get_stat_color(stat):
-	var stat_color = ""
-	if stat == 'cha':
-		stat_color = 'ad8ec2'
-	if stat == 'wit':
-		stat_color = '7fa6be'
-	if stat == 'hat':
-		stat_color = 'caba71'
-	return stat_color
 
 func signed_buff(num: int) -> String:
 	if num >= 0:
@@ -254,6 +245,9 @@ func draw_hats(delay=0.3, play_sfx=true):
 			hat_nodes['opponent'][i].change_hat(opponent.hat_stack[i], play_sfx)
 
 func _on_option_pressed(stat):
+	if game.name == 'Tutorial':
+		game.option_selected()
+		
 	var selected = 'hat_'+battle.player['active_hat'] if stat == 'hat' else stat
 	for option in $OptionContainer.get_children():
 		option.visible = false
@@ -284,10 +278,10 @@ func _on_option_pressed(stat):
 		'sprite_state': player.get_node("SpriteHolder").sprite_state,
 		'pallete_sprite_state': player.get_node("SpriteHolder").pallete_sprite_state
 	})
-	$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] " % [player.player_name, get_stat_color(stat), get_stat_type(stat)]
+	$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] " % [player.player_name, g.get_stat_color(stat), get_stat_type(stat)]
 	for i in long:
 		if skip_talking:
-			$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] %s" % [player.player_name, get_stat_color(stat), get_stat_type(stat), long]
+			$DialogueContainer/RichTextLabel.text = "[u]%s[/u]: [color=%s]%s[/color] %s" % [player.player_name, g.get_stat_color(stat), get_stat_type(stat), long]
 			break
 		$DialogueContainer/RichTextLabel.text += i
 		await get_tree().create_timer(.03).timeout
@@ -304,12 +298,12 @@ func _on_option_pressed(stat):
 			'pallete_sprite_state': opponent.get_node("SpriteHolder").pallete_sprite_state
 		})
 	
-	if opponent_choice == 'hat':
+	if 'hat' in opponent_choice:
 		g.play_random_hat_sfx(self, opponent.hat_stack[0])
-	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] " % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
+	$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] " % [opponent.npc_name, g.get_stat_color(opponent_choice), get_stat_type(opponent_choice)]
 	for i in opponent_long:
-		if skip_talking:
-			$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] %s" % [opponent.npc_name, get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
+		if skip_talking and not game.name == 'Tutorial':
+			$DialogueContainer/RichTextLabel2.text = "[right][u]%s[/u]: [color=%s]%s[/color] %s" % [opponent.npc_name, g.get_stat_color(opponent_choice), get_stat_type(opponent_choice), opponent_long]
 			break
 		$DialogueContainer/RichTextLabel2.text += i
 		await get_tree().create_timer(.03).timeout
@@ -321,6 +315,7 @@ func _on_option_pressed(stat):
 	$ProceedButton.visible = true
 	skip_talking = false
 	is_talking = false
+
 	
 	# play speech bubbles animation
 
@@ -355,3 +350,6 @@ func _on_proceed_button_pressed():
 	for option in $OptionContainer.get_children():
 		option.visible = false
 	battle.new_round()
+	
+	if game.name == 'Tutorial':
+		game.proceed_round()

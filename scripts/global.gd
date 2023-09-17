@@ -159,6 +159,18 @@ func play_bgm(fname, db_override=0, ext='.mp3'):
 func stop_bgm(fname):
 	var sfx_player = get_node(fname)
 	sfx_player.stop()
+
+func get_stat_color(stat):
+	var stat_color = ""
+	if stat == 'cha':
+		stat_color = 'ad8ec2'
+	if stat == 'wit':
+		stat_color = '7fa6be'
+	if 'hat' in stat:
+		stat_color = 'caba71'
+	if stat == 'def':
+		stat_color = '97c083'
+	return stat_color
 	
 func focus_npc(npc):
 	if focused_npc and focused_npc != npc:
