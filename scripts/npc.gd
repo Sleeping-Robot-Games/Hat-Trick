@@ -15,6 +15,7 @@ var available_for_battle = true
 var battle_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
+var direction = 0
 var hat_stack = []
 var stats
 var npc_name
@@ -45,6 +46,8 @@ func _ready():
 		
 		var shader_tween_hack = get_tree().create_tween()
 		shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 1), duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	else:
+		anim_npc.play('player/idle_left')
 		
 func _update_shader_modulation(current_modulation):
 	for sprite in $SpriteHolder.get_children():
@@ -58,8 +61,27 @@ func set_moving(move):
 	available_for_battle = move # Only set in the tween callback when they're out the door
 
 func init_stats(hats, _stats):
-	hat_stack = hats
 	stats = _stats
+	for hat in hats:
+		add_hat(hat)
+
+func add_hat(hat_name):
+	hat_stack.append(hat_name)
+	if hat_stack.size() == 1:
+		return # this is the first hat from the character creation
+	active_hat = hat_stack[0]
+	var new_hat = Sprite2D.new()
+	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_name))
+	new_hat.hframes = 8
+	new_hat.vframes = 3
+	new_hat.frame = 0
+	
+	var cumulative_y_decrement = 0
+	for i in range(hat_stack.size()-1):
+		cumulative_y_decrement += g.hat_index[hat_stack[i]] / 1.5
+	new_hat.position.y = new_hat.position.y - cumulative_y_decrement
+	
+	$HatHolder.add_child(new_hat)
 
 func _physics_process(delta):
 	if is_paused:
@@ -77,17 +99,32 @@ func _physics_process(delta):
 		if move_direction.x < 0:
 			anim_npc.play("player/walk_left")
 			last_direction = -1
+			direction = -1
 		elif move_direction.x > 0:
 			anim_npc.play("player/walk_right")
 			last_direction = 1
+			direction = 1
+		else:
+			direction = 0
 
 		# Check if character has reached its target
 		if (last_direction == 1 and global_position.x >= target_pos.x) or (last_direction == -1 and global_position.x <= target_pos.x):
 			reach_target()
+		
+		# HELP ME HERE
+		var hat_shift = 0.0
+		for hat in $HatHolder.get_children():
+			hat.flip_h = (direction == 1)
+			hat_shift += 1.0
+			print(direction)
+			var target_x = -direction * hat_shift
+			hat.position.x = lerp(hat.position.x, target_x, 0.05)
 
 func reach_target():
 	is_moving = false
+	direction = 0
 	if not is_fighting:
+		print('start timer')
 		idle_timer.start(randf_range(2, 8))
 		play_idle_animation()
 	else:
@@ -119,6 +156,7 @@ func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
 	is_moving = true
 	target_pos.x = x
 	target_pos.y = g.current_level_y_pos
+	print('lesa go')
 
 func show_interact():
 	$InteractButton.visible = true

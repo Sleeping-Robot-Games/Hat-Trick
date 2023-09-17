@@ -12,7 +12,8 @@ var battle_pos = Vector2.ZERO
 var start_pos = Vector2(190, g.current_level_y_pos)
 var battle_pos_speed = 150
 var hat_stack = []
-var stats
+var active_hat
+var stats = {}
 var player_name
 var character_data
 
@@ -91,6 +92,8 @@ func stop_fighting():
 
 func add_hat(hat_name):
 	hat_stack.append(hat_name)
+	if stats.has('stam'):
+		stats.stam += 1
 	if hat_stack.size() == 1:
 		return # this is the first hat from the character creation
 	active_hat = hat_stack[0]
@@ -108,6 +111,7 @@ func add_hat(hat_name):
 	$HatHolder.add_child(new_hat)
 
 func apply_stats(_stats):
+	print(_stats.stam)
 	stats = _stats
 
 func _physics_process(delta):
@@ -161,18 +165,3 @@ func determine_animation_suffix(dir: Vector2) -> String:
 		return "left"
 	return ""
 
-## TESTING HAT TOWER STACK
-var active_hat = 'snapback'
-var all_hats = g.hat_index.keys()
-var hat_iteration = 0
-
-func _on_timer_timeout():
-	add_hat(all_hats[hat_iteration])
-	
-	hat_iteration += 1
-	
-	if hat_iteration == all_hats.size():
-		$HatTowerTimerTest.stop()
-
-func _on_button_button_up():
-	add_hat(all_hats.pick_random())

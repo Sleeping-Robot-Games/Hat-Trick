@@ -5,7 +5,7 @@ var focused_npc = null
 var current_level_y_pos = 435
 
 const max_hats = 6
-var level = 1
+var level = 2
 
 ## indexs all hats and their height in pixels
 const hat_index = {

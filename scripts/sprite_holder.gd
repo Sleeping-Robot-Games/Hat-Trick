@@ -31,8 +31,22 @@ func _ready():
 	if parent is CharacterBody2D:
 		if 'NPC' == parent.type and parent.random:
 			create_random_character()
-			parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
-			parent.npc_name = g.names_by_hat[random_starter_hat.to_lower()].pick_random()
+			if parent.name != 'BOSS':
+				parent.init_stats([random_starter_hat.to_lower()], generate_random_stats(4))
+				parent.npc_name = g.names_by_hat[random_starter_hat.to_lower()].pick_random()
+			else:
+				parent.npc_name = 'Hat Boss'
+				var boss_stats = {
+					'stam': 30,
+					'def': 3,
+					'wit': 3,
+					'cha': 3
+				}
+				var all_hats = g.hat_index.keys()
+				all_hats.erase(random_starter_hat)
+				var starter_array = [random_starter_hat.to_lower()]
+				starter_array.append_array(all_hats)
+				parent.init_stats(starter_array, boss_stats)
 		elif 'Player' == parent.type:
 			var character_data = load_character()
 			parent.character_data = character_data

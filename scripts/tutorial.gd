@@ -26,6 +26,7 @@ var steps = [
 	"[center]Now choose your [color=%s]%s[/color] ability, this will buff you until the end of the next round, during which the option will be on cooldown." % [g.get_stat_color('cha'), 'Charisma'],
 	"[center][color=%s]%s[/color] are usually the most powerful option, but each hat power has a cooldown of 3 rounds"  % [g.get_stat_color('hat'), 'Hat Powers'],
 	"[center]If you have multiple [color=%s]%s[/color] using your [color=%s]%s[/color] will force your current [color=%s]%s[/color] to the top of your [color=%s]%s[/color] to be cycled."  % [g.get_stat_color('hat'), 'Hats', g.get_stat_color('hat'), 'Hat Power', g.get_stat_color('hat'), 'Active Hat', g.get_stat_color('hat'), 'Hat Stack'],
+	"[center]The more [color=%s]%s[/color] you have the more health you get!"  % [g.get_stat_color('hat'), 'Hats'],
 	"[center]Finish this battle to enter TOP HAT"
 ]
 
@@ -59,7 +60,7 @@ func _input(event):
 			set_disable_option(hud.get_node('OptionContainer/Option3'))
 			ready_for_next_step = false
 			next_button.hide()
-		if step >= 10 and step <= 12:
+		if step >= 10 and step <= 13:
 			next_step()
 
 
@@ -67,7 +68,7 @@ func next_step():
 	step += 1
 	ready_for_next_step = true
 	next_button.show()
-	if step == 13:
+	if step == 14:
 		$TutorialLabels/Step.text = ""
 		set_disable_option(hud.get_node('OptionContainer/Option1'), false)
 		set_disable_option(hud.get_node('OptionContainer/Option2'), false)
@@ -127,7 +128,6 @@ func get_left_battle_pos():
 	var half_viewport = get_viewport_rect().size.x / 2
 	var screen_center = half_viewport
 	var left_pos =( screen_center - half_viewport + battle_pos_offset)/3
-	print(Vector2(left_pos, battle_pos_y))
 	return Vector2(left_pos, battle_pos_y)
 
 func get_right_battle_pos() -> Vector2:
@@ -136,6 +136,10 @@ func get_right_battle_pos() -> Vector2:
 	var right_pos = (screen_center + half_viewport - battle_pos_offset)/3
 	return Vector2(right_pos, battle_pos_y)
 
+func battle_over():
+	$Outside/left_sign_light.show()
+	$Outside/right_sign_light.show()
+	$BigGuy.get_node('SpeechBubble').set_text("Go ahead, you're ready")
 
 func _on_start_button_up():
 	hat_fight($Player, $BigGuy)

@@ -158,6 +158,7 @@ func update_hud(round_state):
 	hide_buff_values()
 	battle_over = null
 	for state in round_state:
+		print(state)
 		var is_player = state.is_player
 		if is_player:
 			var hud_stats = {}
@@ -183,6 +184,8 @@ func update_hud(round_state):
 		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
 		var hptext = $HealthBarPlayer/Value if is_player else $HealthBarOpponent/Value
 		hptext.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
+		print(state)
+		print(hptext.text)
 		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
 		# if dmg was done show floater dmg text over opponent's hp bar
 		if state.dmg > 0:
@@ -218,13 +221,14 @@ func start_battle(pl, op):
 	$AnimationPlayer.play('start')
 	player = pl
 	opponent = op
-	player.get_node('HatHolder').z_as_relative = false # TODO: reset after battle ends
+	player.get_node('HatHolder').z_as_relative = false
 	hide_buff_values()
 	# ensure correct initial stat values in HUD
 	$Def/Value.text = str(player.stats['def'])
 	$Cha/Value.text = str(player.stats['cha'])
 	$Wit/Value.text = str(player.stats['wit'])
 	$HealthBarPlayer/Value.text = str(player.stats['stam'])+'/'+str(player.stats['stam'])
+	$HealthBarOpponent/Value.text = str(opponent.stats['stam'])+'/'+str(opponent.stats['stam'])
 	# kick off battle script and draw hats
 	$Battle.start()
 	draw_hats()
@@ -240,11 +244,14 @@ func end_battle():
 	## TODO: if victory opponent drop hat
 	## TODO: opponent walk away
 	## TODO: give player control again
+	player.get_node('HatHolder').z_as_relative = true
 	player.stop_fighting()
 	opponent.stop_fighting(battle_over == 'defeat')
 	var cam = get_parent().get_node('Camera')
 	cam.follow_player = true
 	hide()
+	if game.name == 'Tutorial':
+		game.battle_over()
 
 func cycle_hats(is_player):
 	var hcount = player.hat_stack.size() if is_player else opponent.hat_stack.size()
@@ -370,6 +377,8 @@ func _on_proceed_button_pressed():
 	$DialogueContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
 	$SpriteHolder2.hide()
+	if opponent_is_big:
+		$BigGuyHolder.hide()
 	play_speech_bubbles_animation()
 	# TODO hat cycling
 	#cycle_hats(true)

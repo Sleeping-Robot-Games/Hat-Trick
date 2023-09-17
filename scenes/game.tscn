@@ -33,8 +33,8 @@ script = ExtResource("1_13ukk")
 z_index = 1
 y_sort_enabled = true
 
-[node name="NPC" parent="NPCPool" instance=ExtResource("3_2uk3j")]
-position = Vector2(281, 429)
+[node name="BOSS" parent="NPCPool" instance=ExtResource("3_2uk3j")]
+position = Vector2(1732, 430)
 scale = Vector2(4, 4)
 
 [node name="Player" parent="." instance=ExtResource("2_ivu6y")]
@@ -77,4 +77,4 @@ autoplay = "default"
 speed_scale = 0.5
 
 [connection signal="timeout" from="NPCSpawnTimer" to="." method="_on_npc_spawn_timer_timeout"]
-[connection signal="button_up" from="Button" to="Player" method="_on_button_button_up"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

@@ -17,16 +17,19 @@ func _ready():
 	if g.level == 1:
 		get_node('Level/Floor1').show()
 		get_node('Level/Floor2').hide()
+		$NPCPool/BOSS.hide()
 	if g.level == 2:
 		get_node('Level/Floor2').show()
 		get_node('Level/Floor1').hide()
+		$NPCPool/BOSS.show()
+		$BigGuy.hide()
 		
+	$NPCSpawnTimer.start()
 	if debug:
 		return
 	# Entrance animation for player
 	$Player.enter_room()
 	
-	$NPCSpawnTimer.start()
 
 func _input(event):
 	if good_to_go_up and Input.is_action_just_pressed("interact"):
@@ -76,3 +79,9 @@ func _on_npc_spawn_timer_timeout():
 		npc_enters()
 	else:
 		$NPCSpawnTimer.stop()
+
+
+func _on_button_button_up():
+	var all_hats = g.hat_index.keys()
+	$Player.add_hat(all_hats.pick_random())
+	$NPCPool.get_children().pick_random().add_hat(all_hats.pick_random())

@@ -23,8 +23,6 @@ func _ready():
 	hat_stack = ['snapback']
 	stats = {'stam': 10, 'def': 2, 'cha': 1, 'wit': 1}
 	if g.level == 1:
-		$Sprite2D.texture = load("res://assets/bigguy/bigguy002.png")
-	if g.level == 2:
 		$Sprite2D.texture = load("res://assets/bigguy/bigguy003.png")
 		
 func _update_shader_modulation(current_modulation):
@@ -34,6 +32,8 @@ func _update_shader_modulation(current_modulation):
 			if mat:
 				mat.set_shader_parameter("parent_modulation", current_modulation)
 
+func stop_fighting(boolean):
+	pass
 
 func show_interact():
 	$InteractButton.visible = true

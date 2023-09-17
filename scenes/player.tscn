@@ -26,7 +26,3 @@ libraries = {
 }
 
 [node name="HatHolder" type="Node2D" parent="."]
-
-[node name="HatTowerTimerTest" type="Timer" parent="."]
-
-[connection signal="timeout" from="HatTowerTimerTest" to="." method="_on_timer_timeout"]
