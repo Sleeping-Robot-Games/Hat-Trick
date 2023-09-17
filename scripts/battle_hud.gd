@@ -178,12 +178,12 @@ func update_hud(round_state):
 				var capitalized = stat.capitalize()
 				get_node(capitalized+'/Value').text = str(hud_stats[stat]['total'])
 				if hud_stats[stat]['cha_buff'] != 0:
-					get_node(capitalized+'/ChaBuff').text = signed_buff(hud_stats[stat]['cha_buff'])
-					get_node(capitalized+'/ChaBuff').show()
+					get_node(capitalized+'/HBox/ChaBuff').text = signed_buff(hud_stats[stat]['cha_buff'])
+					get_node(capitalized+'/HBox/ChaBuff').show()
 					get_node(capitalized+'/Equals').show()
 				if hud_stats[stat]['hat_buff'] != 0:
-					get_node(capitalized+'/HatBuff').text = signed_buff(hud_stats[stat]['hat_buff'])
-					get_node(capitalized+'/HatBuff').show()
+					get_node(capitalized+'/HBox/HatBuff').text = signed_buff(hud_stats[stat]['hat_buff'])
+					get_node(capitalized+'/HBox/HatBuff').show()
 					get_node(capitalized+'/Equals').show()
 		# ensure hp bars are updated
 		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
@@ -207,14 +207,14 @@ func update_hud(round_state):
 
 func hide_buff_values():
 	$Def/Equals.hide()
-	$Def/ChaBuff.hide()
-	$Def/HatBuff.hide()
+	$Def/HBox/ChaBuff.hide()
+	$Def/HBox/HatBuff.hide()
 	$Cha/Equals.hide()
-	$Cha/ChaBuff.hide()
-	$Cha/HatBuff.hide()
+	$Cha/HBox/ChaBuff.hide()
+	$Cha/HBox/HatBuff.hide()
 	$Wit/Equals.hide()
-	$Wit/ChaBuff.hide()
-	$Wit/HatBuff.hide()
+	$Wit/HBox/ChaBuff.hide()
+	$Wit/HBox/HatBuff.hide()
 
 func start_battle(pl, op):
 	$InteractButton.hide()
