@@ -221,6 +221,7 @@ func fade_out():
 	shader_tween_hack.tween_method(_update_shader_modulation, modulate, Color(1, 1, 1, 0), duration)
 	
 func fade_in():
+	await get_tree().create_timer(1).timeout
 	is_paused = false
 	var duration = 1.5
 	
