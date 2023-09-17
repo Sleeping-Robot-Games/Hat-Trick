@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=28 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bccg5f8j4w0t8" path="res://assets/ui/projectilebubble-f2.png" id="11_kvcfg"]
 [ext_resource type="Texture2D" uid="uid://blpgn5gp6mf8e" path="res://assets/ui/projectilebubble-f3.png" id="12_6xy54"]
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="12_widdj"]
-[ext_resource type="Animation" path="res://assets/animations/idle.res" id="13_j77na"]
+[ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="13_j77na"]
 [ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
 [ext_resource type="Script" path="res://scripts/battle_bubble.gd" id="18_5wiy7"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="18_cs3k1"]
@@ -105,6 +105,20 @@ _data = {
 "opp_shoot": SubResource("Animation_0aivd"),
 "start": SubResource("Animation_6jqvc")
 }
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qb68b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_cs3k1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1r5j8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="BattleHUD" type="Control"]
 layout_mode = 3
@@ -563,7 +577,7 @@ layout_mode = 0
 offset_left = 163.0
 offset_top = 37.0
 offset_right = 816.0
-offset_bottom = 292.0
+offset_bottom = 260.0
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -628,7 +642,7 @@ theme_override_font_sizes/font_size = 48
 text = "Hat Dispute!"
 horizontal_alignment = 1
 
-[node name="InteractButton" type="AnimatedSprite2D" parent="."]
+[node name="LargeInteractButton" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(491.667, 217)
 scale = Vector2(5, 5)
@@ -675,5 +689,13 @@ offset_top = 447.0
 offset_right = 496.0
 offset_bottom = 478.0
 text = "PROCEED"
+
+[node name="InteractButton" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(256, 429)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qb68b")
+autoplay = "default"
+speed_scale = 0.5
 
 [connection signal="pressed" from="ProceedButton" to="." method="_on_proceed_button_pressed"]

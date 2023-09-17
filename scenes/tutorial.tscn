@@ -129,6 +129,7 @@ libraries = {
 visible = false
 position = Vector2(160.667, 90)
 sprite_frames = SubResource("SpriteFrames_n5f23")
+autoplay = "default"
 frame_progress = 0.841659
 speed_scale = 0.5
 

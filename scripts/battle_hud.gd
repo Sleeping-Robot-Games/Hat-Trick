@@ -10,6 +10,8 @@ var tool_tip_scene = load("res://scenes/tool_tip.tscn")
 var current_tool_tip
 var battle_over = null
 var can_exit_battle = false
+var ready_to_proceed = false
+var current_round_state = {}
 
 var round_order = {
 	'first': 'player',
@@ -78,6 +80,9 @@ func _ready():
 	
 
 func _input(event):
+	if ready_to_proceed and Input.is_action_just_pressed("interact"):
+		ready_to_proceed = false
+		proceed()
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
 		skip_talking = true
 	if can_exit_battle and Input.is_action_just_pressed("interact"):
@@ -160,10 +165,12 @@ func signed_buff(num: int) -> String:
 		return str(num)
 
 func update_hud(round_state):
+	current_round_state = round_state.duplicate(true)
+
+func resolve_battle():
 	hide_buff_values()
 	battle_over = null
-	for state in round_state:
-		print(state)
+	for state in current_round_state:
 		var is_player = state.is_player
 		if is_player:
 			var hud_stats = {}
@@ -189,8 +196,6 @@ func update_hud(round_state):
 		var hpbar = $HealthBarPlayer if is_player else $HealthBarOpponent
 		var hptext = $HealthBarPlayer/Value if is_player else $HealthBarOpponent/Value
 		hptext.text = str(state['cur_hp'])+'/'+str(state['max_hp'])
-		print(state)
-		print(hptext.text)
 		hpbar.value = clamp(state['cur_hp'], 0, state['max_hp'])
 		# if dmg was done show floater dmg text over opponent's hp bar
 		if state.dmg > 0:
@@ -204,6 +209,7 @@ func update_hud(round_state):
 				battle_over = 'victory'
 			else:
 				battle_over = 'defeat'
+	current_round_state = {}
 
 func hide_buff_values():
 	$Def/Equals.hide()
@@ -217,7 +223,7 @@ func hide_buff_values():
 	$Wit/HBox/HatBuff.hide()
 
 func start_battle(pl, op):
-	$InteractButton.hide()
+	$LargeInteractButton.hide()
 	$Victory.hide()
 	$Defeat.hide()
 	can_exit_battle = false
@@ -353,7 +359,9 @@ func _on_option_pressed(stat):
 	
 	
 	# show proceed button
-	$ProceedButton.visible = true
+	# $ProceedButton.visible = true
+	$InteractButton.show()
+	ready_to_proceed = true
 	skip_talking = false
 	is_talking = false
 
@@ -392,6 +400,8 @@ func launch_bubble(bubble, target, launch_dur, shake_dur, shake_mag):
 	target.modulate = Color(1, 0, 0, 1)
 	await get_tree().create_timer(.1).timeout
 	target.modulate = Color(1, 1, 1, 1)
+	print(current_round_state)
+	resolve_battle()
 	
 	bubble.hide()
 	bubble.position = starting_pos
@@ -410,9 +420,11 @@ func play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag):
 		launch_bubble($OpponentSpeechBubble, player, launch_dur, shake_dur, shake_mag)
 		await get_tree().create_timer(launch_dur + shake_dur).timeout
 		launch_bubble($PlayerSpeechBubble, opponent, launch_dur, shake_dur, shake_mag)
+	
+	
 
-func _on_proceed_button_pressed():
-	$ProceedButton.visible = false
+func proceed():
+	$InteractButton.hide()
 	$DialogueContainer/RichTextLabel.text = ''
 	$DialogueContainer/RichTextLabel2.text = ''
 	$SpriteHolder.hide()
@@ -424,9 +436,6 @@ func _on_proceed_button_pressed():
 	await get_tree().create_timer((launch_dur + shake_dur) *2).timeout
 	if opponent_is_big:
 		$BigGuyHolder.hide()
-	# TODO hat cycling
-	#cycle_hats(true)
-	#cycle_hats(false)
 	## TODO: move option visibility to after speech bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
@@ -435,8 +444,8 @@ func _on_proceed_button_pressed():
 			$Victory.show()
 		elif battle_over == 'defeat':
 			$Defeat.show()
-		$InteractButton.show()
-		$InteractButton.play()
+		$LargeInteractButton.show()
+		$LargeInteractButton.play()
 		await get_tree().create_timer(1.5).timeout
 		can_exit_battle = true
 		return
@@ -444,3 +453,6 @@ func _on_proceed_button_pressed():
 	
 	if game.name == 'Tutorial':
 		game.proceed_round()
+
+func _on_proceed_button_pressed():
+	proceed()

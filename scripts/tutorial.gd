@@ -122,7 +122,6 @@ func hat_fight(player, opponent):
 	await get_tree().create_timer(1).timeout
 	next_button.show()
 	ready_for_next_step = true
-	
 
 func get_left_battle_pos():
 	var half_viewport = get_viewport_rect().size.x / 2
