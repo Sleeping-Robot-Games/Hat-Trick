@@ -112,6 +112,13 @@ func add_hat(hat_name):
 	
 	$HatHolder.add_child(new_hat)
 
+func refresh_stack(hstack):
+	for hat in $HatHolder.get_children():
+		hat.queue_free()
+	hat_stack = []
+	for hat in hstack:
+		add_hat(hat)
+
 func apply_stats(_stats):
 	print(_stats.stam)
 	stats = _stats

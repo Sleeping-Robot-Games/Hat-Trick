@@ -173,6 +173,7 @@ func update_hud(round_state):
 func resolve_battle(state):
 	hide_buff_values()
 	battle_over = null
+	update_hats(state)
 	var is_player = state.is_player
 	if is_player:
 		var hud_stats = {}
@@ -256,7 +257,6 @@ func start_battle(pl, op):
 			option.release_focus()
 
 func end_battle():
-	## TODO: if victory opponent drop hat
 	player.get_node('HatHolder').z_as_relative = true
 	opponent.get_node('HatHolder').z_as_relative = false
 	player.stop_fighting()
@@ -266,17 +266,7 @@ func end_battle():
 	hide()
 	game.battle_over()
 
-func cycle_hats(is_player):
-	var hcount = player.hat_stack.size() if is_player else opponent.hat_stack.size()
-	var node_name = 'player' if is_player else 'opponent'
-	var node = player if is_player else opponent
-	for i in g.max_hats:
-		if i + 1 <= hcount:
-			hat_nodes[node_name][i].change_hat(node.hat_stack[i], false)
-			if i == 0:
-				var hat_path = 'res://assets/sprites/hat/'+node.hat_stack[0]+'.png'
-				node.get_node('SpriteHolder').set_sprite_texture('hat', hat_path)
-
+# for initial battle hat population w/ delays between hat icons appearing etc
 func draw_hats(delay=0.3, play_sfx=true):
 	var player_hcount = player.hat_stack.size()
 	var opponent_hcount = opponent.hat_stack.size()
@@ -290,6 +280,21 @@ func draw_hats(delay=0.3, play_sfx=true):
 		if i + 1 <= opponent_hcount:
 			await get_tree().create_timer(delay).timeout
 			hat_nodes['opponent'][i].change_hat(opponent.hat_stack[i], play_sfx)
+
+# for cycling hats midbattle
+func update_hats(state):
+	var hcount = state.hat_stack.size()
+	var node_name = 'player' if state.is_player else 'opponent'
+	var node = player if state.is_player else opponent
+	for i in g.max_hats:
+		if i + 1 <= hcount:
+			hat_nodes[node_name][i].change_hat(state.hat_stack[i], false)
+			if i == 0:
+				var hat_path = 'res://assets/sprites/hat/'+state.hat_stack[0]+'.png'
+				node.get_node('SpriteHolder').set_sprite_texture('hat', hat_path)
+	# ensure actual player node hat stack is also updated for post-battle
+	if state.is_player:
+		node.refresh_stack(state.hat_stack.duplicate(true))
 
 func _on_option_pressed(stat):
 	if game.name == 'Tutorial':
