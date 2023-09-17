@@ -19,6 +19,14 @@ func stat_calc(combatant, stat, incl_base=true, incl_cha=true, incl_hat=true):
 	else:
 		return val
 
+const victory_quips = [
+	'Heh', 'Wahoo!', ';)', 'Yep'
+]
+
+const defeat_quips = [
+	'Argh', "I'll get you next time...", ':('
+]
+
 # Create dictionaries and arrays of dialogue for insult, charisma and hat pools. 
 ## Each dialogue option needs a short form and a long form
 

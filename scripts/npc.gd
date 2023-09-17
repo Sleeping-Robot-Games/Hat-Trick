@@ -140,7 +140,11 @@ func start_fighting(pos: Vector2):
 
 func stop_fighting(is_victor=false):
 	is_fighting = false
-	## TODO: speech bubble?
+	if is_victor:
+		$SpeechBubble.set_text(bc.victory_quips.pick_random())
+	else:
+		$SpeechBubble.set_text(bc.defeat_quips.pick_random())
+	await get_tree().create_timer(1).timeout
 	var tween = get_tree().create_tween()
 	var offscreen_pos =  Vector2(battle_pos.x + 250, battle_pos.y)
 	tween.tween_property(self, "position",offscreen_pos, 1)
