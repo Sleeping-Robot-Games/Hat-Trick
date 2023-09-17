@@ -35,8 +35,10 @@ var inputs = {
 }
 
 func _ready():
-	for hat in character_data.hat_stack:
-		add_hat(hat)
+	if character_data.hat_stack.size() > 0:
+		character_data.hat_stack.remove_at(0)
+		for hat in character_data.hat_stack:
+			add_hat(hat, true)
 
 func save_hats():
 	var f = FileAccess.open("user://player_state.save", FileAccess.WRITE)
@@ -101,10 +103,10 @@ func stop_fighting():
 
 func add_hat(hat_name, refresh = false):
 	hat_stack.append(hat_name)
-	if stats.has('stam') and not refresh:
-		stats.stam += 1
 	if hat_stack.size() == 1:
 		return # this is the first hat from the character creation
+	if stats.has('stam') and not refresh:
+		stats.stam += 1
 	active_hat = hat_stack[0]
 	var new_hat = Sprite2D.new()
 	new_hat.set_texture(load("res://assets/sprites/hat/%s.png" % hat_name))

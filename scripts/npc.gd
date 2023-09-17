@@ -21,6 +21,7 @@ var stats
 var npc_name
 var active_hat
 
+@onready var game = get_parent().get_parent()
 @onready var anim_npc = $AnimationPlayer
 @onready var idle_timer = $SpriteHolder/IdleTimer
 @onready var speech_bubble = $SpeechBubble
@@ -190,6 +191,7 @@ func stop_fighting(is_victor=false):
 	var tween = get_tree().create_tween()
 	var offscreen_pos =  Vector2(battle_pos.x + 250, battle_pos.y)
 	if name != 'BOSS':
+		game.active_npcs.erase(self)
 		tween.tween_property(self, "position",offscreen_pos, 1)
 		tween.tween_callback(queue_free)
 

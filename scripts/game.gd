@@ -74,12 +74,14 @@ func hat_fight(player, opponent):
 	for npc in npc_pool.get_children():
 		if npc != opponent:
 			npc.fade_out()
+	$BigGuy.fade_out()
 	# TODO: zoom in - I tried doing a zoom with a tween on the player script and the drag/level bounds is making it a PAIN, lets shelf it for now -bronsky
 	$BattleHUD.start_battle(player, opponent)
 
 func battle_over():
 	for npc in npc_pool.get_children():
 		npc.fade_in()
+	$BigGuy.fade_in()
 	$NPCSpawnTimer.start()
 	g.stop_bgm('Battle_Music_Main')
 	g.play_bgm('background')

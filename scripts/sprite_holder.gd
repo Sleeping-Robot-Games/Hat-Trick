@@ -52,7 +52,7 @@ func _ready():
 			parent.character_data = character_data
 			sprite_state = character_data.sprite_state
 			pallete_sprite_state = character_data.pallete_sprite_state
-			parent.add_hat(character_data.starter_hat.to_lower())
+			parent.add_hat(character_data.starter_hat.to_lower(), true)
 			parent.apply_stats(character_data.player_stats)
 			parent.player_name = character_data.name
 

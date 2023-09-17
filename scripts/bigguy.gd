@@ -23,7 +23,7 @@ func _ready():
 	anim_npc.play('idle')
 	hat_stack = ['snapback']
 	stats = {'stam': 8, 'def': 0, 'cha': 0, 'wit': 0}
-	if g.level == 1:
+	if g.level == 1 and game.name != 'Tutorial':
 		$Sprite2D.texture = load("res://assets/bigguy/bigguy003.png")
 		
 func _update_shader_modulation(current_modulation):
@@ -55,6 +55,18 @@ func start_fighting(pos):
 	tween.tween_property(self, "position", battle_pos, 1)
 	anim_npc.play("player/idle_left")
 
+func fade_out():
+	var duration = 1.5
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, duration)
+	
+func fade_in():
+	var duration = 1.5
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, duration)
+	
 
 func _on_interact_area_body_entered(body):
 	if tutorial: 
