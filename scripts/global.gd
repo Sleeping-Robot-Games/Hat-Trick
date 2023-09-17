@@ -109,13 +109,13 @@ var hat_sound_map = {
 	'pirate': 'pirate',
 	'raccoon': 'hardhat',
 	'shroom': 'shroom',
-	'snapback': 'sports',
-	'sports': 'sports',
+	'snapback': 'sport',
+	'sport': 'sport',
 	'straw': 'cowboy',
 	'tophat': 'crown',
 	'witch': 'witch',
 	'wizard': 'wizard',
-	'baseball': 'sports',
+	'baseball': 'sport',
 	'beanie': 'shroom',
 	'cloche': 'shroom',
 	'cowboy': 'cowboy',
@@ -124,9 +124,9 @@ var hat_sound_map = {
 	'fedora': 'crown',
 	'floppy': 'wizard',
 	'hardhat': 'hardhat',
-	'monster': 'sports',
+	'monster': 'sport',
 	'nurse': 'nurse',
-	'party': 'sports'
+	'party': 'sport'
 }
 
 func play_random_hat_sfx(parent, fname, custom_range=2, db_override=0, ext='.mp3'):
