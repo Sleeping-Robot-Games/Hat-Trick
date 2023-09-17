@@ -381,7 +381,7 @@ func _on_proceed_button_pressed():
 			$Defeat.show()
 		$InteractButton.show()
 		$InteractButton.play()
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(1.5).timeout
 		can_exit_battle = true
 		return
 	battle.new_round()
