@@ -15,7 +15,6 @@ func _process(delta):
 	if shake_duration > 0:
 		# Calculate an offset using a random direction and the magnitude
 		var offset = Vector2(randf() * 2.0 - 1.0, randf() * 2.0 - 1.0).normalized() * shake_magnitude
-		
 		# Apply the offset to the camera's position
 		self.global_position += offset
 		

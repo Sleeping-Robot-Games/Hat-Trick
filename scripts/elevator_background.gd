@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var elevator_background = $TileMap
 
-var speed = Vector2(0, 1000) # This will move the background downward
+var speed = Vector2(0, 3000) # This will move the background downward
 
 # Assuming each tile is 48 pixels tall and you have 10 tiles in height
 var tile_height = 16
