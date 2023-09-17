@@ -180,6 +180,7 @@ func start_fighting(pos: Vector2):
 
 func stop_fighting(is_victor=false):
 	is_fighting = false
+	print('npc:is_victor: ', is_victor)
 	if is_victor:
 		$SpeechBubble.set_text(bc.victory_quips.pick_random())
 	else:
@@ -230,7 +231,7 @@ func _on_idle_timer_timeout():
 	set_new_target()
 
 func _on_interact_area_body_entered(body):
-	if body.name == 'Player' and available_for_battle and not body.is_fighting:
+	if body.name == 'Player' and available_for_battle and not body.is_fighting and visible:
 		g.focus_npc(self)
 
 func _on_interact_area_body_exited(body):
