@@ -52,7 +52,7 @@ func _update_shader_modulation(current_modulation):
 			var mat = sprite.material
 			if mat:
 				mat.set_shader_parameter("parent_modulation", current_modulation)
-			
+
 func set_moving(move):
 	is_moving = move
 	available_for_battle = move # Only set in the tween callback when they're out the door
@@ -137,6 +137,16 @@ func start_fighting(pos: Vector2):
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", battle_pos, 1)
 	anim_npc.play("player/idle_left")
+
+func stop_fighting(is_victor=false):
+	is_fighting = false
+	## TODO: speech bubble?
+	var tween = get_tree().create_tween()
+	var offscreen_pos = battle_pos
+	## calc edge of screen rather than arbitrary big number?
+	offscreen_pos.x + 1000
+	tween.tween_property(self, "position", offscreen_pos, 1)
+	tween.tween_callback(queue_free)
 
 func fade_out():
 	is_paused = true

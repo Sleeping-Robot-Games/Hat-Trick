@@ -8,6 +8,8 @@ var opponent_is_big = false
 
 var tool_tip_scene = load("res://scenes/tool_tip.tscn")
 var current_tool_tip
+var battle_over = null
+var can_exit_battle = false
 
 @onready var game = get_parent()
 @onready var battle = $Battle
@@ -73,7 +75,9 @@ func _ready():
 func _input(event):
 	if event is InputEventKey and event.pressed and is_talking and not skip_talking:
 		skip_talking = true
-		
+	if can_exit_battle and Input.is_action_just_pressed("interact"):
+		end_battle()
+
 func _on_stat_mouse_entered(stat):
 	var new_tool_tip = tool_tip_scene.instantiate()
 	new_tool_tip.get_node('Header').text = stat_tool_tip_data[stat].header
@@ -152,10 +156,9 @@ func signed_buff(num: int) -> String:
 
 func update_hud(round_state):
 	hide_buff_values()
+	battle_over = null
 	for state in round_state:
 		var is_player = state.is_player
-		#print('-----------------------------')
-		#print('state: ', state)
 		if is_player:
 			var hud_stats = {}
 			for stat in ['def', 'cha', 'wit']:
@@ -185,6 +188,11 @@ func update_hud(round_state):
 		if state.dmg > 0:
 			var opp_floater = $HealthBarOpponent/FloatTextSpawner if is_player else $HealthBarPlayer/FloatTextSpawner
 			opp_floater.float_text("-"+str(state['dmg']), Color.RED)
+		if state.is_winner:
+			if is_player:
+				battle_over = 'victory'
+			else:
+				battle_over = 'defeat'
 
 func hide_buff_values():
 	$Def/Equals.hide()
@@ -198,6 +206,11 @@ func hide_buff_values():
 	$Wit/HatBuff.hide()
 
 func start_battle(pl, op):
+	$InteractButton.hide()
+	$Victory.hide()
+	$Defeat.hide()
+	can_exit_battle = false
+	battle_over = null
 	visible = true
 	$AnimationPlayer.play('start')
 	player = pl
@@ -219,6 +232,14 @@ func start_battle(pl, op):
 			option.grab_focus()
 			await get_tree().create_timer(.25).timeout
 			option.release_focus()
+
+func end_battle():
+	## TODO: if victory opponent drop hat
+	## TODO: opponent walk away
+	## TODO: give player control again
+	player.stop_fighting()
+	opponent.stop_fighting(battle_over == 'defeat')
+	hide()
 
 func cycle_hats(is_player):
 	var hcount = player.hat_stack.size() if is_player else opponent.hat_stack.size()
@@ -351,6 +372,16 @@ func _on_proceed_button_pressed():
 	## TODO: move option visibility to after speech bubble animation
 	for option in $OptionContainer.get_children():
 		option.visible = false
+	if battle_over:
+		if battle_over == 'victory':
+			$Victory.show()
+		elif battle_over == 'defeat':
+			$Defeat.show()
+		$InteractButton.show()
+		$InteractButton.play()
+		await get_tree().create_timer(3).timeout
+		can_exit_battle = true
+		return
 	battle.new_round()
 	
 	if game.name == 'Tutorial':

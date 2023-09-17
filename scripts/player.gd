@@ -79,6 +79,9 @@ func start_fighting(pos: Vector2):
 	
 	anim_player.play("player/idle_right")
 
+func stop_fighting():
+	is_fighting = false
+
 func add_hat(hat_name):
 	hat_stack.append(hat_name)
 	if hat_stack.size() == 1:

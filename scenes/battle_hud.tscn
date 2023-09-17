@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://crwm0eje72v0o"]
+[gd_scene load_steps=26 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
 [ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="12_widdj"]
 [ext_resource type="Animation" path="res://assets/animations/idle.res" id="13_j77na"]
 [ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
+[ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="18_cs3k1"]
+[ext_resource type="Texture2D" uid="uid://7sdsudutiwut" path="res://assets/ui/epressed.png" id="19_1r5j8"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a58gh"]
 _data = {
@@ -49,6 +51,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"fill",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eh3vn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_cs3k1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1r5j8")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -613,6 +629,39 @@ offset_right = 677.0
 theme_override_fonts/font = ExtResource("4_7f5ua")
 theme_override_font_sizes/font_size = 48
 text = "Hat Dispute!"
+horizontal_alignment = 1
+
+[node name="InteractButton" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(491.667, 217)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_eh3vn")
+speed_scale = 0.5
+
+[node name="Victory" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 315.0
+offset_top = 15.0
+offset_right = 677.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.592157, 0.752941, 0.513726, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 48
+text = "VICTORY"
+horizontal_alignment = 1
+
+[node name="Defeat" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 315.0
+offset_top = 15.0
+offset_right = 677.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.752941, 0.462745, 0.462745, 1)
+theme_override_fonts/font = ExtResource("4_7f5ua")
+theme_override_font_sizes/font_size = 48
+text = "DEFEAT"
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

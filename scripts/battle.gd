@@ -120,9 +120,6 @@ func new_round():
 	load_dialogue_options(player)
 	load_dialogue_options(opponent)
 	hud.render_options()
-	## Show Buffs / Dmg for current round
-	## Hide Buffs from prev round
-	#hud.update_hud(round_state.duplicate(true))
 
 func resolve_round():
 	var init_array = determine_initiative()
@@ -190,7 +187,7 @@ func calculate_outcome(init_array):
 			## apply hat dmg
 			if combatant['choices'][hat_choice].has('dmg'):
 				var hat_dmg = combatant['choices'][hat_choice]['dmg'].call(bc.stat_calc(combatant, 'wit'), bc.stat_calc(opp, 'def'))
-				opp['cur_hp'] = clamp(opp['cur_hp'] - hat_dmg, 0, INF)
+				opp['cur_hp'] = clamp(opp['cur_hp'] - hat_dmg, 0, opp['max_hp'])
 				combatant['dmg'] = hat_dmg
 			## cycle hat to top of stack
 			var cycled_hat = combatant.hat_stack.pop_front()
