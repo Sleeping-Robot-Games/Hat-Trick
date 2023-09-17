@@ -158,8 +158,10 @@ func play_bgm(fname, db_override=0, ext='.mp3'):
 	sfx_player.play()
 	
 func stop_bgm(fname):
-	var sfx_player = get_node(fname)
-	sfx_player.stop()
+	var sfx_player = get_node_or_null(fname)
+	if sfx_player:
+		sfx_player.stop()
+		sfx_player.queue_free()
 
 func get_stat_color(stat):
 	var stat_color = ""

@@ -24,8 +24,9 @@ func _ready():
 func _input(event):
 	if stopped and Input.is_action_just_pressed("interact"):
 		g.level = 2
-		get_tree().change_scene_to_file("res://scenes/game.tscn")
 		g.stop_bgm('elevator')
+		g.play_bgm('background')
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

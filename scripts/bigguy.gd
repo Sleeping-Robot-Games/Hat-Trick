@@ -7,6 +7,7 @@ var speed = 100
 var is_fighting = false
 var available_for_battle = true
 var battle_pos = Vector2.ZERO
+var pre_fight_pos = Vector2.ZERO
 var battle_pos_speed = 150
 var last_direction = 1 # 1 for right, -1 for left
 var stats
@@ -33,7 +34,8 @@ func _update_shader_modulation(current_modulation):
 				mat.set_shader_parameter("parent_modulation", current_modulation)
 
 func stop_fighting(boolean):
-	pass
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", pre_fight_pos, 1)
 
 func show_interact():
 	$InteractButton.visible = true
@@ -44,6 +46,7 @@ func hide_interact():
 	$InteractButton.stop()
 
 func start_fighting(pos):
+	pre_fight_pos = position
 	battle_pos = pos
 	# in_battle_pos = false
 	is_fighting = true

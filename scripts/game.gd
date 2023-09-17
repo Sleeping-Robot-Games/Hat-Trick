@@ -1,5 +1,7 @@
 extends Node2D
 
+var rng = RandomNumberGenerator.new()
+
 var max_npcs = 5
 var npc_scene = load("res://scenes/npc.tscn")
 
@@ -11,9 +13,21 @@ var battle_pos_y = g.current_level_y_pos
 @onready var npc_pool = $NPCPool
 @onready var cam = $Camera
 
-var debug = true
+var debug = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for i in range(max_npcs):
+		var new_npc = npc_scene.instantiate()
+		new_npc.get_node('AnimationPlayer').play('player/walk_right')
+		new_npc.random = true
+		rng.randomize()
+		new_npc.scale = Vector2(4,4)
+		new_npc.position = Vector2(rng.randf_range(500, 1800), g.current_level_y_pos)
+		new_npc.set_new_target()
+		new_npc.is_moving = true
+		active_npcs.append(new_npc)
+		$NPCPool.add_child(new_npc)
+	
 	if g.level == 1:
 		get_node('Level/Floor1').show()
 		get_node('Level/Floor2').hide()
@@ -34,6 +48,7 @@ func _ready():
 func _input(event):
 	if good_to_go_up and Input.is_action_just_pressed("interact"):
 		$Player.save_hats()
+		g.stop_bgm('background')
 		get_tree().change_scene_to_file("res://scenes/elevator.tscn")
 
 func npc_enters():
@@ -46,8 +61,8 @@ func npc_enters():
 	$NPCPool.add_child(new_npc)
 
 func hat_fight(player, opponent):
-	# g.stop_bgm('background')
-	# g.play_bgm('Battle_Music_Main', -5)
+	g.stop_bgm('background')
+	g.play_bgm('Battle_Music_Main', -5)
 	g.unfocus_current()
 	cam.follow_player = false
 	var player_pos = get_left_battle_pos()
@@ -66,6 +81,8 @@ func battle_over():
 	for npc in npc_pool.get_children():
 		npc.fade_in()
 	$NPCSpawnTimer.start()
+	g.stop_bgm('Battle_Music_Main')
+	g.play_bgm('background')
 	
 func get_left_battle_pos():
 	var half_viewport = cam.get_viewport_rect().size.x / 2

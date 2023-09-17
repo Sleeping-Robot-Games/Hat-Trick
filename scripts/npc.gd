@@ -152,7 +152,7 @@ func play_idle_animation():
 #		speech_bubble.set_text(idle_text_lines.pick_random())
 
 func set_new_target(x = randf_range(start_pos.x, end_pos.x)):
-	speech_bubble.visible = false
+	# speech_bubble.visible = false
 	is_moving = true
 	target_pos.x = x
 	target_pos.y = g.current_level_y_pos
@@ -189,8 +189,9 @@ func stop_fighting(is_victor=false):
 	await get_tree().create_timer(1).timeout
 	var tween = get_tree().create_tween()
 	var offscreen_pos =  Vector2(battle_pos.x + 250, battle_pos.y)
-	tween.tween_property(self, "position",offscreen_pos, 1)
-	tween.tween_callback(queue_free)
+	if name != 'BOSS':
+		tween.tween_property(self, "position",offscreen_pos, 1)
+		tween.tween_callback(queue_free)
 
 func drop_hat(hat_index):
 	var hat = hat_stack.pop_at(hat_index)

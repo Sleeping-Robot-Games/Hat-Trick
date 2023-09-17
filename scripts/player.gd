@@ -9,6 +9,7 @@ var is_dancing = false
 var is_fighting = false
 var is_disabled = false
 var battle_pos = Vector2.ZERO
+var pre_fight_pos = Vector2.ZERO
 var start_pos = Vector2(190, g.current_level_y_pos)
 var battle_pos_speed = 150
 var hat_stack = []
@@ -79,6 +80,7 @@ func _update_shader_modulation(current_modulation):
 
 
 func start_fighting(pos: Vector2):
+	pre_fight_pos = position
 	battle_pos = pos
 	is_fighting = true
 	
@@ -91,10 +93,15 @@ func start_fighting(pos: Vector2):
 
 func stop_fighting():
 	is_fighting = false
+	if game.name == 'Tutorial':
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "position", pre_fight_pos, 1)
+	
+		anim_player.play("player/idle_right")
 
-func add_hat(hat_name):
+func add_hat(hat_name, refresh = false):
 	hat_stack.append(hat_name)
-	if stats.has('stam'):
+	if stats.has('stam') and not refresh:
 		stats.stam += 1
 	if hat_stack.size() == 1:
 		return # this is the first hat from the character creation
@@ -117,7 +124,7 @@ func refresh_stack(hstack):
 		hat.queue_free()
 	hat_stack = []
 	for hat in hstack:
-		add_hat(hat)
+		add_hat(hat, true)
 
 func apply_stats(_stats):
 	print(_stats.stam)

@@ -237,13 +237,18 @@ func start_battle(pl, op):
 	player = pl
 	opponent = op
 	player.get_node('HatHolder').z_as_relative = false
-	opponent.get_node('HatHolder').z_as_relative = false
+	if game.name != 'Tutorial':
+		opponent.get_node('HatHolder').z_as_relative = false
 	hide_buff_values()
 	# ensure correct initial stat values in HUD
 	$Def/Value.text = str(player.stats['def'])
 	$Cha/Value.text = str(player.stats['cha'])
 	$Wit/Value.text = str(player.stats['wit'])
+	$HealthBarPlayer.max_value = player.stats['stam']
+	$HealthBarPlayer.value = player.stats['stam']
 	$HealthBarPlayer/Value.text = str(player.stats['stam'])+'/'+str(player.stats['stam'])
+	$HealthBarOpponent.max_value = opponent.stats['stam']
+	$HealthBarOpponent.value = opponent.stats['stam']
 	$HealthBarOpponent/Value.text = str(opponent.stats['stam'])+'/'+str(opponent.stats['stam'])
 	# kick off battle script and draw hats
 	$Battle.start()
@@ -258,11 +263,17 @@ func start_battle(pl, op):
 
 func end_battle():
 	player.get_node('HatHolder').z_as_relative = true
-	opponent.get_node('HatHolder').z_as_relative = false
+	if game.name != 'Tutorial':
+		opponent.get_node('HatHolder').z_as_relative = false
 	player.stop_fighting()
+	print(battle_over)
 	opponent.stop_fighting(battle_over == 'defeat')
-	var cam = get_parent().get_node('Camera')
-	cam.follow_player = true
+	if game.name != 'Tutorial':
+		await get_tree().create_timer(2).timeout
+		var cam = get_parent().get_node('Camera')
+		cam.follow_player = true
+	battle.round_history = []
+	battle.round_state = []
 	hide()
 	game.battle_over()
 
@@ -291,7 +302,8 @@ func update_hats(state):
 			hat_nodes[node_name][i].change_hat(state.hat_stack[i], false)
 			if i == 0:
 				var hat_path = 'res://assets/sprites/hat/'+state.hat_stack[0]+'.png'
-				node.get_node('SpriteHolder').set_sprite_texture('hat', hat_path)
+				if game.name != 'Tutorial':
+					node.get_node('SpriteHolder').set_sprite_texture('hat', hat_path)
 	# ensure actual player node hat stack is also updated for post-battle
 	if state.is_player:
 		node.refresh_stack(state.hat_stack.duplicate(true))
@@ -389,16 +401,20 @@ func show_speech_bubbles():
 	$OpponentSpeechBubble.modulate = Color(1,1,1,1)
 
 func launch_bubble(bubble, round_state, opp_round_state, target, launch_dur, shake_dur, shake_mag):
+	if game.name == 'Tutorial':
+		resolve_battle(opp_round_state)
+		return
+
 	var dealing_dmg = round_state.dmg > 0
 	var target_pos
 	if dealing_dmg:
-		target_pos = Vector2(target.position.x, target.position.y+50)
+		target_pos = Vector2(target.global_position.x, target.global_position.y+30)
 	else:
-		target_pos = Vector2(bubble.position.x, bubble.position.y-100)
+		target_pos = Vector2(bubble.global_position.x, bubble.global_position.y-100)
 	
 	# bubble.show()
 	bubble.z_index = 2
-	var starting_pos = bubble.position
+	var starting_pos = bubble.global_position
 	if dealing_dmg:
 		## shake
 		bubble.shake(shake_dur, shake_mag)
@@ -406,17 +422,18 @@ func launch_bubble(bubble, round_state, opp_round_state, target, launch_dur, sha
 		
 		## launch
 		var tween = get_tree().create_tween()
-		tween.tween_property(bubble, 'position', target_pos, launch_dur)
+		tween.tween_property(bubble, 'global_position', target_pos, launch_dur)
 		
-		await get_tree().create_timer(launch_dur).timeout
-		game.get_node('Camera').shake_camera(.5, 4)
+		if game.name != 'Tutorial':
+			await get_tree().create_timer(launch_dur).timeout
+			game.get_node('Camera').shake_camera(.5, 4)
 		
 		target.modulate = Color(1, 0, 0, 1)
 		await get_tree().create_timer(.1).timeout
 		target.modulate = Color(1, 1, 1, 1)
 	else:
 		var tween = get_tree().create_tween()
-		tween.tween_property(bubble, 'position', target_pos, launch_dur)
+		tween.tween_property(bubble, 'global_position', target_pos, launch_dur)
 		tween.tween_property(bubble, 'modulate', Color(1,1,1,0), launch_dur)
 		await get_tree().create_timer(launch_dur*2).timeout
 		
@@ -425,7 +442,7 @@ func launch_bubble(bubble, round_state, opp_round_state, target, launch_dur, sha
 	
 	bubble.modulate = Color(1,1,1,1)
 	bubble.hide()
-	bubble.position = starting_pos
+	bubble.global_position = starting_pos
 	bubble.z_index = 0
 
 func play_speech_bubbles_animation(launch_dur, shake_dur, shake_mag):
@@ -473,9 +490,9 @@ func proceed():
 			$Victory.show()
 		elif battle_over == 'defeat':
 			$Defeat.show()
+		await get_tree().create_timer(1.5).timeout
 		$LargeInteractButton.show()
 		$LargeInteractButton.play()
-		await get_tree().create_timer(1.5).timeout
 		can_exit_battle = true
 		return
 	battle.new_round()

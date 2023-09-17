@@ -73,7 +73,6 @@ scale = Vector2(1, 1)
 speed = 1
 
 [node name="BattleHUD" parent="." instance=ExtResource("4_j0wuq")]
-visible = false
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 960.0

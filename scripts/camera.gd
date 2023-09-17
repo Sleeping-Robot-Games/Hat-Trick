@@ -3,7 +3,8 @@ extends Camera2D
 var shake_duration = 0.0
 var shake_magnitude = 0.0
 var shake_speed = 50.0
-var prev_pos
+var prev_pos = Vector2.ZERO
+var shaking = false
 
 
 var follow_player = true
@@ -26,7 +27,7 @@ func _process(delta):
 	var cam_current_pos = cam_center - half_viewport
 	battle_hud.global_position = cam_current_pos
 	
-	if not follow_player:
+	if not follow_player and shaking:
 		if shake_duration > 0:
 			# Calculate an offset using a random direction and the magnitude
 			var offset = Vector2(randf() * 2.0 - 1.0, randf() * 2.0 - 1.0).normalized() * shake_magnitude
@@ -39,8 +40,10 @@ func _process(delta):
 			shake_duration = 0.0
 			shake_magnitude = 0.0
 			self.global_position = prev_pos
+			shaking = false
 		
 func shake_camera(duration, magnitude):
 	prev_pos = global_position
 	shake_duration = duration
 	shake_magnitude = magnitude
+	shaking = true

@@ -207,7 +207,7 @@ func calculate_outcome(init_array):
 			combatant.hat_stack.push_back(cycled_hat)
 			combatant.active_hat = combatant.hat_stack[0]
 		# Check for winner
-		if opp['cur_hp'] == 0:
+		if opp['cur_hp'] <= 0:
 			combatant['is_winner'] = true
 			opp['is_winner'] = false
 			break

@@ -101,8 +101,8 @@ func set_disable_all_options(disable = true):
 		set_disable_option(option, disable)
 
 func hat_fight(player, opponent):
-	# g.stop_bgm('background')
-	# g.play_bgm('Battle_Music_Main', -5)
+	g.stop_bgm('background')
+	g.play_bgm('Battle_Music_Main', -5)
 	g.unfocus_current()
 	set_disable_all_options()
 	## TODO: REMEMBER TO TURN THEM BACK ON AFTER THE FIGHT
@@ -139,6 +139,8 @@ func battle_over():
 	$Outside/left_sign_light.show()
 	$Outside/right_sign_light.show()
 	$BigGuy.get_node('SpeechBubble').set_text("Go ahead, you're ready")
+	g.stop_bgm('Battle_Music_Main')
+	g.play_bgm('background')
 
 func _on_start_button_up():
 	hat_fight($Player, $BigGuy)
