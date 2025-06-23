@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dep7866ey2ofj"]
 
-[ext_resource type="Script" path="res://scripts/bigguy.gd" id="1_4ytkk"]
+[ext_resource type="Script" uid="uid://dpi4r5ufgrhgi" path="res://scripts/bigguy.gd" id="1_4ytkk"]
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="1_pqmxv"]
 [ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="3_8fh3e"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="3_nprr4"]
@@ -28,8 +28,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_me6a4"]
 _data = {
-"RESET": SubResource("Animation_obwuv"),
-"idle": ExtResource("3_8fh3e")
+&"RESET": SubResource("Animation_obwuv"),
+&"idle": ExtResource("3_8fh3e")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmewn"]

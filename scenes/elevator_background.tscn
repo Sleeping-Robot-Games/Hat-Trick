@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b48tggrk80imm"]
 
-[ext_resource type="Script" path="res://scripts/elevator_background.gd" id="1_es0es"]
+[ext_resource type="Script" uid="uid://pk7beusq6t6a" path="res://scripts/elevator_background.gd" id="1_es0es"]
 [ext_resource type="Texture2D" uid="uid://bg3gsx7bfpk1h" path="res://assets/elevator.png" id="1_qtfgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eiphr"]

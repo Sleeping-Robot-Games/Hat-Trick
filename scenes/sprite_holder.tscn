@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://b122j6j8bxdt8"]
 
-[ext_resource type="Shader" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_3cgbj"]
-[ext_resource type="Script" path="res://scripts/sprite_holder.gd" id="1_6f0od"]
+[ext_resource type="Shader" uid="uid://b2d25v41hlf0h" path="res://assets/shaders/PaletteSwapper.gdshader" id="1_3cgbj"]
+[ext_resource type="Script" uid="uid://da7kld0c8tsgw" path="res://scripts/sprite_holder.gd" id="1_6f0od"]
 [ext_resource type="Texture2D" uid="uid://dm3tqt5dkr1d6" path="res://assets/palettes/body/body_000.png" id="2_a0g4y"]
 [ext_resource type="Texture2D" uid="uid://1jn08j1qrijk" path="res://assets/palettes/body/body_002.png" id="3_3x1pf"]
 [ext_resource type="Texture2D" uid="uid://dyjryfx0esvju" path="res://assets/sprites/body/body.png" id="4_qpyue"]
@@ -15,21 +15,21 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qg1bq"]
 shader = ExtResource("1_3cgbj")
-shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("3_3x1pf")
 shader_parameter/greyscale_palette = ExtResource("2_a0g4y")
+shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_way3m"]
 shader = ExtResource("1_3cgbj")
-shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("6_0xvtb")
 shader_parameter/greyscale_palette = ExtResource("5_8s56o")
+shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yhubs"]
 shader = ExtResource("1_3cgbj")
-shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 shader_parameter/palette_swap = ExtResource("10_ve50p")
 shader_parameter/greyscale_palette = ExtResource("9_qy1pg")
+shader_parameter/parent_modulation = Vector4(1, 1, 1, 1)
 
 [node name="SpriteHolder" type="CanvasGroup"]
 script = ExtResource("1_6f0od")

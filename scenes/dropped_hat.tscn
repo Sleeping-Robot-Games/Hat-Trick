@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://csr5buard8tn5"]
 
-[ext_resource type="Script" path="res://scripts/dropped_hat.gd" id="1_6jxe3"]
+[ext_resource type="Script" uid="uid://bokvsqbgxwu1a" path="res://scripts/dropped_hat.gd" id="1_6jxe3"]
 [ext_resource type="Texture2D" uid="uid://dcrgeuqw2qtkl" path="res://assets/sprites/hat/baseball.png" id="1_bnaeu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f002v"]

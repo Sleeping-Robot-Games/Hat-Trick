@@ -1,8 +1,8 @@
 [gd_scene load_steps=28 format=3 uid="uid://crwm0eje72v0o"]
 
 [ext_resource type="PackedScene" uid="uid://dgqwbsdjpeb43" path="res://scenes/hat_stack_item.tscn" id="1_lwhad"]
-[ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
-[ext_resource type="Script" path="res://scripts/battle.gd" id="2_ly450"]
+[ext_resource type="Script" uid="uid://dvb04g7wc8g7u" path="res://scripts/battle_hud.gd" id="1_xmyp1"]
+[ext_resource type="Script" uid="uid://df7r78ub1oy8l" path="res://scripts/battle.gd" id="2_ly450"]
 [ext_resource type="Texture2D" uid="uid://caoxj7jlrfgwk" path="res://assets/ui/defbubble.png" id="3_saua8"]
 [ext_resource type="FontFile" uid="uid://6r4en7vwb2ts" path="res://fonts/Retro Gaming.ttf" id="4_7f5ua"]
 [ext_resource type="Texture2D" uid="uid://18brqxysgmsj" path="res://assets/ui/charbubble.png" id="5_wpifh"]
@@ -17,13 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://b2rac8xvjt17g" path="res://assets/bigguy/bigguy001.png" id="12_widdj"]
 [ext_resource type="Animation" uid="uid://uqm3qxt4iwhl" path="res://assets/animations/idle.res" id="13_j77na"]
 [ext_resource type="Texture2D" uid="uid://bb7qcm4b880e" path="res://assets/ui/projectilebubble-f4.png" id="13_kccq8"]
-[ext_resource type="Script" path="res://scripts/battle_bubble.gd" id="18_5wiy7"]
+[ext_resource type="Script" uid="uid://ss0qquwsa164" path="res://scripts/battle_bubble.gd" id="18_5wiy7"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="18_cs3k1"]
 [ext_resource type="Texture2D" uid="uid://7sdsudutiwut" path="res://assets/ui/epressed.png" id="19_1r5j8"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a58gh"]
 _data = {
-"idle": ExtResource("13_j77na")
+&"idle": ExtResource("13_j77na")
 }
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a62df"]
@@ -102,8 +102,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_so5vo"]
 _data = {
-"opp_shoot": SubResource("Animation_0aivd"),
-"start": SubResource("Animation_6jqvc")
+&"opp_shoot": SubResource("Animation_0aivd"),
+&"start": SubResource("Animation_6jqvc")
 }
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qb68b"]

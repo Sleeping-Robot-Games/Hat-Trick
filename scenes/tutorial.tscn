@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cygfon0h3l20j"]
 
 [ext_resource type="PackedScene" uid="uid://b58ty53ksowmq" path="res://scenes/outside.tscn" id="1_jbb1h"]
-[ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_qsx2a"]
+[ext_resource type="Script" uid="uid://5fcd5mhsliu6" path="res://scripts/tutorial.gd" id="1_qsx2a"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_tben5"]
 [ext_resource type="PackedScene" uid="uid://dep7866ey2ofj" path="res://scenes/bigguy.tscn" id="3_moyf8"]
 [ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="4_j0wuq"]
@@ -18,7 +18,7 @@ resource_name = "step_1"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0pedl"]
 _data = {
-"step_1": SubResource("Animation_c63at")
+&"step_1": SubResource("Animation_c63at")
 }
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n5f23"]

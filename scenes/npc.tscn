@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bdrfler07o685"]
 
-[ext_resource type="Script" path="res://scripts/npc.gd" id="1_krb1d"]
+[ext_resource type="Script" uid="uid://b8yic0s61h57u" path="res://scripts/npc.gd" id="1_krb1d"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="1_wjy8m"]
 [ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://assets/animations/player_animations.res" id="2_85d04"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="5_sxgit"]

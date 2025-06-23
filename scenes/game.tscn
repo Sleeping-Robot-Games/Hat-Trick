@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://dt6v7wgiewnn2"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_13ukk"]
+[ext_resource type="Script" uid="uid://bsxhai5cgi4aj" path="res://scripts/game.gd" id="1_13ukk"]
 [ext_resource type="PackedScene" uid="uid://dn0jnues5o1h2" path="res://scenes/level_one.tscn" id="1_x2dao"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_ivu6y"]
 [ext_resource type="PackedScene" uid="uid://bdrfler07o685" path="res://scenes/npc.tscn" id="3_2uk3j"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="5_m3toh"]
+[ext_resource type="Script" uid="uid://d2nu8anxysovk" path="res://scripts/camera.gd" id="5_m3toh"]
 [ext_resource type="PackedScene" uid="uid://crwm0eje72v0o" path="res://scenes/battle_hud.tscn" id="5_nqbwm"]
 [ext_resource type="PackedScene" uid="uid://dep7866ey2ofj" path="res://scenes/bigguy.tscn" id="7_gw64b"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="8_58okd"]

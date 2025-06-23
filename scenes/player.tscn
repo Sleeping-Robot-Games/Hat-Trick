@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfywlhuf8sf7q"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_vkxup"]
+[ext_resource type="Script" uid="uid://daqn3hitadm56" path="res://scripts/player.gd" id="1_vkxup"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_v2oy6"]
 [ext_resource type="AnimationLibrary" uid="uid://dbbrrvxcsp7rq" path="res://assets/animations/player_animations.res" id="3_5evoy"]
 

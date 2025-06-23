@@ -27,7 +27,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4kouj"]
 _data = {
-"Light Pulse": SubResource("Animation_jr530")
+&"Light Pulse": SubResource("Animation_jr530")
 }
 
 [node name="sign_light" type="Node2D"]

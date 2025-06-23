@@ -1,9 +1,9 @@
 [gd_scene load_steps=25 format=3 uid="uid://d2f1i3al4pwa7"]
 
-[ext_resource type="Script" path="res://scripts/camera_shake.gd" id="1_6uly4"]
+[ext_resource type="Script" uid="uid://chnbrxbq1p1cy" path="res://scripts/camera_shake.gd" id="1_6uly4"]
 [ext_resource type="Texture2D" uid="uid://bg3gsx7bfpk1h" path="res://assets/elevator.png" id="1_d1qle"]
 [ext_resource type="PackedScene" uid="uid://dfywlhuf8sf7q" path="res://scenes/player.tscn" id="2_o0xej"]
-[ext_resource type="PackedScene" path="res://scenes/elevator_background.tscn" id="2_quh68"]
+[ext_resource type="PackedScene" uid="uid://b48tggrk80imm" path="res://scenes/elevator_background.tscn" id="2_quh68"]
 [ext_resource type="Texture2D" uid="uid://c5uw2ph4qvhj3" path="res://assets/elevatorpanel.png" id="5_keims"]
 [ext_resource type="Texture2D" uid="uid://co4m6138lptaa" path="res://assets/elevatordoor.png" id="6_ldbie"]
 [ext_resource type="Texture2D" uid="uid://cn8hbajm5m23l" path="res://assets/ui/e.png" id="7_nms5r"]

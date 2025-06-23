@@ -125,7 +125,7 @@ tracks/6/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sx36o"]
 _data = {
-"SRG": SubResource("12")
+&"SRG": SubResource("12")
 }
 
 [node name="SrgSplash" type="ColorRect"]

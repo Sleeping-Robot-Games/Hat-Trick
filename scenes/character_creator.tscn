@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://wtnpobjnudp3"]
 
-[ext_resource type="Script" path="res://scripts/character_creator.gd" id="1_t5nvq"]
+[ext_resource type="Script" uid="uid://061dmim7x5a" path="res://scripts/character_creator.gd" id="1_t5nvq"]
 [ext_resource type="PackedScene" uid="uid://b122j6j8bxdt8" path="res://scenes/sprite_holder.tscn" id="2_f7lx2"]
 [ext_resource type="Texture2D" uid="uid://bih2uy8kkvg6y" path="res://assets/ui/createwallpaper.png" id="2_fhw3x"]
 [ext_resource type="Texture2D" uid="uid://cmq4jdp1ootpg" path="res://assets/ui/mirror.png" id="3_ycx6l"]

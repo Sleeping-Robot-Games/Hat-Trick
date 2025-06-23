@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dgqwbsdjpeb43"]
 
-[ext_resource type="Script" path="res://scripts/hat_stack_item.gd" id="1_2iig3"]
+[ext_resource type="Script" uid="uid://j321t30xl5om" path="res://scripts/hat_stack_item.gd" id="1_2iig3"]
 [ext_resource type="Texture2D" uid="uid://dcrgeuqw2qtkl" path="res://assets/sprites/hat/baseball.png" id="1_8usrk"]
 [ext_resource type="Texture2D" uid="uid://bhlday8eq1j2u" path="res://assets/ui/border1.png" id="1_c6kad"]
 
